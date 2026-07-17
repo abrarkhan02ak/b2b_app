@@ -15,21 +15,64 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(8),
-      child: ListTile(
-        leading: const Icon(Icons.shopping_bag),
-        title: Text(
-          name,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Text(
-          "Product Code: $code\nWholesale Price: ₹$price",
-        ),
-        trailing: ElevatedButton(
-          onPressed: () {},
-          child: const Text("Add"),
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(
+        vertical: 8,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+
+            Container(
+              height: 70,
+              width: 70,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.shade200,
+              ),
+              child: const Icon(
+                Icons.image,
+                size: 40,
+              ),
+            ),
+
+            const SizedBox(width: 15),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  Text("Code: $code"),
+
+                  Text(
+                    "Wholesale: ₹$price",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const Text(
+                    "MOQ: 10 pieces",
+                  ),
+                ],
+              ),
+            ),
+
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text("Add"),
+            ),
+          ],
         ),
       ),
     );
