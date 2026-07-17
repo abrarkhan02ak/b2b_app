@@ -25,9 +25,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("B2B Wholesale"),
-      ),
-
-      body: Padding(
+      ),      body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,6 +48,32 @@ class HomePage extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              "Categories",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            SizedBox(
+              height: 45,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  categoryChip("💄 Cosmetics"),
+                  categoryChip("🥫 Kirana"),
+                  categoryChip("📱 Electronics"),
+                  categoryChip("👕 Clothes"),
+                  categoryChip("🍪 Snacks"),
+                ],
               ),
             ),
 
@@ -82,6 +106,13 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }  Widget categoryChip(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: Chip(
+        label: Text(title),
       ),
     );
   }
