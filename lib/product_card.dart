@@ -18,7 +18,12 @@ class ProductCard extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       child: ListTile(
         leading: const Icon(Icons.shopping_bag),
-        title: Text(name),
+        title: Text(
+          name,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         subtitle: Text(
           "Product Code: $code\nWholesale Price: ₹$price",
         ),
