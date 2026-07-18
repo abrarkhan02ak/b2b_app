@@ -19,7 +19,7 @@ class B2BApp extends StatelessWidget {
   }
 }
 
- class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
@@ -27,35 +27,50 @@ class B2BApp extends StatelessWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-final List<CartItem> cartItems = [];
+
+  final List<CartItem> cartItems = [];
+
+  void addToCart(CartItem newItem) {
+    setState(() {
+      final index = cartItems.indexWhere(
+        (item) => item.code == newItem.code,
+      );
+
+      if (index >= 0) {
+        cartItems[index].quantity++;
+      } else {
+        cartItems.add(newItem);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: AppBar(
-  title: const Text("B2B Wholesale"),
-  actions: [
-    IconButton(
-      icon: const Icon(Icons.shopping_cart),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-           builder: (context) => CartScreen(
-  cartItems: cartItems,
-),
+      appBar: AppBar(
+        title: const Text("B2B Wholesale"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartScreen(
+                    cartItems: cartItems,
+                  ),
+                ),
+              );
+            },
           ),
-        );
-      },
-    ),
-  ],
-),
-          body: Padding(
+        ],
+      ),
+
+      body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            const Text(
+          children: [            const Text(
               "Welcome, Retailer 👋",
               style: TextStyle(
                 fontSize: 24,
@@ -115,57 +130,52 @@ appBar: AppBar(
               code: "P001",
               name: "Face Cream",
               price: "120",
-             onAdd: () {
-  setState(() {
-    cartItems.add(
-      CartItem(
-        code: "P001",
-        name: "Face Cream",
-        price: "120",
-      ),
-    );
-  });
-},
+              onAdd: () {
+                addToCart(
+                  CartItem(
+                    code: "P001",
+                    name: "Face Cream",
+                    price: "120",
+                  ),
+                );
+              },
             ),
 
             ProductCard(
               code: "P002",
               name: "Shampoo",
               price: "80",
-            onAdd: () {
-  setState(() {
-    cartItems.add(
-      CartItem(
-        code: "P002",
-        name: "Shampoo",
-        price: "80",
-      ),
-    );
-  });
-},
-            ),
-
-            ProductCard(
+              onAdd: () {
+                addToCart(
+                  CartItem(
+                    code: "P002",
+                    name: "Shampoo",
+                    price: "80",
+                  ),
+                );
+              },
+            ),            ProductCard(
               code: "P003",
               name: "Cosmetic Kit",
               price: "250",
-             onAdd: () {
-  setState(() {
-    cartItems.add(
-      CartItem(
-        code: "P002",
-        name: "Shampoo",
-        price: "80",
-      ),
-    );
-  });
-},
+              onAdd: () {
+                addToCart(
+                  CartItem(
+                    code: "P003",
+                    name: "Cosmetic Kit",
+                    price: "250",
+                  ),
+                );
+              },
             ),
+
           ],
         ),
       ),
     );
-  }  Widget categoryChip(String title) {
+  }
+
+  Widget categoryChip(String title) {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: Chip(
