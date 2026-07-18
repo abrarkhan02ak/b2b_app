@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'cart_model.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+  final List<CartItem> cartItems;
+
+  const CartScreen({
+    super.key,
+    required this.cartItems,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -9,12 +15,28 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("My Cart"),
       ),
-      body: const Center(
-        child: Text(
-          "Your cart is empty 🛒",
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: cartItems.isEmpty
+          ? const Center(
+              child: Text(
+                "Your cart is empty 🛒",
+                style: TextStyle(fontSize: 20),
+              ),
+            )
+          : ListView.builder(
+              itemCount: cartItems.length,
+              itemBuilder: (context, index) {
+                final item = cartItems[index];
+
+                return Card(
+                  child: ListTile(
+                    title: Text(item.name),
+                    subtitle: Text(
+                      "Code: ${item.code}\nPrice: ₹${item.price}",
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }

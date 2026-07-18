@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product_card.dart';
 import 'cart_screen.dart';
+import 'cart_model.dart';
 
 void main() {
   runApp(const B2BApp());
@@ -18,9 +19,15 @@ class B2BApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+final List<CartItem> cartItems = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +40,9 @@ appBar: AppBar(
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const CartScreen(),
+           builder: (context) => CartScreen(
+  cartItems: cartItems,
+),
           ),
         );
       },
@@ -106,7 +115,17 @@ appBar: AppBar(
               code: "P001",
               name: "Face Cream",
               price: "120",
-             onAdd: () {},
+             onAdd: () {
+  setState(() {
+    cartItems.add(
+      CartItem(
+        code: "P001",
+        name: "Face Cream",
+        price: "120",
+      ),
+    );
+  });
+},
             ),
 
             ProductCard(
