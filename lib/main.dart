@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'product_card.dart';
 import 'cart_screen.dart';
 import 'cart_model.dart';
+import 'product_data.dart';
+import 'models/product.dart';
 
 void main() {
   runApp(const B2BApp());
@@ -126,49 +128,23 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            ProductCard(
-              code: "P001",
-              name: "Face Cream",
-              price: "120",
-              onAdd: () {
-                addToCart(
-                  CartItem(
-                    code: "P001",
-                    name: "Face Cream",
-                    price: "120",
-                  ),
-                );
-              },
-            ),
-
-            ProductCard(
-              code: "P002",
-              name: "Shampoo",
-              price: "80",
-              onAdd: () {
-                addToCart(
-                  CartItem(
-                    code: "P002",
-                    name: "Shampoo",
-                    price: "80",
-                  ),
-                );
-              },
-            ),            ProductCard(
-              code: "P003",
-              name: "Cosmetic Kit",
-              price: "250",
-              onAdd: () {
-                addToCart(
-                  CartItem(
-                    code: "P003",
-                    name: "Cosmetic Kit",
-                    price: "250",
-                  ),
-                );
-              },
-            ),
-
+         ...products.map<Widget>((Product product) {
+  return ProductCard(
+    code: product.code,
+    name: product.name,
+    price: product.price,
+    onAdd: () {
+      addToCart(
+        CartItem(
+          code: product.code,
+          name: product.name,
+          price: product.price,
+        ),
+      );
+    },
+  );
+}).toList(),
+                    
           ],
         ),
       ),
