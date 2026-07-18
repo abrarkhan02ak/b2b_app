@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'product_card.dart';
+import 'cart_screen.dart';
 
 void main() {
   runApp(const B2BApp());
@@ -23,9 +24,23 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("B2B Wholesale"),
-      ),      body: Padding(
+appBar: AppBar(
+  title: const Text("B2B Wholesale"),
+  actions: [
+    IconButton(
+      icon: const Icon(Icons.shopping_cart),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CartScreen(),
+          ),
+        );
+      },
+    ),
+  ],
+),
+          body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
