@@ -106,18 +106,21 @@ appBar: AppBar(
               code: "P001",
               name: "Face Cream",
               price: "120",
+             onAdd: () {},
             ),
 
             ProductCard(
               code: "P002",
               name: "Shampoo",
               price: "80",
+            onAdd: () {},
             ),
 
             ProductCard(
               code: "P003",
               name: "Cosmetic Kit",
               price: "250",
+             onAdd: () {},
             ),
           ],
         ),

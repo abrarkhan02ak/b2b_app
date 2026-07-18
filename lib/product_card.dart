@@ -4,13 +4,15 @@ class ProductCard extends StatelessWidget {
   final String code;
   final String name;
   final String price;
+final VoidCallback onAdd;
 
-  const ProductCard({
-    super.key,
-    required this.code,
-    required this.name,
-    required this.price,
-  });
+const ProductCard({
+  super.key,
+  required this.code,
+  required this.name,
+  required this.price,
+  required this.onAdd,
+});
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +69,10 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("Add"),
-            ),
+ElevatedButton(
+  onPressed: onAdd,
+  child: const Text("Add"),
+),
           ],
         ),
       ),
