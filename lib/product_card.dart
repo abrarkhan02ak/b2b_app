@@ -4,6 +4,7 @@ class ProductCard extends StatelessWidget {
   final String code;
   final String name;
   final String price;
+  final String image;
 final VoidCallback onAdd;
 
 const ProductCard({
@@ -11,6 +12,7 @@ const ProductCard({
   required this.code,
   required this.name,
   required this.price,
+  required this.image,
   required this.onAdd,
 });
 
@@ -33,9 +35,9 @@ const ProductCard({
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.shade200,
               ),
-              child: const Icon(
-                Icons.image,
-                size: 40,
+              child: Image.asset(
+               image,
+               fit: BoxFit.cover,
               ),
             ),
 

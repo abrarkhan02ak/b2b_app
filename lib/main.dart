@@ -72,7 +72,9 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [            const Text(
+          children: [
+
+            const Text(
               "Welcome, Retailer 👋",
               style: TextStyle(
                 fontSize: 24,
@@ -92,9 +94,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            const SizedBox(height: 20),
-
-            const Text(
+            const SizedBox(height: 20),            const Text(
               "Categories",
               style: TextStyle(
                 fontSize: 20,
@@ -128,24 +128,25 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-         ...products.map<Widget>((Product product) {
-  return ProductCard(
-    code: product.code,
-    name: product.name,
-    price: product.price,
-    onAdd: () {
-      addToCart(
-        CartItem(
-          code: product.code,
-          name: product.name,
-          price: product.price,
-        ),
-      );
-    },
-  );
-}).toList(),
-                    
-          ],
+            const SizedBox(height: 10),
+
+            ...products.map<Widget>((Product product) {
+              return ProductCard(
+                code: product.code,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                onAdd: () {
+                  addToCart(
+                    CartItem(
+                      code: product.code,
+                      name: product.name,
+                      price: product.price,
+                    ),
+                  );
+                },
+              );
+            }),          ],
         ),
       ),
     );
