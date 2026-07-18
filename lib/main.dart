@@ -132,14 +132,34 @@ appBar: AppBar(
               code: "P002",
               name: "Shampoo",
               price: "80",
-            onAdd: () {},
+            onAdd: () {
+  setState(() {
+    cartItems.add(
+      CartItem(
+        code: "P002",
+        name: "Shampoo",
+        price: "80",
+      ),
+    );
+  });
+},
             ),
 
             ProductCard(
               code: "P003",
               name: "Cosmetic Kit",
               price: "250",
-             onAdd: () {},
+             onAdd: () {
+  setState(() {
+    cartItems.add(
+      CartItem(
+        code: "P002",
+        name: "Shampoo",
+        price: "80",
+      ),
+    );
+  });
+},
             ),
           ],
         ),
