@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
       } else {
         cartItems.add(newItem);
       }
+      print("Cart size: ${cartItems.length}");
     });
   }
 
