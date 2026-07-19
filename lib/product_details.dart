@@ -3,10 +3,12 @@ import 'models/product.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;
+  final VoidCallback onAdd;
 
   const ProductDetailsScreen({
     super.key,
     required this.product,
+    required this.onAdd,
   });
 
   @override
@@ -81,17 +83,30 @@ class ProductDetailsScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
             ),
 
-            const SizedBox(height: 30),
+ const SizedBox(height: 30),
 
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Back"),
-              ),
-            ),
+SizedBox(
+  width: double.infinity,
+  child: ElevatedButton.icon(
+  onPressed: () {
+  onAdd();
+},
+    icon: const Icon(Icons.shopping_cart),
+    label: const Text("Add to Cart"),
+  ),
+),
+
+const SizedBox(height: 12),
+
+SizedBox(
+  width: double.infinity,
+  child: OutlinedButton(
+    onPressed: () {
+      Navigator.pop(context);
+    },
+    child: const Text("Back"),
+  ),
+),
           ],
         ),
       ),

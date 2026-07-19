@@ -147,6 +147,20 @@ class _CartScreenState extends State<CartScreen> {
                     ],
                   ),
                 ),
+             const SizedBox(height: 10),
+
+Padding(
+  padding: const EdgeInsets.all(16),
+  child: SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: () {
+        // Checkout
+      },
+      child: const Text("Proceed to Checkout"),
+    ),
+  ),
+),
               ],
             ),
     );

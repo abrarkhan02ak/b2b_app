@@ -136,8 +136,17 @@ class _HomePageState extends State<HomePage> {
       context,
       MaterialPageRoute(
         builder: (context) => ProductDetailsScreen(
-          product: product,
-        ),
+  product: product,
+  onAdd: () {
+    addToCart(
+      CartItem(
+        code: product.code,
+        name: product.name,
+        price: product.price,
+      ),
+    );
+  },
+),
       ),
     );
   },
