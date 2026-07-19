@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'product_card.dart';
 import 'cart_screen.dart';
 import 'cart_model.dart';
-import 'products_data.dart';
+import 'data/product_data.dart';
 import 'models/product.dart';
 import 'product_details.dart';
 
@@ -31,6 +31,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<CartItem> cartItems = [];
+  String searchText = "";
 
   void addToCart(CartItem newItem) {
     setState(() {
@@ -49,6 +50,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+   final filteredProducts = products.where((product) {
+    return product.name.toLowerCase().contains(searchText);
+  }).toList();
     return Scaffold(
       appBar: AppBar(
         title: const Text("B2B Wholesale"),
@@ -88,6 +92,11 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
+            onChanged: (value) {
+  setState(() {
+    searchText = value.toLowerCase();
+  });
+},
           ),
 
           const SizedBox(height: 20),
@@ -126,7 +135,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 10),          ...products.map<Widget>((Product product) {
+          const SizedBox(height: 10),       
+   ...filteredProducts.map<Widget>((Product product) {
             return ProductCard(
   code: product.code,
   name: product.name,
