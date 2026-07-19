@@ -15,15 +15,16 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
 
-  int getTotal() {
-    int total = 0;
+ int getTotal() {
+  int total = 0;
 
-    for (var item in widget.cartItems) {
-      total += int.parse(item.price) * item.quantity;
-    }
-
-    return total;
+  for (var item in widget.cartItems) {
+    String price = item.price.replaceAll(RegExp(r'[^0-9]'), '');
+    total += int.parse(price) * item.quantity;
   }
+
+  return total;
+}
 
   @override
   Widget build(BuildContext context) {
@@ -148,19 +149,18 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
              const SizedBox(height: 10),
-
-Padding(
-  padding: const EdgeInsets.all(16),
-  child: SizedBox(
-    width: double.infinity,
-    child: ElevatedButton(
-      onPressed: () {
-        // Checkout
-      },
-      child: const Text("Proceed to Checkout"),
-    ),
-  ),
+       ElevatedButton(
+  onPressed: () {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Order Placed Successfully"),
+      ),
+    );
+  },
+  child: const Text("Place Order"),
 ),
+
+
               ],
             ),
     );
