@@ -4,7 +4,7 @@ List<Product> products = [
   Product(
     code: "001",
     name: "Face Cream",
-    price: "₹250",
+    price: "250",
     category: "Cosmetics",
     image: "assets/images/facecream.png",
     description: "High quality face cream for customers",
@@ -14,7 +14,7 @@ List<Product> products = [
   Product(
     code: "002",
     name: "Shampoo",
-    price: "₹180",
+    price: "180",
     category: "Cosmetics",
     image: "assets/images/shampoo.png",
     description: "Premium shampoo",
