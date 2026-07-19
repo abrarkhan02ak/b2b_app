@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'product_card.dart';
 import 'cart_screen.dart';
 import 'cart_model.dart';
-import 'product_data.dart';
+import 'products_data.dart';
 import 'models/product.dart';
+import 'product_details.dart';
 
 void main() {
   runApp(const B2BApp());
@@ -29,7 +30,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final List<CartItem> cartItems = [];
 
   void addToCart(CartItem newItem) {
@@ -66,88 +66,93 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ],
-      ),
-
-      body: Padding(
+      ),      body: ListView(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+        children: [
+          const Text(
+            "Welcome, Retailer 👋",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
 
-            const Text(
-              "Welcome, Retailer 👋",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+          const SizedBox(height: 20),
+
+          TextField(
+            decoration: InputDecoration(
+              hintText: "Search products...",
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
             ),
+          ),
 
-            const SizedBox(height: 20),
+          const SizedBox(height: 20),
 
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Search products...",
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+          const Text(
+            "Categories",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
+          ),
 
-            const SizedBox(height: 20),            const Text(
-              "Categories",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+          const SizedBox(height: 10),
+
+          SizedBox(
+            height: 45,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                categoryChip("💄 Cosmetics"),
+                categoryChip("🥫 Kirana"),
+                categoryChip("📱 Electronics"),
+                categoryChip("👕 Clothes"),
+                categoryChip("🍪 Snacks"),
+              ],
             ),
+          ),
 
-            const SizedBox(height: 10),
+          const SizedBox(height: 20),
 
-            SizedBox(
-              height: 45,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  categoryChip("💄 Cosmetics"),
-                  categoryChip("🥫 Kirana"),
-                  categoryChip("📱 Electronics"),
-                  categoryChip("👕 Clothes"),
-                  categoryChip("🍪 Snacks"),
-                ],
-              ),
+          const Text(
+            "Featured Products",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
+          ),
 
-            const SizedBox(height: 20),
-
-            const Text(
-              "Featured Products",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            ...products.map<Widget>((Product product) {
-              return ProductCard(
-                code: product.code,
-                name: product.name,
-                price: product.price,
-                image: product.image,
-                onAdd: () {
-                  addToCart(
-                    CartItem(
-                      code: product.code,
-                      name: product.name,
-                      price: product.price,
-                    ),
-                  );
-                },
-              );
-            }),          ],
+          const SizedBox(height: 10),          ...products.map<Widget>((Product product) {
+            return ProductCard(
+  code: product.code,
+  name: product.name,
+  price: product.price,
+  image: product.image,
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProductDetailsScreen(
+          product: product,
         ),
+      ),
+    );
+  },
+  onAdd: () {
+    addToCart(
+      CartItem(
+        code: product.code,
+        name: product.name,
+        price: product.price,
+      ),
+    );
+  },
+);
+          }).toList(),
+        ],
       ),
     );
   }
