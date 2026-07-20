@@ -200,7 +200,9 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const CategoryScreen(),
+      builder: (context) => CategoryScreen(
+  addToCart: addToCart,
+),
       ),
     );
   } else if (index == 2) {

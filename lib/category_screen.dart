@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'category_products_screen.dart';
+import 'cart_model.dart';
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key});
+  final Function(CartItem) addToCart;
+
+  const CategoryScreen({
+    super.key,
+    required this.addToCart,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +26,10 @@ class CategoryScreen extends StatelessWidget {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => const
+      builder: (context) => 
      CategoryProductsScreen(
-     category: "Cosmetics",
+  category: "Cosmetics",
+  addToCart: addToCart,
 ),
     ),
   );
