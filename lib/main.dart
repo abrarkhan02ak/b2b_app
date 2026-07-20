@@ -5,6 +5,7 @@ import 'cart_model.dart';
 import 'data/product_data.dart';
 import 'models/product.dart';
 import 'product_details.dart';
+import 'my_orders_screen.dart';
 
 void main() {
   runApp(const B2BApp());
@@ -54,28 +55,42 @@ class _HomePageState extends State<HomePage> {
     return product.name.toLowerCase().contains(searchText);
   }).toList();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("B2B Wholesale"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CartScreen(
-                    cartItems: cartItems,
-                  ),
-                ),
-              );
-            },
+    appBar: AppBar(
+    title: const Text("B2B Wholesale"),
+    actions: [
+    IconButton(
+      icon: const Icon(Icons.receipt_long),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MyOrdersScreen(),
           ),
-        ],
-      ),      body: ListView(
+        );
+      },
+    ),
+
+    IconButton(
+      icon: const Icon(Icons.shopping_cart),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CartScreen(
+              cartItems: cartItems,
+            ),
+          ),
+        );
+      },
+    ),
+  ],
+),     
+    
+        body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           const Text(
-            "Welcome, Retailer 👋",
+            "Welcome, Retailer",
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
