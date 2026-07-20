@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'cart_model.dart';
+import 'checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
   final List<CartItem> cartItems;
@@ -151,12 +152,16 @@ class _CartScreenState extends State<CartScreen> {
              const SizedBox(height: 10),
        ElevatedButton(
   onPressed: () {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Order Placed Successfully"),
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => CheckoutScreen(
+        cartItems: widget.cartItems,
+        totalAmount: getTotal().toDouble(),
       ),
-    );
-  },
+    ),
+  );
+},
   child: const Text("Place Order"),
 ),
 
