@@ -8,6 +8,7 @@ import 'product_details.dart';
 import 'my_orders_screen.dart';
 import 'bottom_nav.dart';
 import 'category_screen.dart';
+import 'profile_screen.dart';
 
 void main() {
   runApp(const B2BApp());
@@ -200,9 +201,9 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-      builder: (context) => CategoryScreen(
-  addToCart: addToCart,
-),
+        builder: (context) => CategoryScreen(
+          addToCart: addToCart,
+        ),
       ),
     );
   } else if (index == 2) {
@@ -214,16 +215,22 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  } else if (index == 4) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ProfileScreen(),
+      ),
+    );
   } else {
     setState(() {
       currentIndex = index;
     });
   }
-},
+  },
 ),
     );
   }
-
   Widget categoryChip(String title) {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
@@ -233,3 +240,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
