@@ -6,6 +6,7 @@ import 'data/product_data.dart';
 import 'models/product.dart';
 import 'product_details.dart';
 import 'my_orders_screen.dart';
+import 'bottom_nav.dart';
 
 void main() {
   runApp(const B2BApp());
@@ -31,6 +32,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+ int currentIndex = 0;
+
   final List<CartItem> cartItems = [];
   String searchText = "";
 
@@ -189,6 +192,14 @@ class _HomePageState extends State<HomePage> {
           }).toList(),
         ],
       ),
+  bottomNavigationBar: BottomNav(
+  currentIndex: currentIndex,
+  onTap: (index) {
+    setState(() {
+      currentIndex = index;
+    });
+  },
+),
     );
   }
 
