@@ -7,6 +7,7 @@ import 'models/product.dart';
 import 'product_details.dart';
 import 'my_orders_screen.dart';
 import 'bottom_nav.dart';
+import 'category_screen.dart';
 
 void main() {
   runApp(const B2BApp());
@@ -195,10 +196,28 @@ class _HomePageState extends State<HomePage> {
   bottomNavigationBar: BottomNav(
   currentIndex: currentIndex,
   onTap: (index) {
+  if (index == 1) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const CategoryScreen(),
+      ),
+    );
+  } else if (index == 2) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CartScreen(
+          cartItems: cartItems,
+        ),
+      ),
+    );
+  } else {
     setState(() {
       currentIndex = index;
     });
-  },
+  }
+},
 ),
     );
   }
