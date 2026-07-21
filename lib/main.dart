@@ -9,8 +9,13 @@ import 'my_orders_screen.dart';
 import 'bottom_nav.dart';
 import 'category_screen.dart';
 import 'profile_screen.dart';
+import 'order_data.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await loadOrders();
+
   runApp(const B2BApp());
 }
 

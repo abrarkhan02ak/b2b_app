@@ -33,14 +33,21 @@ class MyOrdersScreen extends StatelessWidget {
                         Text(
                           "Shop: ${order.shopName}",
                         ),
+
                         Text(
                           "Owner: ${order.ownerName}",
                         ),
+
                         Text(
-                          "Amount: ₹${order.totalAmount}",
+                          "Amount: Rs. ${order.totalAmount}",
                         ),
+
                         Text(
                           "Status: ${order.status}",
+                        ),
+
+                        Text(
+                          "Date: ${order.date.day}-${order.date.month}-${order.date.year}",
                         ),
                       ],
                     ),

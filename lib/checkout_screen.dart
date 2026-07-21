@@ -95,10 +95,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
             const SizedBox(height: 20),
 
-            Text("Total Items: ${widget.cartItems.length}"),
+ Text("Total Items: ${widget.cartItems.length}"),
 
-            Text(
-              "Total Amount: ₹${widget.totalAmount.toStringAsFixed(2)}",
+  Text(
+  "Total Amount: ₹${widget.totalAmount.toStringAsFixed(2)}",
             ),
 
             const Spacer(),
@@ -106,11 +106,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+if (shopController.text.trim().isEmpty ||
+    ownerController.text.trim().isEmpty ||
+    mobileController.text.trim().isEmpty ||
+    addressController.text.trim().isEmpty) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text("Please fill all details"),
+    ),
+  );
+  return;
+}
             final order = Order(
   orderId: DateTime.now().
 millisecondsSinceEpoch.toString(),
-  products: [],
+  products: widget.cartItems,
   totalAmount: widget.totalAmount,
   status: "Pending",
   shopName: shopController.text,
@@ -120,13 +131,17 @@ millisecondsSinceEpoch.toString(),
   date: DateTime.now(),
 );
  orders.add(order);
-   ScaffoldMessenger.of(context).showSnackBar(
+await saveOrders();
+widget.cartItems.clear();
+
+ ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text(
                         "Order Placed Successfully!",
                       ),
                     ),
                   );
+Navigator.pop(context);
                 },
                 child: const Text("Place Order"),
               ),
