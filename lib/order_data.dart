@@ -24,3 +24,10 @@ Future<void> loadOrders() async {
       .map((e) => Order.fromMap(jsonDecode(e)))
       .toList();
 }
+Future<void> updateOrderStatus(
+  Order order,
+  String newStatus,
+) async {
+  order.status = newStatus;
+  await saveOrders();
+}

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'order_data.dart';
+import 'order_details_screen.dart';
+import 'order_status.dart';
 
 class MyOrdersScreen extends StatelessWidget {
   const MyOrdersScreen({super.key});
@@ -23,12 +25,20 @@ class MyOrdersScreen extends StatelessWidget {
                 return Card(
                   margin: const EdgeInsets.all(10),
                   child: ListTile(
+onTap: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+   builder: (context) => OrderDetailsScreen(order: order),
+    ),
+  );
+},
                     title: Text(
                       "Order ID: ${order.orderId}",
                     ),
 
                     subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+           crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Shop: ${order.shopName}",
@@ -39,15 +49,15 @@ class MyOrdersScreen extends StatelessWidget {
                         ),
 
                         Text(
-                          "Amount: Rs. ${order.totalAmount}",
+             "Amount: Rs. ${order.totalAmount}",
                         ),
 
                         Text(
-                          "Status: ${order.status}",
+           "Status: ${getOrderStatus(order)}",
                         ),
 
                         Text(
-                          "Date: ${order.date.day}-${order.date.month}-${order.date.year}",
+ "Date: ${order.date.day}-${order.date.month}-${order.date.year}",
                         ),
                       ],
                     ),

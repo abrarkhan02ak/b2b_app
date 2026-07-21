@@ -4,7 +4,7 @@ class Order {
   final String orderId;
   final List<CartItem> products;
   final double totalAmount;
-  final String status;
+  String status;
 
   final String shopName;
   final String ownerName;
