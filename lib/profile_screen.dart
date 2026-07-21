@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'edit_profile_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -16,6 +17,21 @@ class _ProfileScreenState extends
   String shopName = "-";
   String mobile = "-";
   String address = "-";
+  Future<void> _loadProfile() async {
+  final prefs = await SharedPreferences.getInstance();
+
+  setState(() {
+    buyerName = prefs.getString('buyerName') ?? "-";
+    shopName = prefs.getString('shopName') ?? "-";
+    mobile = prefs.getString('mobile') ?? "-";
+    address = prefs.getString('address') ?? "-";
+  });
+}
+  @override
+void initState() {
+  super.initState();
+  _loadProfile();
+}
 
   @override
   Widget build(BuildContext context) {

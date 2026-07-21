@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -71,7 +72,18 @@ final addressController = TextEditingController();
             const SizedBox(height: 25),
 
            ElevatedButton(
-  onPressed: () {
+   onPressed: () async {
+  final prefs = await
+ SharedPreferences.getInstance();
+
+prefs.setString('buyerName',
+ nameController.text);
+  prefs.setString('shopName',
+ shopController.text);
+prefs.setString('mobile',
+ mobileController.text);
+prefs.setString('address',
+ addressController.text);
     Navigator.pop(
       context,
       {
