@@ -33,6 +33,7 @@ class CategoryProductsScreen extends StatelessWidget {
   name: product.name,
   price: product.price,
   image: product.image,
+  stock: product.stock,
   onAdd: () {
   addToCart(
     CartItem(

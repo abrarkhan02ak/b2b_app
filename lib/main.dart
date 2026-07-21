@@ -62,7 +62,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
    final filteredProducts = products.where((product) {
-    return product.name.toLowerCase().contains(searchText);
+ return product.name.toLowerCase().contains(searchText) ||
+    product.code.toLowerCase().contains(searchText) ||
+    product.category.toLowerCase().contains(searchText);
   }).toList();
     return Scaffold(
     appBar: AppBar(
@@ -113,7 +115,17 @@ class _HomePageState extends State<HomePage> {
             decoration: InputDecoration(
               hintText: "Search products...",
               prefixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(
+suffixIcon: searchText.isNotEmpty
+    ? IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          setState(() {
+            searchText = "";
+          });
+        },
+      )
+    : null,             
+ border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
@@ -160,13 +172,29 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          const SizedBox(height: 10),       
+          const SizedBox(height: 10),
+
+if (filteredProducts.isEmpty)
+  const Center(
+    child: Padding(
+      padding: EdgeInsets.all(20),
+      child: Text(
+        "No Products Found",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  ),
+       
    ...filteredProducts.map<Widget>((Product product) {
             return ProductCard(
   code: product.code,
   name: product.name,
   price: product.price,
   image: product.image,
+  stock: product.stock,
   onTap: () {
     Navigator.push(
       context,

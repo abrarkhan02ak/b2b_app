@@ -5,6 +5,7 @@ class ProductCard extends StatelessWidget {
   final String name;
   final String price;
   final String image;
+  final int stock;
   final VoidCallback onAdd;
   final VoidCallback onTap;
 
@@ -14,6 +15,7 @@ class ProductCard extends StatelessWidget {
     required this.name,
     required this.price,
     required this.image,
+    required this.stock,
     required this.onAdd,
     required this.onTap,
   });
@@ -62,12 +64,20 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     const Text("MOQ: 10 pieces"),
+if (stock > 20)
+  const Text("🟢 In Stock")
+else if (stock > 0)
+  const Text("🟡 Low Stock")
+else
+  const Text("🔴 Out of Stock"),
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: onAdd,
-                child: const Text("Add"),
+     ElevatedButton( 
+   onPressed: stock > 0 ? onAdd : null,
+ child: Text(
+  stock > 0 ? "Add" : "Out of Stock",
+),
               ),
             ],
           ),
