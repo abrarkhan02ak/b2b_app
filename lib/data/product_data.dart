@@ -9,6 +9,10 @@ final List<Product> products = [
     image: 'assets/images/facecream.jpg',
     description: 'Skin Care Face Cream',
     stock: 50,
+    rating: 4.8,
+    originalPrice: 300,
+    discountPercent: 17,
+    offerText: "Limited Offer",
   ),
 
   Product(
@@ -19,6 +23,10 @@ final List<Product> products = [
     image: 'assets/images/shampoo.jpg',
     description: 'Hair Care Shampoo',
     stock: 30,
+    rating: 4.6,
+    originalPrice: 220,
+    discountPercent: 18,
+    offerText: "Best Deal",
   ),
 
   Product(
@@ -29,6 +37,10 @@ final List<Product> products = [
     image: 'assets/images/soap.jpg',
     description: 'Quality Bath Soap',
     stock: 100,
+    rating: 4.7,
+    originalPrice: 450,
+    discountPercent: 20,
+    offerText: "Hot Offer",
   ),
 
   Product(
@@ -39,6 +51,10 @@ final List<Product> products = [
     image: '',
     description: 'Natural Hair Oil',
     stock: 60,
+    rating: 4.5,
+    originalPrice: 180,
+    discountPercent: 15,
+    offerText: "Special Offer",
   ),
 
   Product(
@@ -49,6 +65,10 @@ final List<Product> products = [
     image: '',
     description: 'Fresh Mint Toothpaste',
     stock: 70,
+    rating: 4.4,
+    originalPrice: 350,
+    discountPercent: 10,
+    offerText: "Value Pack",
   ),
 
   Product(
@@ -59,5 +79,9 @@ final List<Product> products = [
     image: '',
     description: 'Long Lasting Perfume',
     stock: 40,
+    rating: 4.9,
+    originalPrice: 600,
+    discountPercent: 25,
+    offerText: "Mega Offer",
   ),
 ];

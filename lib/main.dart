@@ -195,6 +195,10 @@ if (filteredProducts.isEmpty)
   price: product.price,
   image: product.image,
   stock: product.stock,
+  rating: product.rating,
+  originalPrice: product.originalPrice,
+  discountPercent: product.discountPercent,
+  offerText: product.offerText,
   onTap: () {
     Navigator.push(
       context,

@@ -6,6 +6,10 @@ class Product {
   final String image;
   final String description;
   final int stock;
+  final double rating;
+  final double originalPrice;
+  final int discountPercent;
+  final String offerText;
 
   Product({
     required this.code,
@@ -15,5 +19,9 @@ class Product {
     required this.image,
     required this.description,
     required this.stock,
+    required this.rating,
+    required this.originalPrice,
+   required this.discountPercent,
+   required this.offerText,
   });
 }

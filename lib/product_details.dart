@@ -52,6 +52,20 @@ class ProductDetailsScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
             ),
 
+Row(
+  children: [
+    const Icon(Icons.star, color: Colors.orange, size: 20),
+    const SizedBox(width: 6),
+    Text(
+      "${product.rating} / 5.0",
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ],
+),  
+
             Text(
               "Price: ${product.price}",
               style: const TextStyle(

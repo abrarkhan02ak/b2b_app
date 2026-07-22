@@ -6,6 +6,10 @@ class ProductCard extends StatelessWidget {
   final String price;
   final String image;
   final int stock;
+  final double rating;
+  final double originalPrice;
+  final int discountPercent;
+  final String offerText;
   final VoidCallback onAdd;
   final VoidCallback onTap;
 
@@ -16,6 +20,10 @@ class ProductCard extends StatelessWidget {
     required this.price,
     required this.image,
     required this.stock,
+    required this.rating,
+    required this.originalPrice,
+    required this.discountPercent,
+    required this.offerText,
     required this.onAdd,
     required this.onTap,
   });
@@ -31,10 +39,9 @@ class ProductCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
-            children: [
-              Container(
-                height: 70,
+            children: [              Container(
                 width: 70,
+                height: 70,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey.shade200,
@@ -49,6 +56,14 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if (discountPercent > 0)
+                      Text(
+                        "$discountPercent% OFF - $offerText",
+                        style: const TextStyle(
+                          color: Colors.orange,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     Text(
                       name,
                       style: const TextStyle(
@@ -58,26 +73,33 @@ class ProductCard extends StatelessWidget {
                     ),
                     Text("Code: $code"),
                     Text(
-                      "Wholesale: $price",
+                      "Wholesale: Rs $price",
                       style: const TextStyle(
+                        color: Colors.green,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text("MOQ: 10 pieces"),
-if (stock > 20)
-  const Text("🟢 In Stock")
-else if (stock > 0)
-  const Text("🟡 Low Stock")
-else
-  const Text("🔴 Out of Stock"),
+                    Text(
+                      "MRP: Rs $originalPrice",
+                      style: const TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text("Rating: $rating / 5.0"),                    if (stock > 20)
+                      const Text("🟢 In Stock")
+                    else if (stock > 0)
+                      const Text("🟡 Low Stock")
+                    else
+                      const Text("🔴 Out of Stock"),
                   ],
                 ),
               ),
-     ElevatedButton( 
-   onPressed: stock > 0 ? onAdd : null,
- child: Text(
-  stock > 0 ? "Add" : "Out of Stock",
-),
+              ElevatedButton(
+                onPressed: stock > 0 ? onAdd : null,
+                child: Text(
+                  stock > 0 ? "Add" : "Out of Stock",
+                ),
               ),
             ],
           ),
