@@ -13,6 +13,8 @@ final List<Product> products = [
     originalPrice: 300,
     discountPercent: 17,
     offerText: "Limited Offer",
+    packSize: "100 g",
+    moq: "12 Pcs",
   ),
 
   Product(
@@ -27,7 +29,9 @@ final List<Product> products = [
     originalPrice: 220,
     discountPercent: 18,
     offerText: "Best Deal",
-  ),
+    packSize: "200 ml",
+    moq: "12 Bottles", 
+ ),
 
   Product(
     code: 'P003',
@@ -41,6 +45,8 @@ final List<Product> products = [
     originalPrice: 450,
     discountPercent: 20,
     offerText: "Hot Offer",
+    packSize: "1 Pc",
+    moq: "24 Pcs",
   ),
 
   Product(
@@ -55,6 +61,8 @@ final List<Product> products = [
     originalPrice: 180,
     discountPercent: 15,
     offerText: "Special Offer",
+    packSize: "200 ml",
+    moq: "12 Bottles",
   ),
 
   Product(
@@ -69,6 +77,8 @@ final List<Product> products = [
     originalPrice: 350,
     discountPercent: 10,
     offerText: "Value Pack",
+    packSize: "50 ml",
+    moq: "24 Pcs",
   ),
 
   Product(
@@ -83,5 +93,7 @@ final List<Product> products = [
     originalPrice: 600,
     discountPercent: 25,
     offerText: "Mega Offer",
+    packSize: "1 pc",
+    moq: "6 Bottles",
   ),
 ];

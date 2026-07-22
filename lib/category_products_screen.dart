@@ -42,6 +42,8 @@ class CategoryProductsScreen extends StatelessWidget {
   originalPrice: product.originalPrice,
   discountPercent: product.discountPercent,
   offerText: product.offerText,
+  packSize: product.packSize,
+  moq: product.moq,
   onAdd: () {
   addToCart(
     CartItem(

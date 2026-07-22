@@ -10,6 +10,8 @@ class Product {
   final double originalPrice;
   final int discountPercent;
   final String offerText;
+  final String packSize;
+  final String moq;
 
   Product({
     required this.code,
@@ -23,5 +25,7 @@ class Product {
     required this.originalPrice,
    required this.discountPercent,
    required this.offerText,
+   required this.packSize,
+   required this.moq,
   });
 }

@@ -216,6 +216,8 @@ if (filteredProducts.isEmpty)
   originalPrice: product.originalPrice,
  discountPercent: product.discountPercent,
 offerText: product.offerText,
+packSize: product.packSize,
+moq: product.moq,
 onTap: () {
     Navigator.push(
       context,
