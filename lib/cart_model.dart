@@ -29,3 +29,16 @@ class CartItem {
     );
   }
 }
+class WishlistItem {
+  final String code;
+  final String name;
+  final String price;
+  final String image;
+
+  WishlistItem({
+    required this.code,
+    required this.name,
+    required this.price,
+    required this.image,
+  });
+}

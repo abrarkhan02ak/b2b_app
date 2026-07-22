@@ -4,11 +4,15 @@ import 'cart_model.dart';
 
 class CategoryScreen extends StatelessWidget {
   final Function(CartItem) addToCart;
+  final List<WishlistItem> wishlistItems;
+final Function(WishlistItem) toggleWishlist;
 
   const CategoryScreen({
-    super.key,
-    required this.addToCart,
-  });
+  super.key,
+  required this.addToCart,
+  required this.wishlistItems,
+  required this.toggleWishlist,
+});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +34,8 @@ class CategoryScreen extends StatelessWidget {
      CategoryProductsScreen(
   category: "Cosmetics",
   addToCart: addToCart,
+    wishlistItems: wishlistItems,
+  toggleWishlist: toggleWishlist,
 ),
     ),
   );

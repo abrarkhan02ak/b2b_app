@@ -12,6 +12,8 @@ class ProductCard extends StatelessWidget {
   final String offerText;
   final VoidCallback onAdd;
   final VoidCallback onTap;
+  final VoidCallback onWishlist;
+  final bool isWishlisted;
 
   const ProductCard({
     super.key,
@@ -26,6 +28,9 @@ class ProductCard extends StatelessWidget {
     required this.offerText,
     required this.onAdd,
     required this.onTap,
+    required this.onWishlist,
+    required this.isWishlisted,
+
   });
 
   @override
@@ -39,18 +44,36 @@ class ProductCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
-            children: [              Container(
-                width: 70,
-                height: 70,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey.shade200,
-                ),
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                ),
-              ),
+            children: [
+Stack(
+  children: [
+    Container(
+      width: 70,
+      height: 70,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey.shade200,
+      ),
+      child: Image.asset(
+        image,
+        fit: BoxFit.cover,
+      ),
+    ),
+    Positioned(
+      top: 0,
+      right: 0,
+      child: IconButton(
+        icon: Icon(
+          isWishlisted
+              ? Icons.favorite
+              : Icons.favorite_border,
+          color: Colors.red,
+        ),
+        onPressed: onWishlist,
+      ),
+    ),
+  ],
+),
               const SizedBox(width: 15),
               Expanded(
                 child: Column(

@@ -10,6 +10,7 @@ import 'bottom_nav.dart';
 import 'category_screen.dart';
 import 'profile_screen.dart';
 import 'order_data.dart';
+import 'wishlist_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +43,9 @@ class _HomePageState extends State<HomePage> {
  int currentIndex = 0;
 
   final List<CartItem> cartItems = [];
-  String searchText = "";
+final List<WishlistItem> wishlistItems = [];
+
+String searchText = "";
 
   void addToCart(CartItem newItem) {
     setState(() {
@@ -58,6 +61,20 @@ class _HomePageState extends State<HomePage> {
       print("Cart size: ${cartItems.length}");
     });
   }
+
+void toggleWishlist(WishlistItem item) {
+  setState(() {
+    final index = wishlistItems.indexWhere(
+      (wishlistItem) => wishlistItem.code == item.code,
+    );
+
+    if (index >= 0) {
+      wishlistItems.removeAt(index);
+    } else {
+      wishlistItems.add(item);
+    }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -197,9 +214,9 @@ if (filteredProducts.isEmpty)
   stock: product.stock,
   rating: product.rating,
   originalPrice: product.originalPrice,
-  discountPercent: product.discountPercent,
-  offerText: product.offerText,
-  onTap: () {
+ discountPercent: product.discountPercent,
+offerText: product.offerText,
+onTap: () {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -227,6 +244,20 @@ if (filteredProducts.isEmpty)
       ),
     );
   },
+onWishlist: () {
+  toggleWishlist(
+    WishlistItem(
+      code: product.code,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+    ),
+  );
+},
+
+isWishlisted: wishlistItems.any(
+  (item) => item.code == product.code,
+),
 );
           }).toList(),
         ],
@@ -240,6 +271,8 @@ if (filteredProducts.isEmpty)
       MaterialPageRoute(
         builder: (context) => CategoryScreen(
           addToCart: addToCart,
+          wishlistItems: wishlistItems,
+          toggleWishlist: toggleWishlist,
         ),
       ),
     );
@@ -252,7 +285,24 @@ if (filteredProducts.isEmpty)
         ),
       ),
     );
+  } else if (index == 3) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WishlistScreen(
+          wishlistItems: wishlistItems,
+          toggleWishlist: toggleWishlist,
+        ),
+      ),
+    );
   } else if (index == 4) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MyOrdersScreen(),
+      ),
+    );
+  } else if (index == 5) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -264,10 +314,11 @@ if (filteredProducts.isEmpty)
       currentIndex = index;
     });
   }
-  },
-),
+},
+  ),
     );
   }
+
   Widget categoryChip(String title) {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
@@ -277,4 +328,3 @@ if (filteredProducts.isEmpty)
     );
   }
 }
-

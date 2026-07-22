@@ -7,11 +7,15 @@ import 'product_details.dart';
 class CategoryProductsScreen extends StatelessWidget {
   final String category;
   final Function(CartItem) addToCart;
+  final List<WishlistItem> wishlistItems;
+  final Function(WishlistItem) toggleWishlist;
 
   const CategoryProductsScreen({
   super.key,
   required this.category,
   required this.addToCart,
+  required this.wishlistItems,
+  required this.toggleWishlist,
 });
 
   @override
@@ -48,6 +52,20 @@ class CategoryProductsScreen extends StatelessWidget {
     ),
   );
 },
+onWishlist: () {
+  toggleWishlist(
+    WishlistItem(
+      code: product.code,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+    ),
+  );
+},
+
+isWishlisted: wishlistItems.any(
+  (item) => item.code == product.code,
+),
  onTap: () {
   Navigator.push(
     context,
