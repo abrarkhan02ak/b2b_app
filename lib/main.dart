@@ -198,87 +198,96 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: filteredProducts.length,
 
+          gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.65,
+          ),
 
-        ...filteredProducts.map((Product product) {
+          itemBuilder: (context, index) {
 
-          return ProductCard(
+            final Product product = filteredProducts[index];
 
-            code: product.code,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            stock: product.stock,
-            rating: product.rating,
-            originalPrice: product.originalPrice,
-            discountPercent: product.discountPercent,
-            offerText: product.offerText,
-            packSize: product.packSize,
-            moq: product.moq,
+            return ProductCard(
 
+              code: product.code,
+              name: product.name,
+              price: product.price,
+              image: product.image,
+              stock: product.stock,
+              rating: product.rating,
+              originalPrice: product.originalPrice,
+              discountPercent: product.discountPercent,
+              offerText: product.offerText,
+              packSize: product.packSize,
+              moq: product.moq,
 
-            onTap: () {
+              onTap: () {
 
-              Navigator.push(
-                context,
+                Navigator.push(
+                  context,
 
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailsScreen(
-                    product: product,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetailsScreen(
+                      product: product,
 
-                    onAdd: () {
+                      onAdd: () {
 
-                      addToCart(
-                        CartItem(
-                          code: product.code,
-                          name: product.name,
-                          price: product.price,
-                        ),
-                      );
+                        addToCart(
+                          CartItem(
+                            code: product.code,
+                            name: product.name,
+                            price: product.price,
+                          ),
+                        );
 
-                    },
+                      },
+                    ),
                   ),
-                ),
-              );
+                );
 
-            },
+              },
 
+              onAdd: () {
 
-            onAdd: () {
+                addToCart(
+                  CartItem(
+                    code: product.code,
+                    name: product.name,
+                    price: product.price,
+                  ),
+                );
 
-              addToCart(
-                CartItem(
-                  code: product.code,
-                  name: product.name,
-                  price: product.price,
-                ),
-              );
+              },
 
-            },
+              onWishlist: () {
 
+                toggleWishlist(
+                  WishlistItem(
+                    code: product.code,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                  ),
+                );
 
-            onWishlist: () {
+              },
 
-              toggleWishlist(
-                WishlistItem(
-                  code: product.code,
-                  name: product.name,
-                  price: product.price,
-                  image: product.image,
-                ),
-              );
+              isWishlisted: wishlistItems.any(
+                (item) => item.code == product.code,
+              ),
 
-            },
-
-
-            isWishlisted: wishlistItems.any(
-              (item) => item.code == product.code,
-            ),
-
-          );
-
-        }).toList(),
-
+            );
+          },
+        ),
       ],
     );
 
