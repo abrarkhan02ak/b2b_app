@@ -132,7 +132,7 @@ class ProductCard extends StatelessWidget {
                 "Offer Price: ₹$price",
                 style: const TextStyle(
                   color: Colors.green,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),

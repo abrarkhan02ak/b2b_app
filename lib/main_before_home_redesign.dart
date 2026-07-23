@@ -42,24 +42,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  int currentIndex = 0; 
-final ScrollController
- productScrollController = ScrollController();
-double categoryHeight = 45;
+  int currentIndex = 0;
 
- @override
-void initState() {
-  super.initState();
-
-  productScrollController.addListener(() {
-    setState(() {
-      categoryHeight =
-          productScrollController.offset > 20 ? 38 : 45;
-    });
-  });
-}
- 
-final List<CartItem> cartItems = [];
+  final List<CartItem> cartItems = [];
   final List<WishlistItem> wishlistItems = [];
 
   String searchText = "";
@@ -125,45 +110,35 @@ final List<CartItem> cartItems = [];
 
     }).toList();
 
-  return Column(
-  children: [
-   
-        const Padding(
-  padding: EdgeInsets.only(left: 4, bottom: 6),
-  child: Text(
-    "Shop by Category",
-    style: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w700,
-      letterSpacing: 0.5,
-    ),
-  ),
-),
 
-        AnimatedContainer(
-  duration: const Duration(milliseconds: 400),
-  height: categoryHeight,
-  decoration: BoxDecoration(
-  boxShadow: [
-    BoxShadow(
-      blurRadius: 8.0,
-offset: const Offset(0, 3),
-    ),
-  ],
-),
+    return ListView(
+      padding: const EdgeInsets.all(16),
+
+      children: [
+   
+        const Text(
+          "Categories",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        const SizedBox(height: 10),
+
+        SizedBox(
+          height: 45,
 
           child: ListView(
             scrollDirection: Axis.horizontal,
 
-          children: [
-  categoryChip("⭐ All"),
-  categoryChip("💄 Cosmetics"),
-  categoryChip("🥫 Kirana"),
-  categoryChip("🧴 Personal Care"),
-  categoryChip("🍫 Snacks"),
-  categoryChip("👕 Fashion"),
-  categoryChip("📱 Electronics"),
-],
+            children: [
+              categoryChip("💄 Cosmetics"),
+              categoryChip("🥫 Kirana"),
+              categoryChip("📱 Electronics"),
+              categoryChip("👕 Clothes"),
+              categoryChip("🍪 Snacks"),
+            ],
           ),
         ),
 
@@ -191,13 +166,13 @@ offset: const Offset(0, 3),
               ),
             ),
           ),
- Expanded(
-  child: GridView.builder(
- shrinkWrap: false,          
- controller: productScrollController,
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: filteredProducts.length,
 
           gridDelegate:
-           const SliverGridDelegateWithFixedCrossAxisCount(
+              const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
@@ -206,7 +181,7 @@ offset: const Offset(0, 3),
 
           itemBuilder: (context, index) {
 
-          final Product product = filteredProducts[index];
+            final Product product = filteredProducts[index];
 
             return ProductCard(
 
@@ -295,14 +270,13 @@ onBuyNow: () {
 
               },
 
-                 isWishlisted: wishlistItems.any(
+              isWishlisted: wishlistItems.any(
                 (item) => item.code == product.code,
               ),
 
             );
           },
         ),
-      ),
       ],
     );
 
@@ -313,14 +287,14 @@ onBuyNow: () {
     return Scaffold(
 
       appBar: AppBar(
-  title: SizedBox(
-    height: 40,
-    child: TextField(
-      onChanged: (value) {
-        setState(() {
-          searchText = value.toLowerCase();
-        });
-      },
+   title: SizedBox(
+  height: 40,
+  child: TextField(
+    onChanged: (value) {
+      setState(() {
+        searchText = value.toLowerCase();
+      });
+    },
     decoration: InputDecoration(
       hintText: "Search products...",
       prefixIcon: const Icon(Icons.search),
@@ -389,33 +363,24 @@ onBuyNow: () {
 
     );
 
- }  
+  }
 
-Widget categoryChip(String title) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 10),
-    child: Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 10,
+
+  Widget categoryChip(String title) {
+
+    return Padding(
+
+      padding: const EdgeInsets.only(right: 8),
+
+      child: Chip(
+
+        label: Text(title),
+
       ),
-      decoration: BoxDecoration(
-        color: Colors.blue.shade50,
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(
-          color: Colors.blue.shade200,
-        ),
-      ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    ),
-  );
-}
+
+    );
+
+  }
 
 }
 
