@@ -40,186 +40,182 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(16),
       child: Card(
         elevation: 6,
-        shadowColor: Colors.black26,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        margin: const EdgeInsets.symmetric(
-          vertical: 8,
-          horizontal: 4,
-        ),
+        margin: const EdgeInsets.all(8),
         child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Row(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
               Stack(
                 children: [
-      if (discountPercent > 0)
-  Positioned(
-    top: 5,
-    left: 5,
-    child: Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: 4,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.orange,
-        borderRadius: BorderRadius.circular(6),
-      ),
-    child: Text(
-  "$discountPercent% OFF",
-  style: const TextStyle(
-    color: Colors.white,
-    fontSize: 12,
-    fontWeight: FontWeight.bold,
-  ),
-),
-    ),
-  ),
-                  Container(
-                    width: 90,
-                    height: 90,
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-           borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey.shade200,
-                    ),
+
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
                       image,
+                      height: 170,
+                      width: double.infinity,
                       fit: BoxFit.cover,
                     ),
                   ),
+
+                  if (discountPercent > 0)
+                    Positioned(
+                      top: 8,
+                      left: 8,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          "$discountPercent% OFF",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ),
 
                   Positioned(
                     top: 0,
                     right: 0,
                     child: IconButton(
+                      onPressed: onWishlist,
                       icon: Icon(
                         isWishlisted
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color: Colors.red,
                       ),
-                      onPressed: onWishlist,
                     ),
                   ),
                 ],
               ),
 
-              const SizedBox(width: 15),
+              const SizedBox(height: 12),
 
-              Expanded(
-                child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    Text("Code: $code"),
-   Text(
-  "Pack Size: $packSize",
-  style: const TextStyle(
-    color: Colors.blueGrey,
-    fontSize: 13,
-  ),
-),
-
-Text(
-  "MOQ: $moq",
-  style: const TextStyle(
-    color: Colors.deepPurple,
-    fontSize: 13,
-    fontWeight: FontWeight.w600,
-  ),
-),
-
-                    Text(
-                      "Wholesale: INR $price",
-                      style: const TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    Text(
-                      "MRP: INR $originalPrice",
-                      style: const TextStyle(
-              decoration: TextDecoration.lineThrough,
-                        color: Colors.grey,
-                      ),
-                    ),
-
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 18,
-                        ),
-                        Text(
-                          "$rating / 5",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-
-    if (stock > 20)
-  const Text(
-    "In Stock",
-    style: TextStyle(
-      color: Colors.green,
-      fontWeight: FontWeight.bold,
-    ),
-  )
-else if (stock > 0)
-  const Text(
-    "Low Stock",
-    style: TextStyle(
-      color: Colors.orange,
-      fontWeight: FontWeight.bold,
-    ),
-  )
-else
-  const Text(
-    "Out of Stock",
-    style: TextStyle(
-      color: Colors.red,
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-
-                  ],
+              Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
 
-       ElevatedButton.icon(
-  onPressed: stock > 0 ? onAdd : null,
-  icon: const Icon(
-    Icons.shopping_cart,
-    size: 18,
-  ),
-  label: Text(
-    stock > 0 ? "Add" : "Out",
-  ),
-  style: ElevatedButton.styleFrom(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
-  ),
-),
+              const SizedBox(height: 8),
+              Text(
+                "MRP: ₹$originalPrice",
+                style: const TextStyle(
+                  decoration: TextDecoration.lineThrough,
+                  color: Colors.grey,
+                  fontSize: 14,
+                ),
+              ),
+
+              const SizedBox(height: 4),
+
+              Text(
+                "Offer Price: ₹$price",
+                style: const TextStyle(
+                  color: Colors.green,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 4),
+
+              Text(
+                offerText,
+                style: const TextStyle(
+                  color: Colors.orange,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              Row(
+                children: [
+                  const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    "$rating",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 8),
+
+              Text(
+                "Pack Size : $packSize",
+                style: const TextStyle(
+                  color: Colors.blueGrey,
+                ),
+              ),
+
+              Text(
+                "MOQ : $moq",
+                style: const TextStyle(
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              Text(
+                stock > 0 ? "🟢 In Stock" : "🔴 Out of Stock",
+                style: TextStyle(
+                  color: stock > 0 ? Colors.green : Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 14),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: stock > 0 ? onTap : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    "Buy Now",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+
             ],
           ),
         ),

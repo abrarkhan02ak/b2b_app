@@ -84,6 +84,9 @@ isWishlisted: wishlistItems.any(
             ),
           );
         },
+        onBuyNow: () {
+
+        },
       ),
     ),
   );

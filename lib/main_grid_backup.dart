@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'product_card.dart';
 import 'cart_screen.dart';
-import 'checkout_screen.dart';
 import 'cart_model.dart';
 import 'data/product_data.dart';
 import 'models/product.dart';
@@ -199,117 +198,88 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: filteredProducts.length,
 
-          gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 0.65,
-          ),
 
-          itemBuilder: (context, index) {
+        ...filteredProducts.map((Product product) {
 
-            final Product product = filteredProducts[index];
+          return ProductCard(
 
-            return ProductCard(
-
-              code: product.code,
-              name: product.name,
-              price: product.price,
-              image: product.image,
-              stock: product.stock,
-              rating: product.rating,
-              originalPrice: product.originalPrice,
-              discountPercent: product.discountPercent,
-              offerText: product.offerText,
-              packSize: product.packSize,
-              moq: product.moq,
-
-              onTap: () {
-
-                Navigator.push(
-                  context,
-
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ProductDetailsScreen(
-                      product: product,
-
-                      onAdd: () {
-
-                        addToCart(
-                          CartItem(
-                            code: product.code,
-                            name: product.name,
-                            price: product.price,
-                          ),
-                        );
-
-                      },
-
-onBuyNow: () {
-
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => CheckoutScreen(
-        cartItems: [
-          CartItem(
             code: product.code,
             name: product.name,
             price: product.price,
-            quantity: 1,
-          ),
-        ],
-        totalAmount: double.parse(product.price),
-      ),
-    ),
-  );
+            image: product.image,
+            stock: product.stock,
+            rating: product.rating,
+            originalPrice: product.originalPrice,
+            discountPercent: product.discountPercent,
+            offerText: product.offerText,
+            packSize: product.packSize,
+            moq: product.moq,
 
-},
-                    ),
+
+            onTap: () {
+
+              Navigator.push(
+                context,
+
+                MaterialPageRoute(
+              builder: (context) => ProductDetailsScreen(
+                    product: product,
+
+                    onAdd: () {
+
+                      addToCart(
+                        CartItem(
+                          code: product.code,
+                          name: product.name,
+                          price: product.price,
+                        ),
+                      );
+                    },
+                   onBuyNow: () {
+
+  },
                   ),
-                );
+                ),
+              );
 
-              },
+            },
 
-              onAdd: () {
 
-                addToCart(
-                  CartItem(
-                    code: product.code,
-                    name: product.name,
-                    price: product.price,
-                  ),
-                );
+            onAdd: () {
 
-              },
+              addToCart(
+                CartItem(
+                  code: product.code,
+                  name: product.name,
+                  price: product.price,
+                ),
+              );
 
-              onWishlist: () {
+            },
 
-                toggleWishlist(
-                  WishlistItem(
-                    code: product.code,
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                  ),
-                );
+            onWishlist: () {
 
-              },
+              toggleWishlist(
+                WishlistItem(
+                  code: product.code,
+                  name: product.name,
+                  price: product.price,
+                  image: product.image,
+                ),
+              );
 
-              isWishlisted: wishlistItems.any(
-                (item) => item.code == product.code,
-              ),
+            },
 
-            );
-          },
-        ),
+
+            isWishlisted: wishlistItems.any(
+              (item) => item.code == product.code,
+            ),
+
+          );
+
+        }).toList(),
+
       ],
     );
 
