@@ -110,52 +110,20 @@ class _HomePageState extends State<HomePage> {
 
     }).toList();
 
-
-    return ListView(
-      padding: const EdgeInsets.all(16),
-
-      children: [
-
-        const Text(
-          "Welcome, Retailer",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
-        const SizedBox(height: 20),
-
-        TextField(
-          decoration: InputDecoration(
-            hintText: "Search products...",
-            prefixIcon: const Icon(Icons.search),
-
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-
-          onChanged: (value) {
-
-            setState(() {
-
-              searchText = value.toLowerCase();
-
-            });
-
-          },
-        ),
-
-        const SizedBox(height: 20),
-
-        const Text(
-          "Categories",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+  return Column(
+  children: [
+   
+        const Padding(
+  padding: EdgeInsets.only(left: 4, bottom: 6),
+  child: Text(
+    "Shop by Category",
+    style: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+      letterSpacing: 0.5,
+    ),
+  ),
+),
 
         const SizedBox(height: 10),
 
@@ -165,13 +133,15 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             scrollDirection: Axis.horizontal,
 
-            children: [
-              categoryChip("💄 Cosmetics"),
-              categoryChip("🥫 Kirana"),
-              categoryChip("📱 Electronics"),
-              categoryChip("👕 Clothes"),
-              categoryChip("🍪 Snacks"),
-            ],
+          children: [
+  categoryChip("⭐ All"),
+  categoryChip("💄 Cosmetics"),
+  categoryChip("🥫 Kirana"),
+  categoryChip("🧴 Personal Care"),
+  categoryChip("🍫 Snacks"),
+  categoryChip("👕 Fashion"),
+  categoryChip("📱 Electronics"),
+],
           ),
         ),
 
@@ -199,13 +169,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+ Expanded(
+  child: GridView.builder(
+ shrinkWrap: false,          
+ physics: const NeverScrollableScrollPhysics(),
           itemCount: filteredProducts.length,
 
           gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(
+           const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
@@ -214,7 +185,7 @@ class _HomePageState extends State<HomePage> {
 
           itemBuilder: (context, index) {
 
-            final Product product = filteredProducts[index];
+          final Product product = filteredProducts[index];
 
             return ProductCard(
 
@@ -303,13 +274,14 @@ onBuyNow: () {
 
               },
 
-              isWishlisted: wishlistItems.any(
+                 isWishlisted: wishlistItems.any(
                 (item) => item.code == product.code,
               ),
 
             );
           },
         ),
+      ),
       ],
     );
 
@@ -320,7 +292,27 @@ onBuyNow: () {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("B2B Wholesale"),
+   title: SizedBox(
+  height: 40,
+  child: TextField(
+    onChanged: (value) {
+      setState(() {
+        searchText = value.toLowerCase();
+      });
+    },
+    decoration: InputDecoration(
+      hintText: "Search products...",
+      prefixIcon: const Icon(Icons.search),
+      filled: true,
+      fillColor: Colors.white,
+      contentPadding: EdgeInsets.zero,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25),
+        borderSide: BorderSide.none,
+      ),
+    ),
+  ),
+),
 
         actions: [
 
@@ -376,24 +368,33 @@ onBuyNow: () {
 
     );
 
-  }
+ }  
 
-
-  Widget categoryChip(String title) {
-
-    return Padding(
-
-      padding: const EdgeInsets.only(right: 8),
-
-      child: Chip(
-
-        label: Text(title),
-
+Widget categoryChip(String title) {
+  return Padding(
+    padding: const EdgeInsets.only(right: 10),
+    child: Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 10,
       ),
-
-    );
-
-  }
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(
+          color: Colors.blue.shade200,
+        ),
+      ),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+  );
+}
 
 }
 
