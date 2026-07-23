@@ -46,6 +46,9 @@ class _HomePageState extends State<HomePage> {
 final ScrollController
  productScrollController = ScrollController();
  double categoryHeight = 45;
+ String selectedCategory = "All Categories";
+ double searchBarHeight = 40;
+final FocusNode searchFocus = FocusNode();
 double categoryFontSize = 14;
 
  @override
@@ -55,11 +58,25 @@ void initState() {
   productScrollController.addListener(() {
   setState(() {
     if (productScrollController.offset > 20) {
-      categoryHeight = 38;
-      categoryFontSize = 11;
-    } else {
-      categoryHeight = 45;
-      categoryFontSize = 14;
+  categoryHeight = 38;
+  categoryFontSize = 11;
+
+  if (!searchFocus.hasFocus) {
+    searchBarHeight = 32;
+  }
+} else {
+  categoryHeight = 45;
+  categoryFontSize = 14;
+  searchBarHeight = 40;
+}
+  });
+});
+  searchFocus.addListener(() {
+  setState(() {
+    if (searchFocus.hasFocus) {
+      searchBarHeight = 40;
+    } else if (productScrollController.offset > 20) {
+      searchBarHeight = 32;
     }
   });
 });
@@ -123,38 +140,34 @@ final List<CartItem> cartItems = [];
 
   Widget homeContent() {
 
-    final filteredProducts = products.where((product) {
+ final filteredProducts = products.where((product) {
 
-      return product.name.toLowerCase().contains(searchText) ||
-          product.code.toLowerCase().contains(searchText) ||
-          product.category.toLowerCase().contains(searchText);
+  final matchesSearch =
+      product.name.toLowerCase().contains(searchText) ||
+      product.code.toLowerCase().contains(searchText) ||
+      product.category.toLowerCase().contains(searchText);
 
-    }).toList();
+  final matchesCategory =
+      selectedCategory == "All Categories" ||
+      product.category == selectedCategory;
+
+  return matchesSearch && matchesCategory;
+
+}).toList();
 
   return Column(
   children: [
    
-        const Padding(
-  padding: EdgeInsets.only(left: 4, bottom: 6),
-  child: Text(
-    "Shop by Category",
-    style: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w700,
-      letterSpacing: 0.5,
-    ),
-  ),
-),
-
         AnimatedContainer(
   duration: const Duration(milliseconds: 400),
   height: categoryHeight,
   decoration: BoxDecoration(
   boxShadow: [
     BoxShadow(
-      blurRadius: 8.0,
-offset: const Offset(0, 3),
-    ),
+  color: Colors.grey.withValues(alpha: 0.15),
+  blurRadius: 6,
+  offset: const Offset(0, 2),
+),
   ],
 ),
 
@@ -173,17 +186,6 @@ offset: const Offset(0, 3),
           ),
         ),
 
-        const SizedBox(height: 20),
-
-        const Text(
-          "Featured Products",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
-        const SizedBox(height: 10),
         if (filteredProducts.isEmpty)
           const Center(
             child: Padding(
@@ -319,14 +321,21 @@ onBuyNow: () {
     return Scaffold(
 
       appBar: AppBar(
-  title: SizedBox(
-    height: 40,
-    child: TextField(
-      onChanged: (value) {
-        setState(() {
-          searchText = value.toLowerCase();
-        });
-      },
+   title: AnimatedContainer(
+  duration: const Duration(milliseconds: 250),
+  height: searchBarHeight,
+  child: TextField(
+    focusNode: searchFocus,
+    onTap: () {
+      setState(() {
+        searchBarHeight = 40;
+      });
+    },
+    onChanged: (value) {
+      setState(() {
+        searchText = value.toLowerCase();
+      });
+    },
     decoration: InputDecoration(
       hintText: "Search products...",
       prefixIcon: const Icon(Icons.search),
@@ -400,32 +409,37 @@ onBuyNow: () {
 Widget categoryChip(String title) {
   return Padding(
     padding: const EdgeInsets.only(right: 10),
-    child: Container(
+    child: GestureDetector(
+  onTap: () {
+    setState(() {
+      selectedCategory = title;
+    });
+  },
+  child: Container(
       padding: EdgeInsets.symmetric(
   horizontal: categoryHeight == 38 ? 12 : 16,
   vertical: categoryHeight == 38 ? 6 : 10,
 ),
       decoration: BoxDecoration(
-  color: categoryHeight == 38
-      ? Colors.grey.shade50
-      : Colors.blue.shade50,
+  color: selectedCategory == title
+    ? Colors.blue.shade100
+    : Colors.grey.shade50,
   borderRadius: BorderRadius.circular(25),
   border: Border.all(
-    color: categoryHeight == 38
-        ? Colors.grey.shade300
-        : Colors.blue.shade200,
+    color: selectedCategory == title
+    ? Colors.blue
+    : Colors.grey.shade300,
   ),
 ),
-      child: Text(
+            child: Text(
         title,
         style: TextStyle(
-  fontSize: categoryFontSize,
-  fontWeight: FontWeight.w600,
-),
+          fontSize: categoryFontSize,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     ),
+  ),
   );
 }
-
 }
-
