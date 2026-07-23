@@ -45,18 +45,24 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0; 
 final ScrollController
  productScrollController = ScrollController();
-double categoryHeight = 45;
+ double categoryHeight = 45;
+double categoryFontSize = 14;
 
  @override
 void initState() {
   super.initState();
 
   productScrollController.addListener(() {
-    setState(() {
-      categoryHeight =
-          productScrollController.offset > 20 ? 38 : 45;
-    });
+  setState(() {
+    if (productScrollController.offset > 20) {
+      categoryHeight = 38;
+      categoryFontSize = 11;
+    } else {
+      categoryHeight = 45;
+      categoryFontSize = 14;
+    }
   });
+});
 }
  
 final List<CartItem> cartItems = [];
@@ -395,23 +401,27 @@ Widget categoryChip(String title) {
   return Padding(
     padding: const EdgeInsets.only(right: 10),
     child: Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 10,
-      ),
+      padding: EdgeInsets.symmetric(
+  horizontal: categoryHeight == 38 ? 12 : 16,
+  vertical: categoryHeight == 38 ? 6 : 10,
+),
       decoration: BoxDecoration(
-        color: Colors.blue.shade50,
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(
-          color: Colors.blue.shade200,
-        ),
-      ),
+  color: categoryHeight == 38
+      ? Colors.grey.shade50
+      : Colors.blue.shade50,
+  borderRadius: BorderRadius.circular(25),
+  border: Border.all(
+    color: categoryHeight == 38
+        ? Colors.grey.shade300
+        : Colors.blue.shade200,
+  ),
+),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(
+  fontSize: categoryFontSize,
+  fontWeight: FontWeight.w600,
+),
       ),
     ),
   );
