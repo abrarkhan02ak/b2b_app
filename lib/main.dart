@@ -173,17 +173,6 @@ offset: const Offset(0, 3),
           ),
         ),
 
-        const SizedBox(height: 20),
-
-        const Text(
-          "Featured Products",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
-        const SizedBox(height: 10),
         if (filteredProducts.isEmpty)
           const Center(
             child: Padding(
@@ -318,57 +307,56 @@ onBuyNow: () {
 
   return Scaffold(
    appBar: AppBar(
-  title: SizedBox(
-    height: 40,
-    child: TextField(
-      onChanged: (value) {
-        setState(() {
-          searchText = value.toLowerCase();
-        });
-      },
-    decoration: InputDecoration(
-      hintText: "TEST 90 - Search",
-      prefixIcon: const Icon(Icons.search),
-      filled: true,
-      fillColor: Colors.white,
-      contentPadding: EdgeInsets.zero,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide.none,
+  title: Container(
+    height: 42,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(25),
+      border: Border.all(
+        color: Colors.grey.shade300,
       ),
+    ),
+    child: Row(
+      children: [
+
+        Expanded(
+          child: TextField(
+            onChanged: (value) {
+              setState(() {
+                searchText = value.toLowerCase();
+              });
+            },
+            decoration: const InputDecoration(
+              hintText: "TEST 90 - Search",
+              prefixIcon: Icon(Icons.search),
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.zero,
+            ),
+          ),
+        ),
+
+        IconButton(
+          icon: const Icon(Icons.shopping_cart),
+          onPressed: () {
+            setState(() {
+              currentIndex = 2;
+            });
+          },
+        ),
+
+        IconButton(
+          icon: const Icon(Icons.receipt_long),
+          onPressed: () {
+            setState(() {
+              currentIndex = 4;
+            });
+          },
+        ),
+
+      ],
     ),
   ),
 ),
-
-        actions: [
-
-          IconButton(
-            icon: const Icon(Icons.receipt_long),
-
-            onPressed: () {
-
-              setState(() {
-                currentIndex = 4;
-              });
-
-            },
-          ),
-
-
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-
-            onPressed: () {
-
-              setState(() {
-                currentIndex = 2;
-              });
-
-            },
-          ),
-
-        ],
-      ),
 
 
       body: currentIndex == 0
