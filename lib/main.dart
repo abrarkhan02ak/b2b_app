@@ -216,6 +216,7 @@ final List<CartItem> cartItems = [];
   child: GridView.builder(
  shrinkWrap: false,          
  controller: productScrollController,
+  itemCount: filteredProducts.length,
 
           gridDelegate:
            const SliverGridDelegateWithFixedCrossAxisCount(
