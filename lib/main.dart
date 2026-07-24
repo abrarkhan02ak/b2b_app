@@ -120,12 +120,10 @@ class _HomePageState extends State<HomePage> {
 
     final filteredProducts = products.where((product){
 
-      final search =
-          product.name.toLowerCase().contains(searchText) ||
-          product.code.toLowerCase().contains(searchText) ||
-          product.category.toLowerCase().contains(searchText);
-
-
+final search =
+    product.name.toLowerCase().contains(searchText) ||
+    product.code.toLowerCase().contains(searchText) ||
+    product.category.toLowerCase().contains(searchText);
 
       final category =
           selectedCategory == "All" ||
