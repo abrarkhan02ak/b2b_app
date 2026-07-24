@@ -48,6 +48,9 @@ final ScrollController
  double categoryHeight = 45;
  String selectedCategory = "All Categories";
  double searchBarHeight = 40;
+ double searchBarPadding = 12;
+double searchIconSize = 24;
+double actionIconSize = 24;
 final FocusNode searchFocus = FocusNode();
 double categoryFontSize = 14;
 
@@ -57,17 +60,26 @@ void initState() {
 
   productScrollController.addListener(() {
   setState(() {
-    if (productScrollController.offset > 20) {
+   if (productScrollController.offset > 20) {
   categoryHeight = 38;
   categoryFontSize = 11;
 
   if (!searchFocus.hasFocus) {
-    searchBarHeight = 32;
+    searchBarHeight = 34;
   }
+
+  searchBarPadding = 8;
+  searchIconSize = 20;
+  actionIconSize = 20;
+
 } else {
   categoryHeight = 45;
   categoryFontSize = 14;
+
   searchBarHeight = 40;
+  searchBarPadding = 12;
+  searchIconSize = 24;
+  actionIconSize = 24;
 }
   });
 });
@@ -76,7 +88,7 @@ void initState() {
     if (searchFocus.hasFocus) {
       searchBarHeight = 40;
     } else if (productScrollController.offset > 20) {
-      searchBarHeight = 32;
+      searchBarHeight = 34;
     }
   });
 });
@@ -200,6 +212,7 @@ final List<CartItem> cartItems = [];
             ),
           ),
  Expanded(
+  flex: productScrollController.offset > 20 ? 7 : 8,
   child: GridView.builder(
  shrinkWrap: false,          
  controller: productScrollController,
@@ -321,65 +334,98 @@ onBuyNow: () {
     return Scaffold(
 
       appBar: AppBar(
-   title: AnimatedContainer(
+   title: SizedBox(
+  width: double.infinity,
+  child: AnimatedContainer(
   duration: const Duration(milliseconds: 250),
+  curve: Curves.easeInOut,
   height: searchBarHeight,
-  child: TextField(
-    focusNode: searchFocus,
-    onTap: () {
-      setState(() {
-        searchBarHeight = 40;
-      });
-    },
-    onChanged: (value) {
-      setState(() {
-        searchText = value.toLowerCase();
-      });
-    },
-    decoration: InputDecoration(
-      hintText: "Search products...",
-      prefixIcon: const Icon(Icons.search),
-      filled: true,
-      fillColor: Colors.white,
-      contentPadding: EdgeInsets.zero,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide.none,
-      ),
+  margin: EdgeInsets.symmetric(
+  horizontal: 12,
+  vertical: productScrollController.offset > 20 ? 3 : 6,
+),
+ padding: EdgeInsets.symmetric(
+  horizontal: searchBarPadding,
+),
+decoration: BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(30),
+  boxShadow: const [
+    BoxShadow(
+      color: Colors.black12,
+      blurRadius: 8,
+      offset: Offset(0, 2),
     ),
-  ),
+  ],
 ),
 
-        actions: [
-
-          IconButton(
-            icon: const Icon(Icons.receipt_long),
-
-            onPressed: () {
-
-              setState(() {
-                currentIndex = 4;
-              });
-
-            },
-          ),
-
-
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-
-            onPressed: () {
-
-              setState(() {
-                currentIndex = 2;
-              });
-
-            },
-          ),
-
-        ],
+  child: Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Expanded(
+      child: TextField(
+   style: TextStyle(
+  fontSize: productScrollController.offset > 20 ? 13 : 15,
+),
+        focusNode: searchFocus,
+        onTap: () {
+          setState(() {
+            searchBarHeight = 40;
+          });
+        },
+        onChanged: (value) {
+          setState(() {
+            searchText = value.toLowerCase();
+          });
+        },
+        decoration: InputDecoration(
+          hintText: "Search products...",
+      hintStyle: TextStyle(
+  fontSize: productScrollController.offset > 20 ? 13 : 15,
+),
+          prefixIcon: Icon(
+  Icons.search,
+  size: searchIconSize,
+),
+          border: InputBorder.none,
+        ),
       ),
+    ),
 
+    IconButton(
+  visualDensity: VisualDensity.compact,
+  padding: EdgeInsets.zero,
+  constraints: const BoxConstraints(),
+      icon: Icon(
+  Icons.receipt_long,
+  size: actionIconSize,
+),
+      onPressed: () {
+        setState(() {
+          currentIndex = 4;
+        });
+      },
+    ),
+
+  IconButton(
+  visualDensity: VisualDensity.compact,
+  padding: EdgeInsets.zero,
+  constraints: const BoxConstraints(),
+  icon: Icon(
+    Icons.shopping_cart,
+    size: actionIconSize,
+  ),
+  onPressed: () {
+    setState(() {
+      currentIndex = 2;
+    });
+  },
+),
+    ],
+),
+),
+),
+),
 
       body: currentIndex == 0
           ? homeContent()
@@ -401,9 +447,7 @@ onBuyNow: () {
         },
 
       ),
-
     );
-
  }  
 
 Widget categoryChip(String title) {
