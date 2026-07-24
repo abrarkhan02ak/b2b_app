@@ -311,7 +311,7 @@ onBuyNow: () {
     height: 42,
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(8),
       border: Border.all(
         color: Colors.grey.shade300,
       ),
@@ -326,12 +326,17 @@ onBuyNow: () {
                 searchText = value.toLowerCase();
               });
             },
-            decoration: const InputDecoration(
-              hintText: "TEST 90 - Search",
-              prefixIcon: Icon(Icons.search),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.zero,
-            ),
+   decoration: InputDecoration(
+  hintText: "TEST 90 - Search",
+  prefixIcon: const Icon(Icons.search),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(25),
+    borderSide: BorderSide(
+      color: Colors.grey.shade300,
+    ),
+  ),
+  contentPadding: EdgeInsets.zero,
+),
           ),
         ),
 
