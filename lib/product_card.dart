@@ -58,12 +58,22 @@ class ProductCard extends StatelessWidget {
 
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      image,
-                      height: 170,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    child: image.isNotEmpty
+? Image.asset(
+    image,
+    height: 170,
+    width: double.infinity,
+    fit: BoxFit.cover,
+  )
+: Container(
+    height: 170,
+    width: double.infinity,
+    color: Colors.grey.shade200,
+    child: const Icon(
+      Icons.image,
+      size: 60,
+    ),
+  ),
                   ),
 
                   if (discountPercent > 0)
