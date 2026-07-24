@@ -42,69 +42,109 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  int currentIndex = 0; 
-final ScrollController
- productScrollController = ScrollController();
- double categoryHeight = 45;
- String selectedCategory = "All Categories";
- double searchBarHeight = 40;
-final FocusNode searchFocus = FocusNode();
-double categoryFontSize = 14;
+  int currentIndex = 0;
 
- @override
-void initState() {
-  super.initState();
+  final ScrollController productScrollController =
+      ScrollController();
 
-  productScrollController.addListener(() {
-  setState(() {
-    if (productScrollController.offset > 20) {
-  categoryHeight = 38;
-  categoryFontSize = 11;
+  final FocusNode searchFocus = FocusNode();
 
-  if (!searchFocus.hasFocus) {
-    searchBarHeight = 32;
-  }
-} else {
-  categoryHeight = 45;
-  categoryFontSize = 14;
-  searchBarHeight = 40;
-}
-  });
-});
-  searchFocus.addListener(() {
-  setState(() {
-    if (searchFocus.hasFocus) {
-      searchBarHeight = 40;
-    } else if (productScrollController.offset > 20) {
-      searchBarHeight = 32;
-    }
-  });
-});
-}
- 
-final List<CartItem> cartItems = [];
-  final List<WishlistItem> wishlistItems = [];
+  double categoryHeight = 45;
+  double categoryFontSize = 14;
 
+  double searchBarHeight = 40;
+  double searchPadding = 12;
+  double iconSize = 24;
+
+  String selectedCategory = "All Categories";
   String searchText = "";
 
-  void addToCart(CartItem newItem) {
+
+  @override
+  void initState() {
+    super.initState();
+
+    productScrollController.addListener(() {
+
+      if (!mounted) return;
+
+      setState(() {
+
+        if (productScrollController.offset > 20) {
+
+          categoryHeight = 38;
+          categoryFontSize = 11;
+
+          if (!searchFocus.hasFocus) {
+            searchBarHeight = 34;
+          }
+
+          searchPadding = 8;
+          iconSize = 20;
+
+        } else {
+
+          categoryHeight = 45;
+          categoryFontSize = 14;
+
+          if (!searchFocus.hasFocus) {
+            searchBarHeight = 40;
+          }
+
+          searchPadding = 12;
+          iconSize = 24;
+        }
+
+      });
+
+    });
+
+
+    searchFocus.addListener(() {
+
+      if (!mounted) return;
+
+      setState(() {
+
+        if (searchFocus.hasFocus) {
+          searchBarHeight = 40;
+        }
+
+      });
+
+    });
+
+  }
+
+
+  final List<CartItem> cartItems = [];
+
+  final List<WishlistItem> wishlistItems = [];
+
+
+  void addToCart(CartItem item) {
+
     setState(() {
+
       final index = cartItems.indexWhere(
-        (item) => item.code == newItem.code,
+        (e) => e.code == item.code,
       );
 
       if (index >= 0) {
         cartItems[index].quantity++;
       } else {
-        cartItems.add(newItem);
+        cartItems.add(item);
       }
-    });
-  }
 
+    });
+
+  }
   void toggleWishlist(WishlistItem item) {
+
     setState(() {
+
       final index = wishlistItems.indexWhere(
-        (wishlistItem) => wishlistItem.code == item.code,
+        (e) => e.code == item.code,
       );
 
       if (index >= 0) {
@@ -112,9 +152,14 @@ final List<CartItem> cartItems = [];
       } else {
         wishlistItems.add(item);
       }
+
     });
+
   }
+
+
   List<Widget> get pages => [
+
     const SizedBox(),
 
     CategoryScreen(
@@ -135,250 +180,338 @@ final List<CartItem> cartItems = [];
     const MyOrdersScreen(),
 
     const ProfileScreen(),
+
   ];
 
 
   Widget homeContent() {
 
- final filteredProducts = products.where((product) {
+    final filteredProducts = products.where((product) {
 
-  final matchesSearch =
-      product.name.toLowerCase().contains(searchText) ||
-      product.code.toLowerCase().contains(searchText) ||
-      product.category.toLowerCase().contains(searchText);
+      final matchesSearch =
+          product.name.toLowerCase().contains(searchText) ||
+          product.code.toLowerCase().contains(searchText) ||
+          product.category.toLowerCase().contains(searchText);
 
-  final matchesCategory =
-      selectedCategory == "All Categories" ||
-      product.category == selectedCategory;
 
-  return matchesSearch && matchesCategory;
+      final matchesCategory =
+          selectedCategory == "All Categories" ||
+          product.category == selectedCategory;
 
-}).toList();
 
-  return Column(
-  children: [
-   
+      return matchesSearch && matchesCategory;
+
+
+    }).toList();
+
+
+    return Column(
+      children: [
+
         AnimatedContainer(
-  duration: const Duration(milliseconds: 400),
-  height: categoryHeight,
-  decoration: BoxDecoration(
-  boxShadow: [
-    BoxShadow(
-  color: Colors.grey.withValues(alpha: 0.15),
-  blurRadius: 6,
-  offset: const Offset(0, 2),
-),
-  ],
-),
+          duration: const Duration(milliseconds: 400),
+          height: categoryHeight,
 
           child: ListView(
             scrollDirection: Axis.horizontal,
 
-          children: [
-  categoryChip("⭐ All"),
-  categoryChip("💄 Cosmetics"),
-  categoryChip("🥫 Kirana"),
-  categoryChip("🧴 Personal Care"),
-  categoryChip("🍫 Snacks"),
-  categoryChip("👕 Fashion"),
-  categoryChip("📱 Electronics"),
-],
+            children: [
+              categoryChip("⭐ All"),
+              categoryChip("💄 Cosmetics"),
+              categoryChip("🥫 Kirana"),
+              categoryChip("🧴 Personal Care"),
+              categoryChip("🍫 Snacks"),
+              categoryChip("👕 Fashion"),
+              categoryChip("📱 Electronics"),
+            ],
           ),
         ),
 
-        if (filteredProducts.isEmpty)
-          const Center(
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                "No Products Found",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+
+        Expanded(
+          child: GridView.builder(
+            controller: productScrollController,
+
+            itemCount: filteredProducts.length,
+
+            gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.65,
             ),
-          ),
- Expanded(
-  child: GridView.builder(
- shrinkWrap: false,          
- controller: productScrollController,
 
-          gridDelegate:
-           const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 0.65,
-          ),
 
-          itemBuilder: (context, index) {
+            itemBuilder: (context, index) {
 
-          final Product product = filteredProducts[index];
+              final Product product =
+                  filteredProducts[index];
 
-            return ProductCard(
 
-              code: product.code,
-              name: product.name,
-              price: product.price,
-              image: product.image,
-              stock: product.stock,
-              rating: product.rating,
-              originalPrice: product.originalPrice,
-              discountPercent: product.discountPercent,
-              offerText: product.offerText,
-              packSize: product.packSize,
-              moq: product.moq,
+              return ProductCard(
+                code: product.code,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                stock: product.stock,
+                rating: product.rating,
+                originalPrice: product.originalPrice,
+                discountPercent: product.discountPercent,
+                offerText: product.offerText,
+                packSize: product.packSize,
+                moq: product.moq,                onTap: () {
 
-              onTap: () {
+                  Navigator.push(
+                    context,
 
-                Navigator.push(
-                  context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ProductDetailsScreen(
 
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ProductDetailsScreen(
-                      product: product,
+                        product: product,
 
-                      onAdd: () {
+                        onAdd: () {
 
-                        addToCart(
-                          CartItem(
-                            code: product.code,
-                            name: product.name,
-                            price: product.price,
-                          ),
-                        );
+                          addToCart(
+                            CartItem(
+                              code: product.code,
+                              name: product.name,
+                              price: product.price,
+                            ),
+                          );
 
-                      },
+                        },
 
-onBuyNow: () {
 
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => CheckoutScreen(
-        cartItems: [
-          CartItem(
-            code: product.code,
-            name: product.name,
-            price: product.price,
-            quantity: 1,
-          ),
-        ],
-        totalAmount: double.parse(product.price),
-      ),
-    ),
-  );
+                        onBuyNow: () {
 
-},
+                          Navigator.push(
+                            context,
+
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CheckoutScreen(
+                                cartItems: [
+                                  CartItem(
+                                    code: product.code,
+                                    name: product.name,
+                                    price: product.price,
+                                    quantity: 1,
+                                  ),
+                                ],
+
+                                totalAmount:
+                                    double.parse(product.price),
+                              ),
+                            ),
+                          );
+
+                        },
+
+                      ),
                     ),
-                  ),
-                );
+                  );
 
-              },
+                },
 
-              onAdd: () {
 
-                addToCart(
-                  CartItem(
-                    code: product.code,
-                    name: product.name,
-                    price: product.price,
-                  ),
-                );
+                onAdd: () {
 
-              },
+                  addToCart(
+                    CartItem(
+                      code: product.code,
+                      name: product.name,
+                      price: product.price,
+                    ),
+                  );
 
-              onWishlist: () {
+                },
 
-                toggleWishlist(
-                  WishlistItem(
-                    code: product.code,
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                  ),
-                );
 
-              },
+                onWishlist: () {
 
-                 isWishlisted: wishlistItems.any(
-                (item) => item.code == product.code,
-              ),
+                  toggleWishlist(
+                    WishlistItem(
+                      code: product.code,
+                      name: product.name,
+                      price: product.price,
+                      image: product.image,
+                    ),
+                  );
 
-            );
-          },
+                },
+
+
+                isWishlisted: wishlistItems.any(
+                  (item) => item.code == product.code,
+                ),
+
+
+              );
+
+            },
+
+          ),
+
         ),
-      ),
+
       ],
+
     );
 
-  }
-  @override
+  }  @override
   Widget build(BuildContext context) {
 
     return Scaffold(
 
       appBar: AppBar(
-   title: AnimatedContainer(
-  duration: const Duration(milliseconds: 250),
-  height: searchBarHeight,
-  child: TextField(
-    focusNode: searchFocus,
-    onTap: () {
-      setState(() {
-        searchBarHeight = 40;
-      });
-    },
-    onChanged: (value) {
-      setState(() {
-        searchText = value.toLowerCase();
-      });
-    },
-    decoration: InputDecoration(
-      hintText: "Search products...",
-      prefixIcon: const Icon(Icons.search),
-      filled: true,
-      fillColor: Colors.white,
-      contentPadding: EdgeInsets.zero,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide.none,
-      ),
-    ),
-  ),
-),
 
-        actions: [
+        titleSpacing: 0,
 
-          IconButton(
-            icon: const Icon(Icons.receipt_long),
+        title: AnimatedContainer(
 
-            onPressed: () {
+          duration: const Duration(milliseconds: 250),
 
-              setState(() {
-                currentIndex = 4;
-              });
+          height: searchBarHeight,
 
-            },
+          margin: const EdgeInsets.symmetric(
+            horizontal: 8,
+          ),
+
+          padding: EdgeInsets.symmetric(
+            horizontal: searchPadding,
+          ),
+
+          decoration: BoxDecoration(
+
+            color: Colors.white,
+
+            borderRadius: BorderRadius.circular(30),
+
+            boxShadow: const [
+
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 6,
+                offset: Offset(0,2),
+              ),
+
+            ],
+
           ),
 
 
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
+          child: Row(
 
-            onPressed: () {
+            children: [
 
-              setState(() {
-                currentIndex = 2;
-              });
 
-            },
+              Expanded(
+
+                child: TextField(
+
+                  focusNode: searchFocus,
+
+                  onChanged: (value){
+
+                    setState((){
+
+                      searchText =
+                          value.toLowerCase();
+
+                    });
+
+                  },
+
+
+                  decoration: InputDecoration(
+
+                    hintText:
+                        "Search products...",
+
+                    prefixIcon: Icon(
+                      Icons.search,
+                      size: iconSize,
+                    ),
+
+                    border:
+                        InputBorder.none,
+
+                  ),
+
+                ),
+
+              ),
+
+
+
+              IconButton(
+
+                padding: EdgeInsets.zero,
+
+                constraints:
+                    const BoxConstraints(),
+
+                icon: Icon(
+                  Icons.receipt_long,
+                  size: iconSize,
+                ),
+
+                onPressed: (){
+
+                  setState((){
+
+                    currentIndex = 4;
+
+                  });
+
+                },
+
+              ),
+
+
+
+              const SizedBox(
+                width: 8,
+              ),
+
+
+
+              IconButton(
+
+                padding: EdgeInsets.zero,
+
+                constraints:
+                    const BoxConstraints(),
+
+                icon: Icon(
+                  Icons.shopping_cart,
+                  size: iconSize,
+                ),
+
+                onPressed: (){
+
+                  setState((){
+
+                    currentIndex = 2;
+
+                  });
+
+                },
+
+              ),
+
+
+            ],
+
           ),
 
-        ],
+        ),
+
+
       ),
+
 
 
       body: currentIndex == 0
@@ -386,13 +519,15 @@ onBuyNow: () {
           : pages[currentIndex],
 
 
+
       bottomNavigationBar: BottomNav(
 
         currentIndex: currentIndex,
 
-        onTap: (index) {
 
-          setState(() {
+        onTap: (index){
+
+          setState((){
 
             currentIndex = index;
 
@@ -402,44 +537,97 @@ onBuyNow: () {
 
       ),
 
+
     );
 
- }  
+  }
 
-Widget categoryChip(String title) {
-  return Padding(
-    padding: const EdgeInsets.only(right: 10),
-    child: GestureDetector(
-  onTap: () {
-    setState(() {
-      selectedCategory = title;
-    });
-  },
-  child: Container(
-      padding: EdgeInsets.symmetric(
-  horizontal: categoryHeight == 38 ? 12 : 16,
-  vertical: categoryHeight == 38 ? 6 : 10,
-),
-      decoration: BoxDecoration(
-  color: selectedCategory == title
-    ? Colors.blue.shade100
-    : Colors.grey.shade50,
-  borderRadius: BorderRadius.circular(25),
-  border: Border.all(
-    color: selectedCategory == title
-    ? Colors.blue
-    : Colors.grey.shade300,
-  ),
-),
-            child: Text(
-        title,
-        style: TextStyle(
-          fontSize: categoryFontSize,
-          fontWeight: FontWeight.w600,
+
+
+  Widget categoryChip(String title){
+
+    return Padding(
+
+      padding:
+          const EdgeInsets.only(right:10),
+
+
+      child: GestureDetector(
+
+        onTap: (){
+
+          setState((){
+
+            selectedCategory = title;
+
+          });
+
+        },
+
+
+        child: Container(
+
+          padding: EdgeInsets.symmetric(
+
+            horizontal:
+                categoryHeight == 38
+                ? 12
+                : 16,
+
+            vertical:
+                categoryHeight == 38
+                ? 6
+                : 10,
+
+          ),
+
+
+          decoration: BoxDecoration(
+
+            color:
+              selectedCategory == title
+              ? Colors.blue.shade100
+              : Colors.grey.shade50,
+
+
+            borderRadius:
+                BorderRadius.circular(25),
+
+
+            border: Border.all(
+
+              color:
+              selectedCategory == title
+              ? Colors.blue
+              : Colors.grey.shade300,
+
+            ),
+
+          ),
+
+
+
+          child: Text(
+
+            title,
+
+            style: TextStyle(
+
+              fontSize: categoryFontSize,
+
+              fontWeight:
+                  FontWeight.w600,
+
+            ),
+
+          ),
+
         ),
+
       ),
-    ),
-  ),
-  );
-}
+
+    );
+
+  }
+
 }
