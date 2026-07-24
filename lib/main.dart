@@ -316,9 +316,8 @@ onBuyNow: () {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-
-      appBar: AppBar(
+  return Scaffold(
+   appBar: AppBar(
   title: SizedBox(
     height: 40,
     child: TextField(
@@ -328,7 +327,7 @@ onBuyNow: () {
         });
       },
     decoration: InputDecoration(
-      hintText: "Search products...",
+      hintText: "TEST 90 - Search",
       prefixIcon: const Icon(Icons.search),
       filled: true,
       fillColor: Colors.white,
