@@ -12,6 +12,7 @@ import 'category_screen.dart';
 import 'profile_screen.dart';
 import 'order_data.dart';
 import 'wishlist_screen.dart';
+import 'package:marquee/marquee.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -125,23 +126,46 @@ final List<CartItem> cartItems = [];
 
     final filteredProducts = products.where((product) {
 
-      return product.name.toLowerCase().contains(searchText) ||
-          product.code.toLowerCase().contains(searchText) ||
-          product.category.toLowerCase().contains(searchText);
+  return product.name.toLowerCase().contains(searchText) ||
+      product.code.toLowerCase().contains(searchText) ||
+      product.category.toLowerCase().contains(searchText);
 
     }).toList();
 
   return Column(
   children: [
    
-        const Padding(
-  padding: EdgeInsets.only(left: 4, bottom: 6),
-  child: Text(
-    "Shop by Category",
-    style: TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w700,
-      letterSpacing: 0.5,
+  Padding(
+  padding: const EdgeInsets.only(left: 8,
+ right: 8, bottom: 6),
+  child: Container(
+    height: 36,
+    decoration: BoxDecoration(
+      color: Colors.amber.shade100,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: Colors.amber.shade700),
+    ),
+    child:  Row(
+      children: [
+        SizedBox(width: 8),
+        Icon(Icons.campaign, color: Colors.red),
+        SizedBox(width: 8),
+     Expanded(
+  child: Marquee(
+    text: 'Welcome to TEST 90 Wholesale - '
+      'Best Offers Every Day',
+    style: const TextStyle(
+      fontSize: 13,
+      fontWeight: FontWeight.w600,
+    ),
+    scrollAxis: Axis.horizontal,
+    blankSpace: 40.0,
+    velocity: 30.0,
+    pauseAfterRound: const Duration(seconds: 1),
+    startPadding: 10.0,
+  ),
+),
+      ],
     ),
   ),
 ),
