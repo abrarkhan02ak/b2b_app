@@ -308,7 +308,7 @@ onBuyNow: () {
   return Scaffold(
    appBar: AppBar(
   title: Container(
-    height: 42,
+    height: 38,
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(8),
@@ -330,9 +330,10 @@ onBuyNow: () {
   hintText: "TEST 90 - Search",
   prefixIcon: const Icon(Icons.search),
   border: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(25),
+    borderRadius: BorderRadius.circular(8),
     borderSide: BorderSide(
-      color: Colors.grey.shade300,
+  color: Colors.grey,
+  width: 1.2,
     ),
   ),
   contentPadding: EdgeInsets.zero,
@@ -392,7 +393,7 @@ onBuyNow: () {
 Widget categoryChip(String title) {
   return Padding(
     padding: const EdgeInsets.only(right: 10),
-    child: Container(
+    child:  Container(
       padding: EdgeInsets.symmetric(
   horizontal: categoryHeight == 38 ? 12 : 16,
   vertical: categoryHeight == 38 ? 6 : 10,
