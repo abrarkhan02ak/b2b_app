@@ -70,6 +70,7 @@ final List<CartItem> cartItems = [];
   final List<WishlistItem> wishlistItems = [];
 
   String searchText = "";
+  String selectedCategory = "All";
 
   void addToCart(CartItem newItem) {
     setState(() {
@@ -418,32 +419,46 @@ onBuyNow: () {
 Widget categoryChip(String title) {
   return Padding(
     padding: const EdgeInsets.only(right: 10),
-    child:  Container(
-      padding: EdgeInsets.symmetric(
-  horizontal: categoryHeight == 38 ? 12 : 16,
-  vertical: categoryHeight == 38 ? 6 : 10,
-),
-      decoration: BoxDecoration(
-  color: categoryHeight == 38
-      ? Colors.grey.shade50
-      : Colors.blue.shade50,
-  borderRadius: BorderRadius.circular(25),
-  border: Border.all(
-    color: categoryHeight == 38
-        ? Colors.grey.shade300
-        : Colors.blue.shade200,
-  ),
-),
-      child: Text(
-        title,
-        style: TextStyle(
-  fontSize: categoryFontSize,
-  fontWeight: FontWeight.w600,
-),
+    child: GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedCategory = title;
+        });
+      },
+      child: Container(
+        height: 38,
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        decoration: BoxDecoration(
+          color: selectedCategory == title
+              ? Colors.blue
+              : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: selectedCategory == title
+                ? Colors.blue
+                : Colors.grey.shade300,
+          ),
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 5,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: selectedCategory == title
+                  ? Colors.white
+                  : Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
       ),
     ),
   );
 }
-
 }
-
