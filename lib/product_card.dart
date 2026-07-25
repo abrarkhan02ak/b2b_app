@@ -57,10 +57,10 @@ class ProductCard extends StatelessWidget {
                 children: [
 
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(16),
                     child: Image.asset(
                       image,
-                      height: 170,
+                      height: 185,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -111,7 +111,7 @@ class ProductCard extends StatelessWidget {
               Text(
                 name,
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -119,11 +119,11 @@ class ProductCard extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 "MRP: ₹$originalPrice",
-                style: const TextStyle(
-                  decoration: TextDecoration.lineThrough,
-                  color: Colors.grey,
-                  fontSize: 14,
-                ),
+                style: TextStyle(
+  decoration: TextDecoration.lineThrough,
+  color: Colors.grey.shade600,
+  fontSize: 13,
+),
               ),
 
               const SizedBox(height: 4),
@@ -199,17 +199,17 @@ class ProductCard extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: stock > 0 ? onTap : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.deepOrange,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                   ),
                   child: const Text(
                     "Buy Now",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

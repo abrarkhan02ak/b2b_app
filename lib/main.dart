@@ -109,9 +109,11 @@ final List<CartItem> cartItems = [];
       toggleWishlist: toggleWishlist,
     ),
 
-    CartScreen(
-      cartItems: cartItems,
-    ),
+    HomeV2(
+  cartItems: cartItems,
+  wishlistItems: wishlistItems,
+  toggleWishlist: toggleWishlist,
+),
 
     WishlistScreen(
       wishlistItems: wishlistItems,
@@ -418,6 +420,8 @@ onBuyNow: () {
       body: currentIndex == 0
     ? HomeV2(
         cartItems: cartItems,
+        wishlistItems: wishlistItems,
+        toggleWishlist: toggleWishlist,
       )
     : pages[currentIndex],
 
