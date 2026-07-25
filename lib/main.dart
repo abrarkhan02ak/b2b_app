@@ -310,12 +310,13 @@ onBuyNow: () {
   title: Container(
     height: 38,
     decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(
-        color: Colors.grey.shade300,
-      ),
-    ),
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(8),
+  border: Border.all(
+    color: Colors.grey.shade600,
+    width: 1.3,
+  ),
+),
     child: Row(
       children: [
 
