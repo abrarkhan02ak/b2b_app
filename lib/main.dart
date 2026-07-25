@@ -13,6 +13,7 @@ import 'profile_screen.dart';
 import 'order_data.dart';
 import 'wishlist_screen.dart';
 import 'package:marquee/marquee.dart';
+import 'home_v2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -123,6 +124,10 @@ final List<CartItem> cartItems = [];
   ];
 
 
+
+
+
+
   Widget homeContent() {
 
     final filteredProducts = products.where((product) {
@@ -171,7 +176,26 @@ final List<CartItem> cartItems = [];
   ),
 ),
 
-        AnimatedContainer(
+Padding(
+  padding: const EdgeInsets.only(
+    left: 8,
+    right: 8,
+    bottom: 8,
+  ),
+  child: SizedBox(
+    height: 110,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        hotDealCard("🔥 Face Cream", "₹120", "30% OFF"),
+        hotDealCard("🔥 Shampoo", "₹99", "25% OFF"),
+        hotDealCard("🔥 Soap Pack", "₹180", "40% OFF"),
+      ],
+    ),
+  ),
+),
+       
+ AnimatedContainer(
   duration: const Duration(milliseconds: 400),
   height: categoryHeight,
   decoration: BoxDecoration(
@@ -392,8 +416,10 @@ onBuyNow: () {
 
 
       body: currentIndex == 0
-          ? homeContent()
-          : pages[currentIndex],
+    ? HomeV2(
+        cartItems: cartItems,
+      )
+    : pages[currentIndex],
 
 
       bottomNavigationBar: BottomNav(
@@ -414,7 +440,65 @@ onBuyNow: () {
 
     );
 
- }  
+ } 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+Widget hotDealCard(String name, String price, String offer) {
+  return Container(
+    width: 170,
+    margin: const EdgeInsets.only(right: 10),
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.red.shade50,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: Colors.red.shade300),
+      boxShadow: const [
+        BoxShadow(
+          blurRadius: 5,
+          offset: Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          offer,
+          style: const TextStyle(
+            color: Colors.red,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          name,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const Spacer(),
+        Text(
+          price,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
 Widget categoryChip(String title) {
   return Padding(
