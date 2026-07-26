@@ -381,7 +381,7 @@ const EdgeInsets.symmetric(
 
       SizedBox(
 
-        height: 120,
+        height: 190,
 
         child: ListView(
 
@@ -412,11 +412,6 @@ const EdgeInsets.symmetric(
             ),
 
 
-            dealCard(
-              "Soap Pack",
-              "40% OFF",
-              "₹180",
-            ),
 
 
           ],
@@ -471,7 +466,7 @@ const EdgeInsets.symmetric(
 
       SizedBox(
 
-        height: 45,
+        height: 40,
 
         child: ListView(
 
@@ -486,7 +481,7 @@ const EdgeInsets.symmetric(
 
           children: [
 
-            categoryChip("⭐ All"),
+            categoryChip("  ^p All", active: true),       
 
             categoryChip("💄 Cosmetics"),
 
@@ -950,7 +945,7 @@ Widget _featureCard(
 
   return Container(
 
-    width: 180,
+    width: 200,
 
     margin:
     const EdgeInsets.only(right: 10),
@@ -1028,7 +1023,7 @@ Widget dealCard(
 
   return Container(
 
-    width: 180,
+    width: 170,
 
     margin: const EdgeInsets.only(right: 12),
 
@@ -1069,8 +1064,8 @@ Widget dealCard(
 
           padding:
           const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 4,
+            horizontal: 10,
+            vertical: 6,
           ),
 
           decoration: BoxDecoration(
@@ -1121,7 +1116,7 @@ Widget dealCard(
 
         ),
 
-      const SizedBox(height: 6),
+      const SizedBox(height: 12),
         const Spacer(),
 
 
@@ -1191,40 +1186,28 @@ Widget dealCard(
 
 }
 
-Widget categoryChip(String text) {
+Widget categoryChip(String text, {bool active = false}) {
 
   return Container(
 
-    margin: const EdgeInsets.only(right: 10),
+    margin: const EdgeInsets.only(right: 6),
 
     padding: const EdgeInsets.symmetric(
   horizontal: 18,
-  vertical: 10,
+  vertical: 7,
 ),
 
     decoration: BoxDecoration(
 
-  color: Colors.white,
+  color: active ? Colors.deepOrange : Colors.white,
 
   borderRadius: BorderRadius.circular(24),
 
   border: Border.all(
 
-    color: Colors.grey.shade200,
+    color: active ? Colors.deepOrange : Colors.grey.shade200,
 
   ),
-
-  boxShadow: const [
-
-    BoxShadow(
-
-      blurRadius: 6,
-
-      offset: Offset(0, 2),
-
-    ),
-
-  ],
 
 ),
 
@@ -1234,13 +1217,13 @@ Widget categoryChip(String text) {
 
         text,
 
-        style: const TextStyle(
+        style: TextStyle(
 
-  fontSize: 14,
+  fontSize: 13,
 
   fontWeight: FontWeight.w600,
 
-  color: Colors.black87,
+  color: active ? Colors.white : Colors.black87,
 
 ),
 
