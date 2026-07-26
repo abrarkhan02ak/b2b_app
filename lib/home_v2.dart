@@ -4,7 +4,6 @@ import 'cart_screen.dart';
 import 'my_orders_screen.dart';
 import 'product_card.dart';
 import 'data/product_data.dart';
-import 'models/product.dart';
 
 
 class HomeV2 extends StatefulWidget {
