@@ -514,7 +514,7 @@ const Padding(
 
     child: Text(
 
-      "🔥 Popular Products",
+      "🔥ak  Popular Products",
 
       style: TextStyle(
 
