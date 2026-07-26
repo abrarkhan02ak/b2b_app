@@ -226,13 +226,15 @@ class _HomeV2State extends State<HomeV2> {
 
   Container(
 
-  margin: const EdgeInsets.symmetric(
-    horizontal: 12,
+  margin: const EdgeInsets.fromLTRB(
+  12, 8, 12, 0,
+),
+
+  padding: const EdgeInsets.symmetric(
+  horizontal: 20,
+  vertical: 18,
   ),
-
-  padding: const EdgeInsets.all(22),
-
-  height: 110,
+  height: 140,
 
   decoration: BoxDecoration(
 
@@ -255,12 +257,11 @@ class _HomeV2State extends State<HomeV2> {
 
   child: Row(
 
-    mainAxisAlignment:
-    MainAxisAlignment.spaceBetween,
 
     children: [
 
-      const Column(
+      Expanded(
+      child: Column(
 
         crossAxisAlignment:
         CrossAxisAlignment.start,
@@ -275,7 +276,7 @@ class _HomeV2State extends State<HomeV2> {
 
               color: Colors.white,
 
-              fontSize: 26,
+              fontSize: 22,
 
               fontWeight:
               FontWeight.bold,
@@ -294,7 +295,7 @@ class _HomeV2State extends State<HomeV2> {
 
               color: Colors.white,
 
-              fontSize: 15,
+              fontSize: 14,
 
             ),
 
@@ -304,35 +305,31 @@ class _HomeV2State extends State<HomeV2> {
 
       ),
 
-
+   ),
       Container(
 
         padding:
-        const EdgeInsets.all(12),
-
+const EdgeInsets.symmetric(
+  horizontal: 12,
+  vertical: 10,
+),
         decoration: BoxDecoration(
 
           color: Colors.white,
 
           borderRadius:
-          BorderRadius.circular(14),
+          BorderRadius.circular(12),
 
         ),
 
-        child: const Text(
-
-          "50% OFF",
-
-          style: TextStyle(
-
-            color: Colors.deepOrange,
-
-            fontWeight:
-            FontWeight.bold,
-
-          ),
-
-        ),
+          child: const Text(
+  "50% OFF",
+  style: TextStyle(
+    color: Colors.deepOrange,
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+  ),
+),
 
       ),
 
