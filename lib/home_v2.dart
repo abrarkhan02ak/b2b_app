@@ -231,7 +231,7 @@ class _HomeV2State extends State<HomeV2> {
     horizontal: 12,
   ),
 
-  padding: const EdgeInsets.all(16),
+  padding: const EdgeInsets.all(22),
 
   height: 110,
 
@@ -250,7 +250,7 @@ class _HomeV2State extends State<HomeV2> {
     ),
 
     borderRadius:
-    BorderRadius.circular(18),
+    BorderRadius.circular(24),
 
   ),
 
@@ -276,7 +276,7 @@ class _HomeV2State extends State<HomeV2> {
 
               color: Colors.white,
 
-              fontSize: 20,
+              fontSize: 26,
 
               fontWeight:
               FontWeight.bold,
@@ -295,7 +295,7 @@ class _HomeV2State extends State<HomeV2> {
 
               color: Colors.white,
 
-              fontSize: 14,
+              fontSize: 15,
 
             ),
 
@@ -683,15 +683,18 @@ products.length > 6 ? 6 : products.length,
 
 const SizedBox(height: 10),
 
-TextButton(
+Center(
+  child: TextButton(
   onPressed: () {
     // open all products later
   },
   child: const Text(
     "View All Products →",
     style: TextStyle(
-      fontSize: 16,
+      fontSize: 15,
       fontWeight: FontWeight.bold,
+      color: Colors.deepOrange,
+      ),
     ),
   ),
 ),
@@ -716,9 +719,10 @@ const Padding(
 
       style: TextStyle(
 
-        fontSize: 18,
+        fontSize: 20,
 
         fontWeight: FontWeight.bold,
+        color: Colors.black87,
 
       ),
 
@@ -950,13 +954,13 @@ Widget _featureCard(
 
   return Container(
 
-    width: 170,
+    width: 180,
 
     margin:
     const EdgeInsets.only(right: 10),
 
     padding:
-    const EdgeInsets.all(16),
+    const EdgeInsets.all(18),
 
     decoration: BoxDecoration(
 
@@ -1000,6 +1004,7 @@ Widget _featureCard(
           style: const TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.bold,
+  color: Colors.black87,
 ),
         ),
 
@@ -1027,11 +1032,11 @@ Widget dealCard(
 
   return Container(
 
-    width: 170,
+    width: 180,
 
     margin: const EdgeInsets.only(right: 12),
 
-    padding: const EdgeInsets.all(14),
+    padding: const EdgeInsets.all(16),
 
     decoration: BoxDecoration(
 
@@ -1088,12 +1093,12 @@ Widget dealCard(
 
             style: const TextStyle(
 
-              color: Colors.red,
+              color: Colors.deepOrange,
 
               fontWeight:
               FontWeight.bold,
 
-              fontSize: 12,
+              fontSize: 13,
 
             ),
 
@@ -1120,7 +1125,7 @@ Widget dealCard(
 
         ),
 
-
+      const SizedBox(height: 6),
         const Spacer(),
 
 
