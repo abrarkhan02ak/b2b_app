@@ -351,28 +351,26 @@ const EdgeInsets.symmetric(
           horizontal: 12,
         ),
 
-        child: Align(
-
-          alignment: Alignment.centerLeft,
-
-          child: Text(
-
-            "🔥 Today's Deals",
-
-            style: TextStyle(
-
-              fontSize: 18,
-
-              fontWeight: FontWeight.bold,
-
-            ),
-
-          ),
-
-        ),
-
+        child: Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Text(
+      "🔥 Today's Deals",
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
       ),
-
+    ),
+    Text(
+      "View All",
+      style: TextStyle(
+        color: Colors.deepOrange,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ],
+),
+),
 
 
       const SizedBox(height: 10),
@@ -1025,7 +1023,7 @@ Widget dealCard(
 
     width: 170,
 
-    margin: const EdgeInsets.only(right: 12),
+    margin: const EdgeInsets.only(right: 16),
 
     padding: const EdgeInsets.all(16),
 
@@ -1034,17 +1032,16 @@ Widget dealCard(
       color: Colors.white,
 
       borderRadius:
-      BorderRadius.circular(18),
+      BorderRadius.circular(20),
 
       boxShadow: const [
 
         BoxShadow(
-
-          blurRadius: 8,
-
-          offset: Offset(0, 3),
-
-        ),
+  color: Colors.black12,
+  blurRadius: 12,
+  spreadRadius: 1,
+  offset: Offset(0, 4),
+),
 
       ],
 
@@ -1145,7 +1142,7 @@ Widget dealCard(
 
           padding:
           const EdgeInsets.symmetric(
-            vertical: 6,
+            vertical: 10,
           ),
 
           decoration: BoxDecoration(
@@ -1153,7 +1150,7 @@ Widget dealCard(
             color: Colors.orange,
 
             borderRadius:
-            BorderRadius.circular(10),
+            BorderRadius.circular(14),
 
           ),
 
