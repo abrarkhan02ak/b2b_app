@@ -1187,24 +1187,30 @@ Widget categoryChip(String text, {bool active = false}) {
 
   return Container(
 
-    margin: const EdgeInsets.only(right: 6),
+    margin: const EdgeInsets.only(right: 10),
 
     padding: const EdgeInsets.symmetric(
-  horizontal: 18,
-  vertical: 7,
+  horizontal: 22,
+  vertical: 10,
 ),
 
     decoration: BoxDecoration(
 
   color: active ? Colors.deepOrange : Colors.white,
 
-  borderRadius: BorderRadius.circular(24),
+  borderRadius: BorderRadius.circular(30),
 
   border: Border.all(
+  color: active ? Colors.deepOrange : Colors.grey.shade200,
+),
 
-    color: active ? Colors.deepOrange : Colors.grey.shade200,
-
+boxShadow: [
+  BoxShadow(
+    color: Colors.black12,
+    blurRadius: 8,
+    offset: Offset(0, 2),
   ),
+],
 
 ),
 
