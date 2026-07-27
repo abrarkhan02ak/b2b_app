@@ -10,6 +10,7 @@ class Order {
   final String ownerName;
   final String mobile;
   final String address;
+  final String paymentMethod;
   final DateTime date;
 
   Order({
@@ -21,7 +22,8 @@ class Order {
     required this.ownerName,
     required this.mobile,
     required this.address,
-    required this.date,
+    required this.paymentMethod,
+    required this.date, 
   });
 
   Map<String, dynamic> toMap() {
@@ -33,7 +35,8 @@ class Order {
       'shopName': shopName,
       'ownerName': ownerName,
       'mobile': mobile,
-      'address': address,
+       'address': address,
+      'paymentMethod': paymentMethod,
       'date': date.toIso8601String(),
     };
   }
@@ -49,6 +52,7 @@ factory Order.fromMap(Map<String, dynamic> map) {
     ownerName: map['ownerName'],
     mobile: map['mobile'],
     address: map['address'],
+    paymentMethod: map['paymentMethod'] ?? 'Cash on Delivery',
     date: DateTime.parse(map['date']),
   );
 }

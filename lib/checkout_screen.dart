@@ -19,6 +19,8 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
 
+  String selectedPayment = "Cash on Delivery";  
+
   final TextEditingController shopController =
       TextEditingController();
 
@@ -101,6 +103,49 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   "Total Amount: ₹${widget.totalAmount.toStringAsFixed(2)}",
             ),
 
+    const SizedBox(height: 20),
+
+const Text(
+  "Payment Method",
+  style: TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  ),
+),
+
+RadioListTile(
+  title: const Text("Cash on Delivery"),
+  value: "Cash on Delivery",
+  groupValue: selectedPayment,
+  onChanged: (value) {
+    setState(() {
+      selectedPayment = value!;
+    });
+  },
+),
+
+RadioListTile(
+  title: const Text("UPI Payment"),
+  value: "UPI Payment",
+  groupValue: selectedPayment,
+  onChanged: (value) {
+    setState(() {
+      selectedPayment = value!;
+    });
+  },
+),
+
+RadioListTile(
+  title: const Text("Bank Transfer"),
+  value: "Bank Transfer",
+  groupValue: selectedPayment,
+  onChanged: (value) {
+    setState(() {
+      selectedPayment = value!;
+    });
+  },
+),
+
             const Spacer(),
 
             SizedBox(
@@ -115,6 +160,7 @@ if (shopController.text.trim().isEmpty ||
     const SnackBar(
       content: Text("Please fill all details"),
     ),
+
   );
   return;
 }
@@ -128,6 +174,7 @@ millisecondsSinceEpoch.toString(),
   ownerName: ownerController.text,
   mobile: mobileController.text,
   address: addressController.text,
+  paymentMethod: selectedPayment,
   date: DateTime.now(),
 );
  orders.add(order);

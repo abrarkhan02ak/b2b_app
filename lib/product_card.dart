@@ -40,11 +40,12 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(18),
       child: Card(
         elevation: 6,
+        shadowColor: Colors.black12,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
         ),
         margin: const EdgeInsets.all(8),
         child: Padding(
@@ -57,10 +58,10 @@ class ProductCard extends StatelessWidget {
                 children: [
 
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(14),
                     child: Image.asset(
                       image,
-                      height: 185,
+                      height: 140,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -91,8 +92,8 @@ class ProductCard extends StatelessWidget {
                     ),
 
                   Positioned(
-                    top: 0,
-                    right: 0,
+                    top: 2,
+                    right: 2,
                     child: IconButton(
                       onPressed: onWishlist,
                       icon: Icon(
@@ -106,33 +107,36 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
 
               Text(
                 name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
+                  height: 1.3,
                 ),
               ),
+              const SizedBox(height: 6),
 
-              const SizedBox(height: 8),
               Text(
                 "MRP: ₹$originalPrice",
                 style: TextStyle(
-  decoration: TextDecoration.lineThrough,
-  color: Colors.grey.shade600,
-  fontSize: 13,
-),
+                  decoration: TextDecoration.lineThrough,
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
               ),
 
               const SizedBox(height: 4),
 
               Text(
-                "Offer Price: ₹$price",
+                "₹$price",
                 style: const TextStyle(
-                  color: Colors.green,
-                  fontSize: 16,
+                  color: Colors.deepOrange,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -142,8 +146,9 @@ class ProductCard extends StatelessWidget {
               Text(
                 offerText,
                 style: const TextStyle(
-                  color: Colors.orange,
+                  color: Colors.green,
                   fontWeight: FontWeight.w600,
+                  fontSize: 13,
                 ),
               ),
 
@@ -163,59 +168,48 @@ class ProductCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const Spacer(),
+                  Text(
+                    packSize,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               ),
 
-              const SizedBox(height: 8),
+              const SizedBox(height: 6),
 
               Text(
-                "Pack Size : $packSize",
+                "MOQ: $moq",
                 style: const TextStyle(
                   color: Colors.blueGrey,
-                ),
-              ),
-
-              Text(
-                "MOQ : $moq",
-                style: const TextStyle(
-                  color: Colors.deepPurple,
+                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
               ),
 
-              const SizedBox(height: 8),
-
-              Text(
-                stock > 0 ? "🟢 In Stock" : "🔴 Out of Stock",
-                style: TextStyle(
-                  color: stock > 0 ? Colors.green : Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              const SizedBox(height: 14),
-              SizedBox(
+              const Spacer(),
+              Container(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: stock > 0 ? onTap : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepOrange,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  child: const Text(
-                    "Buy Now",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Text(
+                  "Buy Now",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
                   ),
                 ),
               ),
-
             ],
           ),
         ),

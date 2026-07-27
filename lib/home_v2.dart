@@ -512,7 +512,7 @@ const Padding(
 
     child: Text(
 
-      "🔥ak  Popular Products",
+     " Popular Products",
 
       style: TextStyle(
 
@@ -559,7 +559,7 @@ products.length > 6 ? 6 : products.length,
 
     mainAxisSpacing: 12,
 
-    childAspectRatio: 0.62,
+    childAspectRatio: 0.68,
 
   ),
 
