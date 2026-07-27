@@ -342,77 +342,8 @@ const EdgeInsets.symmetric(
       const SizedBox(height: 15),
 
 
-  // Categories
 
-      const Padding(
-
-        padding: EdgeInsets.symmetric(
-          horizontal: 12,
-        ),
-                                                                                    child: Align(
-
-          alignment:                                                                  Alignment.centerLeft,
-                                                                                      child: Text(
-
-            "Shop By Category",
-
-            style: TextStyle(
-
-              fontSize: 18,
-
-              fontWeight:
-              FontWeight.bold,
-
-            ),
-
-          ),
-
-        ),
-
-      ),
-
-
-
-      const SizedBox(height: 10),
-
-
-
-      SizedBox(
-
-        height: 40,
-
-        child: ListView(
-
-          scrollDirection:
-          Axis.horizontal,
-
-          padding:
-          const EdgeInsets.symmetric(
-            horizontal: 12,
-          ),
-
-
-          children: [
-
-            categoryChip("  ^p All", active: true),
-
-            categoryChip("💄 Cosmetics"),
-
-            categoryChip("🥫 Kirana"),
-
-            categoryChip("🧴 Personal Care"),
-
-            categoryChip("🍫 Snacks"),
-
-          ],
-
-
-        ),
-
-      ),
-    const SizedBox(height: 20),
-
-    // Today's Deals Title
+      // Today's Deals Title
 
       const Padding(
 
@@ -491,6 +422,82 @@ const EdgeInsets.symmetric(
 
       const SizedBox(height: 15),
 
+
+
+      // Categories
+
+      const Padding(
+
+        padding: EdgeInsets.symmetric(
+          horizontal: 12,
+        ),
+
+        child: Align(
+
+          alignment:
+          Alignment.centerLeft,
+
+          child: Text(
+
+            "Shop By Category",
+
+            style: TextStyle(
+
+              fontSize: 18,
+
+              fontWeight:
+              FontWeight.bold,
+
+            ),
+
+          ),
+
+        ),
+
+      ),
+
+
+
+      const SizedBox(height: 10),
+
+
+
+      SizedBox(
+
+        height: 40,
+
+        child: ListView(
+
+          scrollDirection:
+          Axis.horizontal,
+
+          padding:
+          const EdgeInsets.symmetric(
+            horizontal: 12,
+          ),
+
+
+          children: [
+
+            categoryChip("  ^p All", active: true),       
+
+            categoryChip("💄 Cosmetics"),
+
+            categoryChip("🥫 Kirana"),
+
+            categoryChip("🧴 Personal Care"),
+
+            categoryChip("🍫 Snacks"),
+
+          ],
+
+
+        ),
+
+      ),
+
+
+const SizedBox(height: 20),
 
 
 const Padding(

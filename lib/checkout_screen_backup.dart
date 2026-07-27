@@ -53,112 +53,55 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
             ),
 
-const Text(
-  "Delivery Details",
-  style: TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-  ),
-),
-
-const SizedBox(height: 12),
-
-        Container(
-  padding: const EdgeInsets.all(16),
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(16),
-    border: Border.all(
-      color: Colors.grey.shade300,
-    ),
-  ),
-
-child: Column(
-  children: [
-
-    TextField(
-      controller: shopController,
-      decoration: const InputDecoration(
-        labelText: "Shop Name",
-        border: OutlineInputBorder(),
-      ),
-    ),
-
-    const SizedBox(height: 15),
-
-    TextField(
-      controller: ownerController,
-      decoration: const InputDecoration(
-        labelText: "Owner Name",
-        border: OutlineInputBorder(),
-      ),
-    ),
-
-  ],
-),
-),
             const SizedBox(height: 20),
 
- Container(
-  width: double.infinity,
-  padding: const EdgeInsets.all(16),
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(16),
-    color: Colors.grey.shade100,
-  ),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-
-      const Text(
-        "Order Summary",
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-
-      const SizedBox(height: 12),
-
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Total Items",
-            style: TextStyle(fontSize: 16),
-          ),
-          Text(
-            "${widget.cartItems.length}",
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+            TextField(
+              controller: shopController,
+              decoration: const InputDecoration(
+                labelText: "Shop Name",
+                border: OutlineInputBorder(),
+              ),
             ),
-          ),
-        ],
-      ),
 
-      const SizedBox(height: 10),
+            const SizedBox(height: 15),
 
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Total Amount",
-            style: TextStyle(fontSize: 16),
-          ),
-          Text(
-            "Rs ${widget.totalAmount.toStringAsFixed(2)}",
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+            TextField(
+              controller: ownerController,
+              decoration: const InputDecoration(
+                labelText: "Owner Name",
+                border: OutlineInputBorder(),
+              ),
             ),
-          ),
-        ],
-      ),
 
-    ],
-  ),
-),
+            const SizedBox(height: 15),
 
+            TextField(
+              controller: mobileController,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(
+                labelText: "Mobile Number",
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            TextField(
+              controller: addressController,
+              maxLines: 3,
+              decoration: const InputDecoration(
+                labelText: "Address",
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+ Text("Total Items: ${widget.cartItems.length}"),
+
+  Text(
+  "Total Amount:  Rs¹${widget.totalAmount.toStringAsFixed(2)}",
+            ),
 
     const SizedBox(height: 20),
 
