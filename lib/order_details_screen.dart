@@ -14,53 +14,212 @@ class OrderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Order Details"),
+        title: const Text(
+          "Order Details",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: ListView(
-          children: [
+      body: ListView(
+        padding: const EdgeInsets.all(16),
 
-            Text("Order ID: ${order.orderId}"),
-            Text("Shop: ${order.shopName}"),
-            Text("Owner: ${order.ownerName}"),
-            Text("Mobile: ${order.mobile}"),
-            Text("Address: ${order.address}"),
-    Text("Status: ${getOrderStatus(order)}"),
+        children: [
 
-            const SizedBox(height: 15),
-
-            const Text(
-              "Products",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+          // Order Summary
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey.shade100,
             ),
 
-            ...order.products.map(
-              (item) => Card(
-                child: ListTile(
-                  title: Text(item.name),
-                  subtitle: Text(
-     "Qty: ${item.quantity}   Price: Rs. ${item.price}",
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+              children: [
+
+                Text(
+                  "Order #${order.orderId}",
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
+
+                const SizedBox(height: 10),
+
+                Chip(
+                  label: Text(
+                    getOrderStatus(order),
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                Text(
+                  "Date: ${order.date.day}-${order.date.month}-${order.date.year}",
+                ),
+
+              ],
+            ),
+          ),
+
+
+          const SizedBox(height: 16),
+
+
+          // Customer Details
+          const Text(
+            "Customer Details",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          Container(
+            padding: const EdgeInsets.all(16),
+
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(20),
+
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 8,
+                ),
+              ],
+
+              color: Colors.white,
             ),
 
-            const SizedBox(height: 15),
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
 
-            Text(
-              "Total: Rs. ${order.totalAmount}",
+              children: [
+
+                Text(
+                  "Shop: ${order.shopName}",
+                ),
+
+                Text(
+                  "Owner: ${order.ownerName}",
+                ),
+
+                Text(
+                  "Mobile: ${order.mobile}",
+                ),
+
+                Text(
+                  "Address: ${order.address}",
+                ),
+
+              ],
+            ),
+          ),
+
+
+          const SizedBox(height: 20),
+
+
+          const Text(
+            "Products",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+
+          const SizedBox(height: 10),
+
+
+          ...order.products.map(
+            (item) => Container(
+
+              margin:
+                  const EdgeInsets.only(bottom: 10),
+
+              padding:
+                  const EdgeInsets.all(14),
+
+              decoration: BoxDecoration(
+                color: Colors.white,
+
+                borderRadius:
+                    BorderRadius.circular(16),
+
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 6,
+                  ),
+                ],
+              ),
+
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+
+                children: [
+
+                  Expanded(
+                    child: Text(
+                      item.name,
+                      style: const TextStyle(
+                        fontWeight:
+                            FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
+                  Text(
+                    "Qty ${item.quantity}",
+                  ),
+
+                  const SizedBox(width: 10),
+
+                  Text(
+                    "Rs ${item.price}",
+                  ),
+
+                ],
+              ),
+            ),
+          ),
+
+
+          const SizedBox(height: 20),
+
+
+          Container(
+            padding: const EdgeInsets.all(18),
+
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(20),
+
+              color: Colors.grey.shade100,
+            ),
+
+            child: Text(
+              "Total Amount: Rs ${order.totalAmount}",
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ),
+          ),
+
+        ],
       ),
     );
   }

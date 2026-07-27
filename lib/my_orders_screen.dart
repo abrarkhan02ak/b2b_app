@@ -10,55 +10,164 @@ class MyOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Orders"),
+        title: const Text(
+          "My Orders",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
 
       body: orders.isEmpty
           ? const Center(
-              child: Text("No Orders Found"),
+              child: Text(
+                "No Orders Found",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
             )
+
           : ListView.builder(
+              padding: const EdgeInsets.all(12),
               itemCount: orders.length,
+
               itemBuilder: (context, index) {
+
                 final order = orders[index];
 
-                return Card(
-                  margin: const EdgeInsets.all(10),
-                  child: ListTile(
-onTap: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-   builder: (context) => OrderDetailsScreen(order: order),
-    ),
-  );
-},
-                    title: Text(
-                      "Order ID: ${order.orderId}",
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            OrderDetailsScreen(order: order),
+                      ),
+                    );
+                  },
+
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      bottom: 16,
                     ),
 
-                    subtitle: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
+                    padding: const EdgeInsets.all(16),
+
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+
+                      borderRadius:
+                          BorderRadius.circular(20),
+
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
+                    ),
+
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+
                       children: [
-                        Text(
-                          "Shop: ${order.shopName}",
+
+                        Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+
+                          children: [
+
+                            Text(
+                              "Order #${order.orderId}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight:
+                                    FontWeight.bold,
+                              ),
+                            ),
+
+                            Chip(
+                              label: Text(
+                                getOrderStatus(order),
+                              ),
+                            ),
+                          ],
                         ),
 
-                        Text(
-                          "Owner: ${order.ownerName}",
+                        const Divider(),
+
+                        Row(
+                          children: [
+
+                            const Icon(
+                              Icons.store,
+                              size: 20,
+                            ),
+
+                            const SizedBox(width: 8),
+
+                            Text(
+                              order.shopName,
+                              style:
+                                  const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
 
-                        Text(
-             "Amount: Rs. ${order.totalAmount}",
+                        const SizedBox(height: 8),
+
+                        Row(
+                          children: [
+
+                            const Icon(
+                              Icons.person,
+                              size: 20,
+                            ),
+
+                            const SizedBox(width: 8),
+
+                            Text(
+                              order.ownerName,
+                            ),
+                          ],
                         ),
 
-                        Text(
-           "Status: ${getOrderStatus(order)}",
-                        ),
+                        const SizedBox(height: 12),
 
                         Text(
- "Date: ${order.date.day}-${order.date.month}-${order.date.year}",
+                          "Amount: Rs ${order.totalAmount}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight:
+                                FontWeight.bold,
+                          ),
                         ),
+
+                        const SizedBox(height: 8),
+
+                        Row(
+                          children: [
+
+                            const Icon(
+                              Icons.calendar_month,
+                              size: 18,
+                            ),
+
+                            const SizedBox(width: 6),
+
+                            Text(
+             "${order.date.day}-${order.date.month}-${order.date.year}",
+                            ),
+                          ],
+                        ),
+
                       ],
                     ),
                   ),
