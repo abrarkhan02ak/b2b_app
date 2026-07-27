@@ -684,6 +684,39 @@ Center(
 const SizedBox(height: 20),
 
 
+const Padding(
+  padding: EdgeInsets.symmetric(horizontal: 12),
+  child: Align(
+    alignment: Alignment.centerLeft,
+    child: Text(
+      "🏷 Top Brands",
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
+),
+
+const SizedBox(height: 12),
+
+SizedBox(
+  height: 90,
+  child: ListView(
+    scrollDirection: Axis.horizontal,
+    padding: EdgeInsets.symmetric(horizontal: 12),
+    children: [
+      brandCard("HUL", Colors.blue),
+      brandCard("P&G", Colors.deepPurple),
+      brandCard("ITC", Colors.green),
+      brandCard("Dabur", Colors.orange),
+      brandCard("Nestlé", Colors.red),
+    ],
+  ),
+),
+
+const SizedBox(height: 20),
+
 
 const Padding(
 
@@ -761,160 +794,217 @@ const SizedBox(height: 20),
 
 
 const Padding(
-
-  padding: EdgeInsets.symmetric(
-    horizontal: 12,
-  ),
-
+  padding: EdgeInsets.symmetric(horizontal: 12),
   child: Align(
-
     alignment: Alignment.centerLeft,
-
     child: Text(
-
-      "🔥 Today's Deals",
-
+      "⭐ Recommended For You",
       style: TextStyle(
-
-        fontSize: 18,
-
+        fontSize: 20,
         fontWeight: FontWeight.bold,
-
       ),
-
     ),
-
   ),
-
 ),
 
+const SizedBox(height: 14),
 
-const SizedBox(height: 10),
+GridView.builder(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  padding: const EdgeInsets.symmetric(horizontal: 12),
+  itemCount: products.length > 4 ? 4 : products.length,
+  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    crossAxisSpacing: 12,
+    mainAxisSpacing: 12,
+    childAspectRatio: 0.50,
+  ),
+  itemBuilder: (context, index) {
+    final product = products[(index + 2) % products.length];
 
+    return ProductCard(
+      code: product.code,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      stock: product.stock,
+      rating: product.rating,
+      originalPrice: product.originalPrice,
+      discountPercent: product.discountPercent,
+      offerText: product.offerText,
+      packSize: product.packSize,
+      moq: product.moq,
+      onAdd: () {
+        widget.cartItems.add(
+          CartItem(
+            code: product.code,
+            name: product.name,
+            price: product.price,
+            quantity: 1,
+          ),
+        );
+        setState(() {});
+      },
+      onWishlist: () {
+        widget.toggleWishlist(
+          WishlistItem(
+            code: product.code,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+          ),
+        );
+      },
+      isWishlisted: widget.wishlistItems.any(
+        (item) => item.code == product.code,
+      ),
+      onTap: () {},
+    );
+  },
+),
+
+const SizedBox(height: 20),
+
+
+const Padding(
+  padding: EdgeInsets.symmetric(horizontal: 12),
+  child: Align(
+    alignment: Alignment.centerLeft,
+    child: Text(
+      "💬 Customer Reviews",
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
+),
+
+const SizedBox(height: 12),
 
 Container(
-
-  margin: const EdgeInsets.symmetric(
-    horizontal: 12,
-  ),
-
+  margin: const EdgeInsets.symmetric(horizontal: 12),
   padding: const EdgeInsets.all(16),
-
-
   decoration: BoxDecoration(
-
-    gradient: const LinearGradient(
-
-      colors: [
-
-        Colors.orange,
-
-        Colors.deepOrange,
-
-      ],
-
-    ),
-
-    borderRadius:
-    BorderRadius.circular(18),
-
-  ),
-
-
-  child: Row(
-
-    mainAxisAlignment:
-    MainAxisAlignment.spaceBetween,
-
-
-    children: [
-
-      Column(
-
-        crossAxisAlignment:
-        CrossAxisAlignment.start,
-
-
-        children: [
-
-          const Text(
-
-            "Wholesale Mega Offer",
-
-            style: TextStyle(
-
-              color: Colors.white,
-
-              fontSize: 18,
-
-              fontWeight:
-              FontWeight.bold,
-
-            ),
-
-          ),
-
-
-          const SizedBox(height: 6),
-
-
-          const Text(
-
-            "Save more on bulk orders",
-
-            style: TextStyle(
-
-              color: Colors.white,
-
-              fontSize: 13,
-
-            ),
-
-          ),
-
-        ],
-
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(18),
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.black12,
+        blurRadius: 10,
+        offset: Offset(0, 4),
       ),
-
-
-      Container(
-
-        padding:
-        const EdgeInsets.all(12),
-
-
-        decoration: BoxDecoration(
-
-          color: Colors.white,
-
-          borderRadius:
-          BorderRadius.circular(12),
-
-        ),
-
-
-        child: const Text(
-
-          "40% OFF",
-
-          style: TextStyle(
-
-            color: Colors.deepOrange,
-
-            fontWeight:
-            FontWeight.bold,
-
-          ),
-
-        ),
-
-      ),
-
     ],
-
   ),
-
+  child: const Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "⭐⭐⭐⭐⭐",
+        style: TextStyle(fontSize: 18),
+      ),
+      SizedBox(height: 8),
+      Text(
+        "Very good wholesale prices and fast delivery. Highly recommended!",
+        style: TextStyle(fontSize: 14),
+      ),
+      SizedBox(height: 10),
+      Text(
+        "- Amit General Store",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.black54,
+        ),
+      ),
+    ],
+  ),
 ),
+
+const SizedBox(height: 20),
+
+
+
+const Padding(
+  padding: EdgeInsets.symmetric(horizontal: 12),
+  child: Align(
+    alignment: Alignment.centerLeft,
+    child: Text(
+      "📞 Need Help?",
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
+),
+
+const SizedBox(height: 12),
+
+Container(
+  margin: const EdgeInsets.symmetric(horizontal: 12),
+  padding: const EdgeInsets.all(18),
+  decoration: BoxDecoration(
+    gradient: const LinearGradient(
+      colors: [
+        Color(0xFF25D366),
+        Color(0xFF128C7E),
+      ],
+    ),
+    borderRadius: BorderRadius.circular(18),
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.black12,
+        blurRadius: 10,
+        offset: Offset(0, 4),
+      ),
+    ],
+  ),
+  child: Row(
+    children: [
+      const CircleAvatar(
+        radius: 24,
+        backgroundColor: Colors.white,
+        child: Icon(
+          Icons.support_agent,
+          color: Color(0xFF128C7E),
+          size: 28,
+        ),
+      ),
+      const SizedBox(width: 16),
+      const Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Need Help With Your Order?",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              "Our support team is ready to help you.",
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 13,
+              ),
+            ),
+          ],
+        ),
+      ),
+      ElevatedButton(
+        onPressed: null,
+        child: Text("Contact"),
+      ),
+    ],
+  ),
+),
+
+const SizedBox(height: 20),
+
 
     ],
 
@@ -1177,6 +1267,35 @@ Widget dealCard(
 
   );
 
+}
+
+Widget brandCard(String name, Color color) {
+  return Container(
+    width: 110,
+    margin: const EdgeInsets.only(right: 12),
+    decoration: BoxDecoration(
+      color: color,
+      borderRadius: BorderRadius.circular(18),
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 8,
+          offset: Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Center(
+      child: Text(
+        name,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
+      ),
+    ),
+  );
 }
 
 Widget categoryChip(String text, {bool active = false}) {
