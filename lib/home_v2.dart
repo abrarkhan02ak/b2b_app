@@ -4,6 +4,8 @@ import 'cart_screen.dart';
 import 'my_orders_screen.dart';
 import 'product_card.dart';
 import 'data/product_data.dart';
+import 'all_products_screen.dart';
+
 
 
 class HomeV2 extends StatefulWidget {
@@ -667,9 +669,20 @@ const SizedBox(height: 10),
 
 Center(
   child: TextButton(
-  onPressed: () {
-    // open all products later
-  },
+  
+ onPressed: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => AllProductsScreen(
+        cartItems: widget.cartItems,
+        wishlistItems: widget.wishlistItems,
+        toggleWishlist: widget.toggleWishlist,
+      ),
+    ),
+  );
+},
+
   child: const Text(
     "View All Products →",
     style: TextStyle(
