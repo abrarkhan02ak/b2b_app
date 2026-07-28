@@ -1006,6 +1006,143 @@ Container(
 const SizedBox(height: 20),
 
 
+const Padding(
+  padding: EdgeInsets.symmetric(horizontal: 12),
+  child: Align(
+    alignment: Alignment.centerLeft,
+    child: Text(
+      "❤️ Thank You For Choosing Us",
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
+),
+
+const SizedBox(height: 12),
+
+Container(
+  margin: const EdgeInsets.symmetric(horizontal: 12),
+  padding: const EdgeInsets.all(20),
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(20),
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.black12,
+        blurRadius: 12,
+        offset: Offset(0, 4),
+      ),
+    ],
+  ),
+  child: Column(
+    children: [
+
+      const Icon(
+        Icons.storefront,
+        size: 48,
+        color: Colors.deepOrange,
+      ),
+
+      const SizedBox(height: 12),
+
+      const Text(
+        "TEST 90 Wholesale",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+
+      const SizedBox(height: 8),
+
+      const Text(
+        "Your trusted B2B wholesale shopping partner.\nQuality Products • Best Prices • Fast Delivery",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 14,
+          color: Colors.black54,
+          height: 1.5,
+        ),
+      ),
+
+      const SizedBox(height: 18),
+
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+
+          Column(
+            children: [
+              Icon(Icons.verified,
+                  color: Colors.green),
+              SizedBox(height: 6),
+              Text(
+                "Trusted",
+                style: TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
+
+          Column(
+            children: [
+              Icon(Icons.local_shipping,
+                  color: Colors.deepOrange),
+              SizedBox(height: 6),
+              Text(
+                "Fast Delivery",
+                style: TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
+
+          Column(
+            children: [
+              Icon(Icons.support_agent,
+                  color: Colors.blue),
+              SizedBox(height: 6),
+              Text(
+                "24×7 Support",
+                style: TextStyle(fontSize: 12),
+              ),
+            ],
+          ),
+
+        ],
+      ),
+
+      const SizedBox(height: 20),
+
+      const Divider(),
+
+      const SizedBox(height: 10),
+
+      const Text(
+        "Version 1.0.0",
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 12,
+        ),
+      ),
+
+      const SizedBox(height: 4),
+
+      const Text(
+        "© 2026 TEST 90 Wholesale",
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 12,
+        ),
+      ),
+    ],
+  ),
+),
+
+const SizedBox(height: 30),
+
+
     ],
 
 
