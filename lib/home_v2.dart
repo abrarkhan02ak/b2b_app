@@ -6,6 +6,7 @@ import 'product_card.dart';
 import 'data/product_data.dart';
 import 'all_products_screen.dart';
 import 'brand_products_screen.dart';
+import 'product_details.dart';
 
 
 class HomeV2 extends StatefulWidget {
@@ -655,7 +656,39 @@ products.length > 6 ? 6 : products.length,
       ),
 
 
-      onTap: () {},
+onTap: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => ProductDetailsScreen(
+        product: product,
+        onAdd: () {
+          widget.cartItems.add(
+            CartItem(
+              code: product.code,
+              name: product.name,
+              price: product.price,
+              quantity: 1,
+            ),
+          );
+          setState(() {});
+        },
+        onBuyNow: () {
+          widget.cartItems.add(
+            CartItem(
+              code: product.code,
+              name: product.name,
+              price: product.price,
+              quantity: 1,
+            ),
+          );
+          setState(() {});
+        },
+      ),
+    ),
+  );
+},
+
 
 
     );
@@ -872,7 +905,41 @@ GridView.builder(
       isWishlisted: widget.wishlistItems.any(
         (item) => item.code == product.code,
       ),
-      onTap: () {},
+      
+
+onTap: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => ProductDetailsScreen(
+        product: product,
+        onAdd: () {
+          widget.cartItems.add(
+            CartItem(
+              code: product.code,
+              name: product.name,
+              price: product.price,
+              quantity: 1,
+            ),
+          );
+          setState(() {});
+        },
+        onBuyNow: () {
+          widget.cartItems.add(
+            CartItem(
+              code: product.code,
+              name: product.name,
+              price: product.price,
+              quantity: 1,
+            ),
+          );
+          setState(() {});
+        },
+      ),
+    ),
+  );
+},
+
     );
   },
 ),
