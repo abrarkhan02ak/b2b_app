@@ -1493,27 +1493,42 @@ Widget brandCard(
   String name,
   Color color,
 ) {
-  return InkWell(
-    borderRadius: BorderRadius.circular(18),
-    onTap: () {
-      Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (_) => BrandProductsScreen(
-      brandName: name,
-      cartItems: widget.cartItems,
-      wishlistItems: widget.wishlistItems,
-      toggleWishlist: widget.toggleWishlist,
-    ),
-  ),
-);
-    },
+  return AnimatedScale(
+    duration: const Duration(milliseconds: 180),
+    scale: 1,
+    child: InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BrandProductsScreen(
+              brandName: name,
+              cartItems: widget.cartItems,
+              wishlistItems: widget.wishlistItems,
+              toggleWishlist: widget.toggleWishlist,
+            ),
+          ),
+        );
+      },
+
     child: Container(
-      width: 110,
-      margin: const EdgeInsets.only(right: 12),
+      width: 125,
+      margin: const EdgeInsets.only(right: 14),
       decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(18),
+  gradient: const LinearGradient(
+    colors: [
+      Color(0xFFFFFFFF),
+      Color(0xFFFFF3E0),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Colors.orange.shade200,
+          width: 1.2,
+        ),
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
@@ -1522,18 +1537,69 @@ Widget brandCard(
           ),
         ],
       ),
-      child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+const Align(
+  alignment: Alignment.topRight,
+  child: Padding(
+    padding: EdgeInsets.only(top: 6, right: 6),
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.deepOrange,
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Text(
-          name,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
+          "TOP",
+          style: TextStyle(
             color: Colors.white,
+            fontSize: 10,
             fontWeight: FontWeight.bold,
-            fontSize: 16,
           ),
         ),
       ),
     ),
+  ),
+),
+
+          CircleAvatar(
+            radius: 24,
+            backgroundColor: color,
+            child: Text(
+              name.substring(0, 1),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            name,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            "View Products",
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.deepOrange.shade400,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    ),
+  )
   );
 }
 
