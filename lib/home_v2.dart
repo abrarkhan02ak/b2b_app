@@ -5,7 +5,7 @@ import 'my_orders_screen.dart';
 import 'product_card.dart';
 import 'data/product_data.dart';
 import 'all_products_screen.dart';
-
+import 'brand_products_screen.dart';
 
 
 class HomeV2 extends StatefulWidget {
@@ -719,12 +719,12 @@ SizedBox(
     scrollDirection: Axis.horizontal,
     padding: EdgeInsets.symmetric(horizontal: 12),
     children: [
-      brandCard("HUL", Colors.blue),
-      brandCard("P&G", Colors.deepPurple),
-      brandCard("ITC", Colors.green),
-      brandCard("Dabur", Colors.orange),
-      brandCard("Nestlé", Colors.red),
-    ],
+  brandCard(context, "HUL", Colors.blue),
+  brandCard(context, "P&G", Colors.deepPurple),
+  brandCard(context, "ITC", Colors.green),
+  brandCard(context, "Dabur", Colors.orange),
+  brandCard(context, "Nestlé", Colors.red),
+],
   ),
 ),
 
@@ -1419,34 +1419,58 @@ Widget dealCard(
 
 }
 
-Widget brandCard(String name, Color color) {
-  return Container(
-    width: 110,
-    margin: const EdgeInsets.only(right: 12),
-    decoration: BoxDecoration(
-      color: color,
-      borderRadius: BorderRadius.circular(18),
-      boxShadow: const [
-        BoxShadow(
-          color: Colors.black12,
-          blurRadius: 8,
-          offset: Offset(0, 3),
-        ),
-      ],
+
+
+Widget brandCard(
+  BuildContext context,
+  String name,
+  Color color,
+) {
+  return InkWell(
+    borderRadius: BorderRadius.circular(18),
+    onTap: () {
+      Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (_) => BrandProductsScreen(
+      brandName: name,
+      cartItems: widget.cartItems,
+      wishlistItems: widget.wishlistItems,
+      toggleWishlist: widget.toggleWishlist,
     ),
-    child: Center(
-      child: Text(
-        name,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
+  ),
+);
+    },
+    child: Container(
+      width: 110,
+      margin: const EdgeInsets.only(right: 12),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 8,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(
+          name,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
       ),
     ),
   );
 }
+
+
 
 Widget categoryChip(String text, {bool active = false}) {
 
