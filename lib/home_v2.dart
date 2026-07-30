@@ -493,10 +493,9 @@ const EdgeInsets.symmetric(
   ),
 ),
 
-const SizedBox(height: 15),
+const SizedBox(height: 24),
 
 
-      const SizedBox(height: 15),
 
 const Padding(
   padding: EdgeInsets.symmetric(horizontal: 12),
@@ -525,7 +524,6 @@ const SizedBox(height: 12),
 
 
 
-const SizedBox(height: 10),
 
 SizedBox(
   height: 210,
@@ -583,7 +581,7 @@ Padding(
   ),
 ),
 
-const SizedBox(height: 18),
+const SizedBox(height: 28),
 
 
   // Categories
@@ -654,7 +652,7 @@ const SizedBox(height: 18),
         ),
 
       ),
-    const SizedBox(height: 20),
+    const SizedBox(height: 24),
 
     // Today's Deals Title
 
@@ -733,36 +731,7 @@ const SizedBox(height: 18),
 
 
 
-  Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 12),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      const Text(
-        "Today's Best Deals",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      TextButton(
-        onPressed: () {},
-        child: const Text(
-          "View All",
-          style: TextStyle(
-            color: Colors.deepOrange,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    ],
-  ),
-),
-
-
-      const SizedBox(height: 15),
-
-
+const SizedBox(height: 24),
 
 const Padding(
 
@@ -970,7 +939,7 @@ onTap: () {
 
 ),
 
-const SizedBox(height: 10),
+const SizedBox(height: 20),
 
 Center(
   child: TextButton(
@@ -999,7 +968,7 @@ Center(
   ),
 ),
 
-const SizedBox(height: 20),
+const SizedBox(height: 28),
 
 
 const Padding(
@@ -1059,7 +1028,7 @@ SizedBox(
   ),
 ),
 
-const SizedBox(height: 20),
+const SizedBox(height: 28),
 
 
 const Padding(
@@ -1134,6 +1103,7 @@ SizedBox(
 
 ),
 
+const SizedBox(height: 28),
 
 const Padding(
   padding: EdgeInsets.symmetric(horizontal: 12),
@@ -1292,7 +1262,7 @@ onTap: () {
   },
 ),
 
-const SizedBox(height: 20),
+const SizedBox(height: 28),
 
 
 
@@ -1326,7 +1296,7 @@ SizedBox(
   ),
 ),
 
-const SizedBox(height: 20),
+const SizedBox(height: 28),
 
 
 
