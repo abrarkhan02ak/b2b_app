@@ -1866,18 +1866,18 @@ Widget dealCard(
 
   return Container(
 
-    width: 170,
+    width: 185,
 
-    margin: const EdgeInsets.only(right: 16),
+    margin: const EdgeInsets.only(right: 18),
 
-    padding: const EdgeInsets.all(16),
+    padding: const EdgeInsets.all(18),
 
     decoration: BoxDecoration(
 
       color: Colors.white,
 
       borderRadius:
-      BorderRadius.circular(20),
+      BorderRadius.circular(22),
 
       boxShadow: const [
 
@@ -1906,8 +1906,8 @@ Widget dealCard(
 
           padding:
           const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 6,
+            horizontal: 12,
+            vertical: 7,
           ),
 
           decoration: BoxDecoration(
@@ -1915,7 +1915,7 @@ Widget dealCard(
             color: Colors.red.shade50,
 
             borderRadius:
-            BorderRadius.circular(8),
+            BorderRadius.circular(10),
 
           ),
 
@@ -1931,7 +1931,7 @@ Widget dealCard(
               fontWeight:
               FontWeight.bold,
 
-              fontSize: 13,
+              fontSize: 14,
 
             ),
 
@@ -1940,7 +1940,7 @@ Widget dealCard(
         ),
 
 
-        const SizedBox(height: 12),
+        const SizedBox(height: 14),
 
 
         Text(
@@ -1949,7 +1949,7 @@ Widget dealCard(
 
           style: const TextStyle(
 
-            fontSize: 16,
+            fontSize: 17,
 
             fontWeight:
             FontWeight.bold,
@@ -1968,7 +1968,7 @@ Widget dealCard(
 
           style: const TextStyle(
 
-            fontSize: 20,
+            fontSize: 22,
 
             fontWeight:
             FontWeight.bold,
@@ -1987,7 +1987,7 @@ Widget dealCard(
 
           padding:
           const EdgeInsets.symmetric(
-            vertical: 10,
+            vertical: 12,
           ),
 
           decoration: BoxDecoration(
@@ -1995,7 +1995,7 @@ Widget dealCard(
             color: Colors.orange,
 
             borderRadius:
-            BorderRadius.circular(14),
+            BorderRadius.circular(16),
 
           ),
 
