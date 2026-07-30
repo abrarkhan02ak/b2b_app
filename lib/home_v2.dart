@@ -280,7 +280,7 @@ void dispose() {
 
 
   Container(
-  margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+  margin: const EdgeInsets.fromLTRB(12, 8, 12, 12),
   decoration: BoxDecoration(
     gradient: const LinearGradient(
       colors: [
@@ -288,6 +288,10 @@ void dispose() {
         Colors.lightBlue,
       ],
     ),
+    border: Border.all(
+  color: Colors.white.withOpacity(0.35),
+  width: 1.2,
+),
     borderRadius: BorderRadius.circular(28),
   ),
   child: const Center(
@@ -305,7 +309,7 @@ void dispose() {
 
 
   Container(
-  margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+  margin: const EdgeInsets.fromLTRB(12, 8, 12, 12),
   decoration: BoxDecoration(
     gradient: const LinearGradient(
       colors: [
@@ -313,6 +317,10 @@ void dispose() {
         Colors.teal,
       ],
     ),
+ border: Border.all(
+  color: Colors.white.withOpacity(0.35),
+  width: 1.2,
+),
     borderRadius: BorderRadius.circular(28),
   ),
   child: const Center(
@@ -331,7 +339,7 @@ void dispose() {
 
   Container(
   margin: const EdgeInsets.fromLTRB(
-  12, 8, 12, 0,
+  12, 8, 12, 12,
 ),
 
   padding: const EdgeInsets.symmetric(
@@ -353,6 +361,10 @@ void dispose() {
       ],
 
     ),
+border: Border.all(
+  color: Colors.white.withOpacity(0.35),
+  width: 1.2,
+),
 
     borderRadius:
     BorderRadius.circular(28),
@@ -591,10 +603,9 @@ const SizedBox(height: 28),
         padding: EdgeInsets.symmetric(
           horizontal: 12,
         ),
-                                                                                    child: Align(
-
-          alignment:                                                                  Alignment.centerLeft,
-                                                                                      child: Text(
+        child: Align(
+          alignment:        Alignment.centerLeft,
+            child: Text(
 
             "Shop By Category",
 
@@ -1014,7 +1025,7 @@ const Padding(
 ),
 
 SizedBox(
-  height: 90,
+  height: 110,
   child: ListView(
     scrollDirection: Axis.horizontal,
     padding: EdgeInsets.symmetric(horizontal: 12),
@@ -1028,7 +1039,7 @@ SizedBox(
   ),
 ),
 
-const SizedBox(height: 28),
+const SizedBox(height: 32),
 
 
 const Padding(
@@ -1958,7 +1969,28 @@ Widget dealCard(
 
         ),
 
-      const SizedBox(height: 12),
+
+
+const SizedBox(height: 12),
+
+Center(
+  child: Container(
+    height: 58,
+    width: 58,
+    decoration: BoxDecoration(
+      color: Colors.orange.shade50,
+      shape: BoxShape.circle,
+    ),
+    child: const Icon(
+      Icons.inventory_2_rounded,
+      color: Color(0xFFFF6F00),
+      size: 32,
+    ),
+  ),
+),
+
+const SizedBox(height: 14),
+
         const Spacer(),
 
 
@@ -1992,7 +2024,7 @@ Widget dealCard(
 
           decoration: BoxDecoration(
 
-            color: Colors.orange,
+            color: const Color(0xFFFF6F00),
 
             borderRadius:
             BorderRadius.circular(16),
@@ -2013,7 +2045,8 @@ Widget dealCard(
 
               fontWeight:
               FontWeight.bold,
-
+        
+         fontSize: 15,
             ),
 
           ),
@@ -2055,8 +2088,8 @@ Widget brandCard(
       },
 
     child: Container(
-      width: 135,
-      margin: const EdgeInsets.only(right: 16),
+      width: 145,
+      margin: const EdgeInsets.only(right: 18),
       decoration: BoxDecoration(
   gradient: const LinearGradient(
     colors: [
@@ -2066,7 +2099,7 @@ Widget brandCard(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(22),
         border: Border.all(
           color: Colors.orange.shade200,
           width: 1.6,
@@ -2074,8 +2107,8 @@ Widget brandCard(
         boxShadow: const [
           BoxShadow(
             color: Colors.black12,
-            blurRadius: 14,
-            offset: Offset(0, 5),
+            blurRadius: 18,
+            offset: Offset(0, 6),
           ),
         ],
       ),
@@ -2108,23 +2141,23 @@ const Align(
 ),
 
           CircleAvatar(
-            radius: 28,
+            radius: 32,
             backgroundColor: color,
             child: Text(
               name.substring(0, 1),
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 24,
+                fontSize: 26,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Text(
             name,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: FontWeight.bold,
               color: Colors.black87,
             ),
@@ -2133,7 +2166,7 @@ const Align(
           Text(
             "View Products",
             style: TextStyle(
-              fontSize: 11,
+              fontSize: 12,
               color: Colors.deepOrange.shade400,
               fontWeight: FontWeight.w600,
             ),
@@ -2148,58 +2181,53 @@ const Align(
 
 
 Widget categoryChip(String text, {bool active = false}) {
-
   return Container(
-
-    margin: const EdgeInsets.only(right: 10),
+    margin: const EdgeInsets.only(right: 12),
 
     padding: const EdgeInsets.symmetric(
-  horizontal: 22,
-  vertical: 10,
-),
+      horizontal: 18,
+      vertical: 8,
+    ),
 
     decoration: BoxDecoration(
+      color: active
+          ? Colors.deepOrange
+          : Colors.white,
 
-  color: active ? Colors.deepOrange : Colors.white,
+      borderRadius:
+          BorderRadius.circular(24),
 
-  borderRadius: BorderRadius.circular(30),
+      border: Border.all(
+        color: active
+            ? Colors.deepOrange
+            : Colors.grey.shade300,
+        width: 1,
+      ),
 
-  border: Border.all(
-  color: active ? Colors.deepOrange : Colors.grey.shade200,
-),
-
-boxShadow: [
-  BoxShadow(
-    color: Colors.black12,
-    blurRadius: 8,
-    offset: Offset(0, 2),
-  ),
-],
-
-),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.08),
+          blurRadius: 6,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    ),
 
     child: Center(
-
       child: Text(
-
         text,
 
         style: TextStyle(
+          fontSize: 14,
+          fontWeight:
+              FontWeight.w600,
 
-  fontSize: 13,
-
-  fontWeight: FontWeight.w600,
-
-  color: active ? Colors.white : Colors.black87,
-
-),
-
+          color: active
+              ? Colors.white
+              : Colors.black87,
+        ),
       ),
-
     ),
-
   );
-
 }
-
 }
