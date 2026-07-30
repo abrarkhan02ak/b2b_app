@@ -45,8 +45,12 @@ class ProductCard extends StatelessWidget {
         elevation: 6,
         shadowColor: Colors.black12,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
-        ),
+  borderRadius: BorderRadius.circular(18),
+  side: BorderSide(
+    color: Colors.blue.shade100,
+    width: 1,
+  ),
+),
         margin: const EdgeInsets.all(8),
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -58,7 +62,7 @@ class ProductCard extends StatelessWidget {
                 children: [
 
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius: BorderRadius.circular(16),
                     child: Image.asset(
                       image,
                       height: 120,

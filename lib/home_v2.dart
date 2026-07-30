@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'cart_model.dart';
-import 'cart_screen.dart';
 import 'my_orders_screen.dart';
 import 'product_card.dart';
 import 'data/product_data.dart';
@@ -160,50 +159,15 @@ void dispose() {
         actions: [
 
 
-
-          IconButton(
-
-
-            icon:
-            const Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.black,
-            ),
-
-
-            onPressed: () {
-
-
-              Navigator.push(
-
-
-                context,
-
-
-                MaterialPageRoute(
-
-
-                  builder: (context)=>
-
-                  CartScreen(
-
-                    cartItems:
-                    widget.cartItems,
-
-                  ),
-
-
-                ),
-
-
-              );
-
-
-            },
-
-
-          ),
-
+      IconButton(
+  icon: const Icon(
+    Icons.notifications_none_rounded,
+    color: Colors.black,
+  ),
+  onPressed: () {
+    // Notification screen next step
+  },
+),
 
 
           IconButton(
@@ -1412,7 +1376,10 @@ Container(
     children: [
       Text(
         "⭐⭐⭐⭐⭐",
-        style: TextStyle(fontSize: 18),
+        style: TextStyle(
+  fontSize: 20,
+  letterSpacing: 1,
+),
       ),
       SizedBox(height: 8),
       Text(
@@ -1453,7 +1420,7 @@ const SizedBox(height: 12),
 
 Container(
   margin: const EdgeInsets.symmetric(horizontal: 12),
-  padding: const EdgeInsets.all(18),
+  padding: const EdgeInsets.all(20),
   decoration: BoxDecoration(
 
   gradient: const LinearGradient(
@@ -1465,12 +1432,12 @@ end: Alignment.bottomRight,
   Color(0xFFFFB300),
 ],
     ),
-    borderRadius: BorderRadius.circular(18),
+    borderRadius: BorderRadius.circular(22),
     boxShadow: const [
       BoxShadow(
         color: Colors.black12,
-        blurRadius: 10,
-        offset: Offset(0, 4),
+        blurRadius: 14,
+        offset: Offset(0, 6),
       ),
     ],
   ),
@@ -2182,33 +2149,31 @@ const Align(
 
 Widget categoryChip(String text, {bool active = false}) {
   return Container(
-    margin: const EdgeInsets.only(right: 12),
+    margin: const EdgeInsets.only(right: 10),
 
     padding: const EdgeInsets.symmetric(
-      horizontal: 18,
-      vertical: 8,
+      horizontal: 14,
+      vertical: 7,
     ),
 
     decoration: BoxDecoration(
       color: active
-          ? Colors.deepOrange
+          ? Colors.blue.shade50
           : Colors.white,
 
       borderRadius:
-          BorderRadius.circular(24),
+          BorderRadius.circular(12),
 
       border: Border.all(
-        color: active
-            ? Colors.deepOrange
-            : Colors.grey.shade300,
+        color: Colors.blue.shade200,
         width: 1,
       ),
 
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.08),
-          blurRadius: 6,
-          offset: const Offset(0, 3),
+          color: Colors.blue.withValues(alpha: 0.08),
+          blurRadius: 4,
+          offset: const Offset(0, 2),
         ),
       ],
     ),
@@ -2216,18 +2181,17 @@ Widget categoryChip(String text, {bool active = false}) {
     child: Center(
       child: Text(
         text,
-
         style: TextStyle(
-          fontSize: 14,
-          fontWeight:
-              FontWeight.w600,
-
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
           color: active
-              ? Colors.white
+              ? Colors.blue
               : Colors.black87,
         ),
       ),
     ),
   );
 }
+
+
 }
