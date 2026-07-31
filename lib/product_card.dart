@@ -108,112 +108,93 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                   ),
+    Positioned(
+  left: 8,
+  bottom: 8,
+  child: Container(
+    padding: const EdgeInsets.symmetric(
+      horizontal: 6,
+      vertical: 2,
+    ),
+    decoration: BoxDecoration(
+      color: Colors.black54,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(
+          Icons.star,
+          color: Colors.amber,
+          size: 14,
+        ),
+        const SizedBox(width: 3),
+        Text(
+          "$rating",
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
+
                 ],
               ),
 
               const SizedBox(height: 10),
+  
 
-              Text(
-                name,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  height: 1.3,
-                ),
-              ),
-              const SizedBox(height: 6),
 
-              Text(
-                "MRP: ₹$originalPrice",
-                style: TextStyle(
-                  decoration: TextDecoration.lineThrough,
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
-              ),
+         Text(
+  name,
+  maxLines: 2,
+  overflow: TextOverflow.ellipsis,
+  style: const TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    height: 1.3,
+  ),
+),
 
-              const SizedBox(height: 4),
+const SizedBox(height: 4),
 
-              Text(
-                "₹$price",
-                style: const TextStyle(
-                  color: Colors.deepOrange,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+Text(
+  "Weight - $packSize",
+  style: const TextStyle(
+    color: Colors.grey,
+    fontSize: 12,
+  ),
+),
 
-              const SizedBox(height: 4),
+const SizedBox(height: 8),
 
-              Text(
-                offerText,
-                style: const TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                ),
-              ),
+Text(
+  "MRP ₹$originalPrice   ❌   For You",
+  style: const TextStyle(
+    color: Colors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  ),
+),
 
-              const SizedBox(height: 8),
+const SizedBox(height: 4),
 
-              Row(
-                children: [
-                  const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    "$rating",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    packSize,
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
+Text(
+  "Buy at ₹$price",
+  style: const TextStyle(
+    color: Colors.green,
+    fontSize: 17,
+    fontWeight: FontWeight.w700,
+  ),
+),
 
-              const SizedBox(height: 6),
+const Spacer(),
 
-              Text(
-                "MOQ: $moq",
-                style: const TextStyle(
-                  color: Colors.blueGrey,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-
-              const Spacer(),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.deepOrange,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Text(
-                  "Buy Now",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
