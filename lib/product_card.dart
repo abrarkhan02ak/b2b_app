@@ -82,7 +82,7 @@ class ProductCard extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: Colors.red,
-                          borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
                           "$discountPercent% OFF",
@@ -108,42 +108,34 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                   ),
-    Positioned(
+
+
+Positioned(
   left: 8,
-  bottom: 8,
-  child: Container(
-    padding: const EdgeInsets.symmetric(
-      horizontal: 6,
-      vertical: 2,
-    ),
-    decoration: BoxDecoration(
-      color: Colors.black54,
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Icon(
-          Icons.star,
-          color: Colors.amber,
-          size: 14,
+  bottom: 6,
+  child: Row(
+    children: [
+      const Icon(
+        Icons.star,
+        color: Colors.green,
+        size: 15,
+      ),
+      const SizedBox(width: 3),
+      Text(
+        "$rating",
+        style: const TextStyle(
+          color: Colors.green,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
         ),
-        const SizedBox(width: 3),
-        Text(
-          "$rating",
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    ),
+      ),
+    ],
   ),
 ),
 
 
-                ],
+
+    ],
               ),
 
               const SizedBox(height: 10),
@@ -177,24 +169,23 @@ Text(
   "MRP ₹$originalPrice   ❌   For You",
   style: const TextStyle(
     color: Colors.black,
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
   ),
 ),
 
-const SizedBox(height: 4),
+const SizedBox(height: 2),
 
 Text(
   "Buy at ₹$price",
   style: const TextStyle(
-    color: Colors.green,
-    fontSize: 17,
-    fontWeight: FontWeight.w700,
+    color: Colors.blue,
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
   ),
-),
+),	
 
-const Spacer(),
-
+const SizedBox(height: 4),
             ],
           ),
         ),

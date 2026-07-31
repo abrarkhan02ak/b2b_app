@@ -473,93 +473,6 @@ const SizedBox(height: 24),
 
 
 
-const Padding(
-  padding: EdgeInsets.symmetric(horizontal: 12),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-        "⚡ Flash Sale",
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      Text(
-        "Ends in 02:15:30",
-        style: TextStyle(
-          color: Colors.red,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ],
-  ),
-),
-
-const SizedBox(height: 12),
-
-
-
-
-SizedBox(
-  height: 210,
-  child: ListView(
-    scrollDirection: Axis.horizontal,
-    padding: const EdgeInsets.symmetric(horizontal: 12),
-    children: [
-      dealCard(
-        "Face Cream",
-        "₹99",
-        "40% OFF",
-      ),
-      dealCard(
-  "Shampoo",
-  "₹179",
-  "45% OFF",
-),
-
-dealCard(
-  "Soap Pack",
-  "₹89",
-  "30% OFF",
-),
-      dealCard(
-        "Hair Oil",
-        "₹149",
-        "35% OFF",
-      ),
-      dealCard(
-        "Biscuits",
-        "₹199",
-        "25% OFF",
-      ),
-    ],
-  ),
-),
-
-const SizedBox(height: 18),
-
-
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 12),
-  child: Align(
-    alignment: Alignment.centerRight,
-    child: TextButton(
-      onPressed: () {},
-      child: const Text(
-        "View All Deals →",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.deepOrange,
-        ),
-      ),
-    ),
-  ),
-),
-
-const SizedBox(height: 28),
-
-
   // Categories
 
       const Padding(
@@ -611,7 +524,7 @@ const SizedBox(height: 28),
 
           children: [
 
-            categoryChip("  ^p All", active: true),
+            categoryChip("  All", active: true),
 
             categoryChip("💄 Cosmetics"),
 
@@ -628,6 +541,127 @@ const SizedBox(height: 28),
 
       ),
     const SizedBox(height: 24),
+
+     
+// flash sale
+     
+    const SizedBox(height: 18),
+
+Container(
+  margin: const EdgeInsets.symmetric(horizontal: 12),
+  padding: const EdgeInsets.all(14),
+  decoration: BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        Color(0xFFFF6A00),
+        Color(0xFFFF3D00),
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+    borderRadius: BorderRadius.circular(20),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black12,
+        blurRadius: 8,
+        offset: Offset(0, 4),
+      ),
+    ],
+  ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+
+      const Text(
+        "⚡ Flash Sale",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+
+      const SizedBox(height: 4),
+
+      const Text(
+        "⏰ Ends in 02:15:30",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+
+      const SizedBox(height: 14),
+
+      SizedBox(
+        height: 190,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+
+            SizedBox(
+              width: 118,
+              child: dealCard(
+                "Face Cream",
+                "₹99",
+                "40% OFF",
+              ),
+            ),
+
+            const SizedBox(width: 8),
+
+            SizedBox(
+              width: 118,
+              child: dealCard(
+                "Shampoo",
+                "₹179",
+                "45% OFF",
+              ),
+            ),
+
+            const SizedBox(width: 8),
+
+            SizedBox(
+              width: 118,
+              child: dealCard(
+                "Soap Pack",
+                "₹89",
+                "30% OFF",
+              ),
+            ),
+
+            const SizedBox(width: 8),
+
+            SizedBox(
+              width: 118,
+              child: dealCard(
+                "Hair Oil",
+                "₹149",
+                "35% OFF",
+              ),
+            ),
+
+            const SizedBox(width: 8),
+
+            SizedBox(
+              width: 118,
+              child: dealCard(
+                "Biscuits",
+                "₹199",
+                "25% OFF",
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    ],
+  ),
+),
+
+const SizedBox(height: 24),
+
 
     // Today's Deals Title
 
@@ -1836,198 +1870,122 @@ gradient: const LinearGradient(
 
 }
 
-Widget dealCard(
-    String name,
-    String offer,
-    String price,
+
+
+    // deal card 
+    
+    Widget dealCard(
+  String name,
+  String offer,
+  String price,
 ) {
-
   return Container(
-
-    width: 185,
-
-    margin: const EdgeInsets.only(right: 18),
-
-    padding: const EdgeInsets.all(18),
-
+    width: 115,
+    margin: const EdgeInsets.only(right: 10),
+    padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
-
       color: Colors.white,
-
-      borderRadius:
-      BorderRadius.circular(22),
-
+      borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-
         BoxShadow(
-  color: Colors.black12,
-  blurRadius: 12,
-  spreadRadius: 1,
-  offset: Offset(0, 4),
-),
-
+          color: Colors.black12,
+          blurRadius: 8,
+          offset: Offset(0, 3),
+        ),
       ],
-
     ),
-
-
     child: Column(
-
-      crossAxisAlignment:
-      CrossAxisAlignment.start,
-
-
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-
         Container(
-
-          padding:
-          const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 7,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 7,
+            vertical: 4,
           ),
-
           decoration: BoxDecoration(
-
             color: Colors.red.shade50,
-
-            borderRadius:
-            BorderRadius.circular(10),
-
+            borderRadius: BorderRadius.circular(8),
           ),
-
-
           child: Text(
-
             offer,
-
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-
               color: Colors.deepOrange,
-
-              fontWeight:
-              FontWeight.bold,
-
-              fontSize: 14,
-
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
             ),
-
           ),
-
         ),
 
-
-        const SizedBox(height: 14),
-
+        const SizedBox(height: 8),
 
         Text(
-
           name,
-
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(
-
-            fontSize: 17,
-
-            fontWeight:
-            FontWeight.bold,
-
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-
         ),
 
+        const SizedBox(height: 8),
 
-
-const SizedBox(height: 12),
-
-Center(
-  child: Container(
-    height: 58,
-    width: 58,
-    decoration: BoxDecoration(
-      color: Colors.orange.shade50,
-      shape: BoxShape.circle,
-    ),
-    child: const Icon(
-      Icons.inventory_2_rounded,
-      color: Color(0xFFFF6F00),
-      size: 32,
-    ),
-  ),
-),
-
-const SizedBox(height: 14),
+        Center(
+          child: Container(
+            height: 38,
+            width: 38,
+            decoration: BoxDecoration(
+              color: Colors.orange.shade50,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.flash_on_rounded,
+              color: Colors.orange,
+              size: 22,
+            ),
+          ),
+        ),
 
         const Spacer(),
 
-
         Text(
-
           price,
-
           style: const TextStyle(
-
-            fontSize: 22,
-
-            fontWeight:
-            FontWeight.bold,
-
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
           ),
-
         ),
-
 
         const SizedBox(height: 6),
 
-
-        Container(
-
+        SizedBox(
           width: double.infinity,
-
-          padding:
-          const EdgeInsets.symmetric(
-            vertical: 12,
-          ),
-
-          decoration: BoxDecoration(
-
-            color: const Color(0xFFFF6F00),
-
-            borderRadius:
-            BorderRadius.circular(16),
-
-          ),
-
-
-          child: const Text(
-
-            "Buy Now",
-
-            textAlign:
-            TextAlign.center,
-
-            style: TextStyle(
-
-              color: Colors.white,
-
-              fontWeight:
-              FontWeight.bold,
-        
-         fontSize: 15,
+          height: 28,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero,
+              backgroundColor: Colors.orange,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
-
+            child: const Text(
+              "Buy",
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.white,
+              ),
+            ),
           ),
-
         ),
-
       ],
-
     ),
-
   );
-
 }
-
 
 
 Widget brandCard(
