@@ -155,6 +155,8 @@ Positioned(
 
 const SizedBox(height: 4),
 
+const SizedBox(height: 4),
+
 Text(
   "Weight - $packSize",
   style: const TextStyle(
@@ -163,7 +165,7 @@ Text(
   ),
 ),
 
-const SizedBox(height: 8),
+const SizedBox(height: 6),
 
 Text(
   "MRP ₹$originalPrice   ❌   For You",
@@ -183,7 +185,11 @@ Text(
     fontSize: 12,
     fontWeight: FontWeight.bold,
   ),
-),	
+),
+
+const Spacer(),
+
+const SizedBox(height: 8),
 
 const SizedBox(height: 4),
             ],
