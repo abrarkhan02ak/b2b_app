@@ -102,4 +102,22 @@ brand: 'ITC',
     packSize: "1 pc",
     moq: "6 Bottles",
   ),
+      ...List.generate(50, (index) {
+    return Product(
+      code: 'CS${index + 1}',
+      name: 'Coming Soon Product ${index + 1}',
+      price: '0',
+      category: 'Coming Soon',
+      brand: 'TEST 90',
+      image: '',
+      description: 'New wholesale product coming soon',
+      stock: 0,
+      rating: 0.0,
+      originalPrice: 0,
+      discountPercent: 0,
+      offerText: 'Coming Soon',
+      packSize: 'Pack',
+      moq: 'Coming Soon',
+    );
+  }),
 ];
