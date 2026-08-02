@@ -3,11 +3,13 @@ import 'cart_model.dart';
 import 'my_orders_screen.dart';
 import 'product_card.dart';
 import 'data/product_data.dart';
+import 'models/product.dart';
 import 'all_products_screen.dart';
 import 'brand_products_screen.dart';
 import 'product_details.dart';
 import 'dart:async';
 import 'compact_product_card.dart';
+
 
 
 class HomeV2 extends StatefulWidget {
@@ -44,6 +46,7 @@ class _HomeV2State extends State<HomeV2> {
   final PageController bannerController = PageController();
     int currentBanner = 0;
     Timer? bannerTimer;
+    List<Product> filteredProducts = List.from(products);
 
    void startBannerAutoScroll() {
   bannerTimer = Timer.periodic(
@@ -70,6 +73,8 @@ class _HomeV2State extends State<HomeV2> {
 void initState() {
   super.initState();
   startBannerAutoScroll();
+
+  searchController.addListener(_filterProducts);
 } 
 
   @override
@@ -78,6 +83,23 @@ void dispose() {
   bannerController.dispose();
   searchController.dispose();
   super.dispose();
+
+}
+
+  void _filterProducts() {
+  final query = searchController.text.toLowerCase();
+
+  setState(() {
+    if (query.isEmpty) {
+      filteredProducts = List.from(products);
+    } else {
+      filteredProducts = products.where((product) {
+        return product.name.toLowerCase().contains(query) ||
+            product.code.toLowerCase().contains(query) ||
+            product.category.toLowerCase().contains(query);
+      }).toList();
+    }
+  });
 }
 
   @override
@@ -132,23 +154,42 @@ void dispose() {
             controller: searchController,
 
 
-            decoration: const InputDecoration(
+         decoration: InputDecoration(
+  hintText: "Search products...",
+  hintStyle: TextStyle(
+    color: Colors.grey.shade600,
+    fontSize: 14,
+  ),
 
+  prefixIcon: const Icon(
+    Icons.search,
+    color: Colors.black54,
+  ),
 
-              hintText:
-              "Search products...",
+  suffixIcon: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      if (searchController.text.isNotEmpty)
+        IconButton(
+          icon: const Icon(Icons.close, size: 20),
+          onPressed: () {
+            setState(() {
+              searchController.clear();
+            });
+          },
+        ),
 
+      IconButton(
+        icon: const Icon(Icons.mic_none, size: 20),
+        onPressed: () {
+          // Voice Search (Next Phase)
+        },
+      ),
+    ],
+  ),
 
-              prefixIcon:
-              Icon(Icons.search),
-
-
-              border:
-              InputBorder.none,
-
-
-            ),
-
+  border: InputBorder.none,
+),
 
           ),
 
@@ -553,10 +594,11 @@ Container(
   padding: const EdgeInsets.all(14),
   decoration: BoxDecoration(
     gradient: LinearGradient(
-      colors: [
-        Color(0xFFFF6A00),
-        Color(0xFFFF3D00),
-      ],
+    colors: [
+  Color(0xFFFF6A00),
+  Color(0xFFFF3D00),
+],
+
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     ),
@@ -968,19 +1010,20 @@ const SizedBox(height: 12),
 GridView.builder(
   shrinkWrap: true,
   physics: const NeverScrollableScrollPhysics(),
-  padding: const EdgeInsets.symmetric(horizontal: 12),
+  padding: const EdgeInsets.symmetric(horizontal: 8),
 
-  itemCount: products.length,
+  itemCount: filteredProducts.length,
 
   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
     crossAxisCount: 2,
-    crossAxisSpacing: 10,
+    crossAxisSpacing: 6,
     mainAxisSpacing: 10,
     childAspectRatio: 0.62,
   ),
 
   itemBuilder: (context, index) {
-    final product = products[index];
+
+   final product = filteredProducts[index];
 
     return ProductCard(
       code: product.code,
