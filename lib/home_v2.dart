@@ -7,6 +7,7 @@ import 'all_products_screen.dart';
 import 'brand_products_screen.dart';
 import 'product_details.dart';
 import 'dart:async';
+import 'compact_product_card.dart';
 
 
 class HomeV2 extends StatefulWidget {
@@ -600,58 +601,38 @@ Container(
           scrollDirection: Axis.horizontal,
           children: [
 
-            SizedBox(
-              width: 118,
-              child: dealCard(
-                "Face Cream",
-                "₹99",
-                "40% OFF",
-              ),
-            ),
+     SizedBox(
+  width: 118,
+  child: dealCard(
+    "Face Cream",
+    "₹99",
+    "40% OFF",
+  ),
+),
 
-            const SizedBox(width: 8),
+const SizedBox(width: 8),
 
-            SizedBox(
-              width: 118,
-              child: dealCard(
-                "Shampoo",
-                "₹179",
-                "45% OFF",
-              ),
-            ),
+SizedBox(
+  width: 118,
+  child: dealCard(
+    "Shampoo",
+    "₹179",
+    "45% OFF",
+  ),
+),
 
-            const SizedBox(width: 8),
+const SizedBox(width: 8),
 
-            SizedBox(
-              width: 118,
-              child: dealCard(
-                "Soap Pack",
-                "₹89",
-                "30% OFF",
-              ),
-            ),
+SizedBox(
+  width: 118,
+  child: dealCard(
+    "Soap Pack",
+    "₹89",
+    "30% OFF",
+  ),
+),
 
-            const SizedBox(width: 8),
 
-            SizedBox(
-              width: 118,
-              child: dealCard(
-                "Hair Oil",
-                "₹149",
-                "35% OFF",
-              ),
-            ),
-
-            const SizedBox(width: 8),
-
-            SizedBox(
-              width: 118,
-              child: dealCard(
-                "Biscuits",
-                "₹199",
-                "25% OFF",
-              ),
-            ),
 
           ],
         ),
@@ -663,7 +644,7 @@ Container(
 const SizedBox(height: 24),
 
 
-    // Today's Deals Title
+    // recommemeded for you
 
       const Padding(
 
@@ -674,13 +655,15 @@ const SizedBox(height: 24),
         child: Row(
   mainAxisAlignment: MainAxisAlignment.spaceBetween,
   children: [
-    Text(
-      "🔥 Today's Deals",
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
+
+  Text(
+  "❤️ Recommended For You",
+  style: TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  ),
+),
+
     Text(
       "View All",
       style: TextStyle(
@@ -697,50 +680,36 @@ const SizedBox(height: 24),
 
 
 
-      SizedBox(
+GridView.builder(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  padding: const EdgeInsets.symmetric(horizontal: 12),
 
-        height: 190,
+  itemCount: 6,
 
-        child: ListView(
+  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 3,
+    crossAxisSpacing: 8,
+    mainAxisSpacing: 8,
+    childAspectRatio: 0.62,
+  ),
 
-          scrollDirection:
-          Axis.horizontal,
+  itemBuilder: (context, index) {
+    final product = products[index];
 
-
-          padding:
-          const EdgeInsets.symmetric(
-            horizontal: 12,
-          ),
-
-
-          children: [
-
-
-            dealCard(
-              "Face Cream",
-              "30% OFF",
-              "₹120",
-            ),
-
-
-            dealCard(
-              "Shampoo",
-              "25% OFF",
-              "₹99",
-            ),
-
-
-
-
-          ],
-
-        ),
-
-      ),
-
-
+    return CompactProductCard(
+      name: product.name,
+      image: product.image,
+      price: "₹${product.price}",
+      originalPrice: product.originalPrice,
+      onTap: () {},
+    );
+  },
+),
 
 const SizedBox(height: 24),
+
+
 
 const Padding(
 
@@ -801,7 +770,7 @@ products.length > 6 ? 6 : products.length,
 
     mainAxisSpacing: 12,
 
-    childAspectRatio: 0.50,
+    childAspectRatio: 0.60,
 
   ),
 
@@ -985,140 +954,6 @@ const Padding(
   child: Align(
     alignment: Alignment.centerLeft,
     child: Text(
-      "🏷 Top Brands",
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ),
-),
-
-
-
-  Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 12),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      const Text(
-        "Trusted Wholesale Brands",
-        style: TextStyle(
-          fontSize: 14,
-          color: Colors.grey,
-        ),
-      ),
-      TextButton(
-        onPressed: () {},
-        child: const Text(
-          "See All",
-          style: TextStyle(
-            color: Colors.deepOrange,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    ],
-  ),
-),
-
-SizedBox(
-  height: 110,
-  child: ListView(
-    scrollDirection: Axis.horizontal,
-    padding: EdgeInsets.symmetric(horizontal: 12),
-    children: [
-  brandCard(context, "HUL", Colors.blue),
-  brandCard(context, "P&G", Colors.deepPurple),
-  brandCard(context, "ITC", Colors.green),
-  brandCard(context, "Dabur", Colors.orange),
-  brandCard(context, "Nestlé", Colors.red),
-],
-  ),
-),
-
-const SizedBox(height: 32),
-
-
-const Padding(
-
-  padding: EdgeInsets.symmetric(
-    horizontal: 12,
-  ),
-
-  child: Align(
-
-    alignment: Alignment.centerLeft,
-
-    child: Text(
-
-      "Why Buy From Us?",
-
-      style: TextStyle(
-
-        fontSize: 20,
-
-        fontWeight: FontWeight.bold,
-        color: Colors.black87,
-
-      ),
-
-    ),
-
-  ),
-
-),
-
-
-const SizedBox(height: 10),
-
-
-SizedBox(
-
-  height: 100,
-
-  child: ListView(
-
-    scrollDirection: Axis.horizontal,
-
-    padding:
-    const EdgeInsets.symmetric(
-      horizontal: 12,
-    ),
-
-    children: [
-
-      _featureCard(
-        "🚚",
-        "Fast Delivery",
-        "Quick supply",
-      ),
-
-      _featureCard(
-        "📦",
-        "Bulk Order",
-        "Wholesale price",
-      ),
-
-      _featureCard(
-        "💰",
-        "Best Price",
-        "Retailer margin",
-      ),
-
-    ],
-
-  ),
-
-),
-
-const SizedBox(height: 28),
-
-const Padding(
-  padding: EdgeInsets.symmetric(horizontal: 12),
-  child: Align(
-    alignment: Alignment.centerLeft,
-    child: Text(
       "📈 Trending Products",
       style: TextStyle(
         fontSize: 20,
@@ -1171,117 +1006,7 @@ const Padding(
   child: Align(
     alignment: Alignment.centerLeft,
     child: Text(
-      "⭐ Recommended For You",
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ),
-),
-
-const SizedBox(height: 14),
-
-GridView.builder(
-  shrinkWrap: true,
-  physics: const NeverScrollableScrollPhysics(),
-  padding: const EdgeInsets.symmetric(horizontal: 12),
-  itemCount: products.length > 4 ? 4 : products.length,
-  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 2,
-    crossAxisSpacing: 12,
-    mainAxisSpacing: 12,
-    childAspectRatio: 0.50,
-  ),
-  itemBuilder: (context, index) {
-    final product = products[(index + 2) % products.length];
-
-    return ProductCard(
-      code: product.code,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      stock: product.stock,
-      rating: product.rating,
-      originalPrice: product.originalPrice,
-      discountPercent: product.discountPercent,
-      offerText: product.offerText,
-      packSize: product.packSize,
-      moq: product.moq,
-      onAdd: () {
-        widget.cartItems.add(
-          CartItem(
-            code: product.code,
-            name: product.name,
-            price: product.price,
-            quantity: 1,
-          ),
-        );
-        setState(() {});
-      },
-      onWishlist: () {
-        widget.toggleWishlist(
-          WishlistItem(
-            code: product.code,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-          ),
-        );
-      },
-      isWishlisted: widget.wishlistItems.any(
-        (item) => item.code == product.code,
-      ),
-      
-
-onTap: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (_) => ProductDetailsScreen(
-        product: product,
-        onAdd: () {
-          widget.cartItems.add(
-            CartItem(
-              code: product.code,
-              name: product.name,
-              price: product.price,
-              quantity: 1,
-            ),
-          );
-          setState(() {});
-        },
-        onBuyNow: () {
-          widget.cartItems.add(
-            CartItem(
-              code: product.code,
-              name: product.name,
-              price: product.price,
-              quantity: 1,
-            ),
-          );
-          setState(() {});
-        },
-      ),
-    ),
-  );
-},
-
-    );
-  },
-),
-
-const SizedBox(height: 28),
-
-
-
-
-const Padding(
-  padding: EdgeInsets.symmetric(horizontal: 12),
-  child: Align(
-    alignment: Alignment.centerLeft,
-    child: Text(
-      "🆕 New Arrivals",
+      "🛒 All Products",
       style: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
@@ -1292,21 +1017,56 @@ const Padding(
 
 const SizedBox(height: 12),
 
-SizedBox(
-  height: 165,
-  child: ListView(
-    scrollDirection: Axis.horizontal,
-    padding: EdgeInsets.symmetric(horizontal: 12),
-    children: [
-      dealCard("Face Wash", "15% OFF", "₹149"),
-      dealCard("Cooking Oil", "10% OFF", "₹899"),
-      dealCard("Chocolate", "25% OFF", "₹79"),
-    ],
+GridView.builder(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  padding: const EdgeInsets.symmetric(horizontal: 12),
+
+  itemCount: products.length,
+
+  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    crossAxisSpacing: 10,
+    mainAxisSpacing: 10,
+    childAspectRatio: 0.62,
   ),
+
+  itemBuilder: (context, index) {
+    final product = products[index];
+
+    return ProductCard(
+      code: product.code,
+      name: product.name,
+      price: "₹${product.price}",
+      image: product.image,
+      stock: product.stock,
+      rating: product.rating,
+      originalPrice: product.originalPrice,
+      discountPercent: product.discountPercent,
+      offerText: product.offerText,
+      packSize: product.packSize,
+      moq: product.moq,
+      onAdd: () {},
+      onTap: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+  builder: (_) => ProductDetailsScreen(
+  product: product,
+  onAdd: () {},
+  onBuyNow: () {},
+),
+),
+  );
+},
+   
+   onWishlist: () {},
+     isWishlisted: false,
+    );
+  },
 ),
 
-const SizedBox(height: 28),
-
+const SizedBox(height: 20),
 
 
 

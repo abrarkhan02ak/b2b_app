@@ -153,7 +153,6 @@ Positioned(
   ),
 ),
 
-const SizedBox(height: 4),
 
 const SizedBox(height: 4),
 
@@ -187,11 +186,8 @@ Text(
   ),
 ),
 
-const Spacer(),
 
-const SizedBox(height: 8),
-
-const SizedBox(height: 4),
+const SizedBox(height: 2),
             ],
           ),
         ),
