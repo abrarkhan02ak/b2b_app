@@ -44,9 +44,27 @@ class _HomeV2State extends State<HomeV2> {
   final TextEditingController searchController =
       TextEditingController();
   final PageController bannerController = PageController();
+
+
     int currentBanner = 0;
     Timer? bannerTimer;
     List<Product> filteredProducts = List.from(products);
+List<Product> suggestions = [];
+
+final List<String> categories = [
+  "🏠 Home",
+  "⚡ Electronics",
+  "🛒 Kirana & Grocery",
+  "💄 Beauty",
+  "👕 Fashion",
+  "👟 Footwear",
+  "🧴 Personal Care",
+  "🧸 Toys",
+  "💼 Business",
+];
+
+String selectedCategory = "🏠 Home";
+
 
    void startBannerAutoScroll() {
   bannerTimer = Timer.periodic(
@@ -75,6 +93,16 @@ void initState() {
   startBannerAutoScroll();
 
   searchController.addListener(_filterProducts);
+  searchController.addListener(() {
+  setState(() {
+    suggestions = products
+        .where((product) => product.name
+            .toLowerCase()
+            .contains(searchController.text.toLowerCase()))
+        .take(5)
+        .toList();
+  });
+});
 } 
 
   @override
@@ -86,11 +114,16 @@ void dispose() {
 
 }
 
-  void _filterProducts() {
+void _filterProducts() {
   final query = searchController.text.toLowerCase();
+  String category = selectedCategory;
+
+if (category == "🏠 Home") {
+  category = "";
+}
 
   setState(() {
-    if (query.isEmpty) {
+    if (query.isEmpty && category.isEmpty) {
       filteredProducts = List.from(products);
     } else {
       filteredProducts = products.where((product) {
@@ -98,10 +131,14 @@ void dispose() {
             product.code.toLowerCase().contains(query) ||
             product.category.toLowerCase().contains(query);
       }).toList();
+   if (category.isNotEmpty) {
+  filteredProducts = filteredProducts.where((product) {
+    return product.category == category;
+  }).toList();
+}
     }
   });
 }
-
   @override
   Widget build(BuildContext context) {
 
@@ -152,6 +189,15 @@ void dispose() {
 
 
             controller: searchController,
+   onSubmitted: (value) {
+  setState(() {
+    filteredProducts = products
+        .where((product) =>
+            product.name.toLowerCase(). 
+          contains(value.toLowerCase()))
+        .toList();
+  });
+},
 
 
          decoration: InputDecoration(
@@ -283,6 +329,26 @@ void dispose() {
       });
     },
     children: [
+
+   if (searchController.text.isNotEmpty && suggestions.isNotEmpty)
+  Container(
+    margin: const EdgeInsets.symmetric(horizontal: 12),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Column(
+      children: suggestions.map((product) {
+        return ListTile(
+          leading: const Icon(Icons.search),
+          title: Text(product.name),
+          onTap: () {
+            searchController.text = product.name;
+          },
+        );
+      }).toList(),
+    ),
+  ),
 
 
   Container(
@@ -564,19 +630,10 @@ const SizedBox(height: 24),
           ),
 
 
-          children: [
-
-            categoryChip("  All", active: true),
-
-            categoryChip("💄 Cosmetics"),
-
-            categoryChip("🥫 Kirana"),
-
-            categoryChip("🧴 Personal Care"),
-
-            categoryChip("🍫 Snacks"),
-
-          ],
+         children: [
+  for (int i = 0; i < categories.length; i++)
+    categoryChip(categories[i]),
+],
 
 
         ),
@@ -615,25 +672,30 @@ Color(0xFFEAF8EE),
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
 
-      const Text(
-        "⚡ Flash Sale",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
 
-      const SizedBox(height: 4),
-
-      const Text(
-        "⏰ Ends in 02:15:30",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
+    const Text(
+      "⌛ 02:15:30",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
       ),
+    ),
+
+    const Text(
+      "🔥 Flash Sale",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+
+  ],
+),
 
       const SizedBox(height: 14),
 
@@ -1307,8 +1369,15 @@ const Align(
 
 
 
-Widget categoryChip(String text, {bool active = false}) {
-  return Container(
+Widget categoryChip(String text) {
+  return GestureDetector(
+  onTap: () {
+    setState(() {
+      selectedCategory = text;
+    });
+   _filterProducts();
+  },
+  child: Container(
     margin: const EdgeInsets.only(right: 10),
 
     padding: const EdgeInsets.symmetric(
@@ -1317,9 +1386,9 @@ Widget categoryChip(String text, {bool active = false}) {
     ),
 
     decoration: BoxDecoration(
-      color: active
-          ? Colors.blue.shade50
-          : Colors.white,
+      color: selectedCategory == text
+    ? Colors.blue.shade50
+    : Colors.white,
 
       borderRadius:
           BorderRadius.circular(12),
@@ -1344,14 +1413,15 @@ Widget categoryChip(String text, {bool active = false}) {
         style: TextStyle(
           fontSize: 13,
           fontWeight: FontWeight.w600,
-          color: active
-              ? Colors.blue
-              : Colors.black87,
+          color: selectedCategory == text
+    ? Colors.blue
+    : Colors.black87,
         ),
       ),
+     ),
     ),
   );
 }
-
-
 }
+
+
