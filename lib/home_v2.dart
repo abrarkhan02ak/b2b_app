@@ -595,8 +595,8 @@ Container(
   decoration: BoxDecoration(
     gradient: LinearGradient(
     colors: [
-  Color(0xFFFF6A00),
-  Color(0xFFFF3D00),
+  Color(0xFFF8FFF8),
+Color(0xFFEAF8EE),
 ],
 
       begin: Alignment.topLeft,
@@ -1010,15 +1010,15 @@ const SizedBox(height: 12),
 GridView.builder(
   shrinkWrap: true,
   physics: const NeverScrollableScrollPhysics(),
-  padding: const EdgeInsets.symmetric(horizontal: 8),
+  padding: const EdgeInsets.symmetric(horizontal: 2),
 
   itemCount: filteredProducts.length,
 
   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
     crossAxisCount: 2,
-    crossAxisSpacing: 6,
+    crossAxisSpacing: 2,
     mainAxisSpacing: 10,
-    childAspectRatio: 0.62,
+    childAspectRatio: 0.64,
   ),
 
   itemBuilder: (context, index) {
