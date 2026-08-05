@@ -64,6 +64,7 @@ final List<String> categories = [
 ];
 
 String selectedCategory = "🏠 Home";
+bool isSearchMode = false;
 
 
    void startBannerAutoScroll() {
@@ -92,7 +93,7 @@ void initState() {
   super.initState();
   startBannerAutoScroll();
 
-  searchController.addListener(_filterProducts);
+  
   searchController.addListener(() {
   setState(() {
     suggestions = products
@@ -114,31 +115,7 @@ void dispose() {
 
 }
 
-void _filterProducts() {
-  final query = searchController.text.toLowerCase();
-  String category = selectedCategory;
 
-if (category == "🏠 Home") {
-  category = "";
-}
-
-  setState(() {
-    if (query.isEmpty && category.isEmpty) {
-      filteredProducts = List.from(products);
-    } else {
-      filteredProducts = products.where((product) {
-        return product.name.toLowerCase().contains(query) ||
-            product.code.toLowerCase().contains(query) ||
-            product.category.toLowerCase().contains(query);
-      }).toList();
-   if (category.isNotEmpty) {
-  filteredProducts = filteredProducts.where((product) {
-    return product.category == category;
-  }).toList();
-}
-    }
-  });
-}
   @override
   Widget build(BuildContext context) {
 
@@ -189,6 +166,16 @@ if (category == "🏠 Home") {
 
 
             controller: searchController,
+   onTap: () {
+  setState(() {
+    isSearchMode = true;
+  });
+},  
+
+  onChanged: (value) {
+  setState(() {});
+},
+
    onSubmitted: (value) {
   setState(() {
     filteredProducts = products
@@ -306,9 +293,11 @@ if (category == "🏠 Home") {
       ),
 
 
-
-      body: SingleChildScrollView(
-
+   
+  body: isSearchMode
+    ? buildSearchBody()
+    : SingleChildScrollView(
+   
   child: Column(
 
     children: [
@@ -316,6 +305,9 @@ if (category == "🏠 Home") {
       const SizedBox(height: 10),
 
 
+if (isSearchMode)
+  const Text("Search Mode")
+else
    // ===== Hero Banner =====
 
 
@@ -329,26 +321,6 @@ if (category == "🏠 Home") {
       });
     },
     children: [
-
-   if (searchController.text.isNotEmpty && suggestions.isNotEmpty)
-  Container(
-    margin: const EdgeInsets.symmetric(horizontal: 12),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-    ),
-    child: Column(
-      children: suggestions.map((product) {
-        return ListTile(
-          leading: const Icon(Icons.search),
-          title: Text(product.name),
-          onTap: () {
-            searchController.text = product.name;
-          },
-        );
-      }).toList(),
-    ),
-  ),
 
 
   Container(
@@ -1135,6 +1107,84 @@ const SizedBox(height: 20),
   }
 
 
+   Widget buildSearchBody() {
+  final query = searchController.text.toLowerCase();
+ final suggestions = products.where((product) {
+  return query.isNotEmpty &&
+      (product.name.toLowerCase().contains(query) ||
+       product.category.toLowerCase().contains(query) ||
+       product.code.toLowerCase().contains(query));
+}).take(5).toList();
+
+
+  final results = products.where((product) {
+    return product.name.toLowerCase().contains(query) ||
+        product.category.toLowerCase().contains(query) ||
+        product.code.toLowerCase().contains(query);
+  }).toList();
+
+   return ListView(
+  padding: const EdgeInsets.all(12),
+  children: [
+
+    if (suggestions.isNotEmpty)
+      Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: suggestions.map((product) {
+            return ListTile(
+              leading: const Icon(Icons.search),
+              title: Text(product.name),
+              onTap: () {
+                searchController.text = product.name;
+                setState(() {});
+              },
+            );
+          }).toList(),
+        ),
+      ),
+
+    if (query.isEmpty)
+      const Text(
+        "Search products...",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+
+      if (query.isNotEmpty)
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: results.length,
+          gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.70,
+          ),
+          itemBuilder: (context, index) {
+            final product = results[index];
+
+            return CompactProductCard(
+              name: product.name,
+              image: product.image,
+              price: "₹${product.price}",
+              originalPrice: product.originalPrice,
+              onTap: () {},
+            );
+          },
+        ),
+    ],
+  );
+}
+
 
     // deal card 
     
@@ -1375,7 +1425,19 @@ Widget categoryChip(String text) {
     setState(() {
       selectedCategory = text;
     });
-   _filterProducts();
+   String category = selectedCategory;
+
+if (category == "🏠 Home") {
+  category = "";
+}
+
+if (category.isEmpty) {
+  filteredProducts = List.from(products);
+} else {
+  filteredProducts = products.where((product) {
+    return product.category == category;
+  }).toList();
+}
   },
   child: Container(
     margin: const EdgeInsets.only(right: 10),
