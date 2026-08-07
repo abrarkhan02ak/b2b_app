@@ -65,6 +65,8 @@ final List<String> categories = [
 
 String selectedCategory = "🏠 Home";
 bool isSearchMode = false;
+String submittedQuery = "";
+bool showSuggestions = true;
 
 
    void startBannerAutoScroll() {
@@ -178,11 +180,8 @@ void dispose() {
 
    onSubmitted: (value) {
   setState(() {
-    filteredProducts = products
-        .where((product) =>
-            product.name.toLowerCase(). 
-          contains(value.toLowerCase()))
-        .toList();
+    submittedQuery = value.trim().toLowerCase();
+    showSuggestions = false;
   });
 },
 
@@ -194,10 +193,22 @@ void dispose() {
     fontSize: 14,
   ),
 
-  prefixIcon: const Icon(
-    Icons.search,
-    color: Colors.black54,
-  ),
+  prefixIcon: isSearchMode
+    ? IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          setState(() {
+            isSearchMode = false;
+            searchController.clear();
+            submittedQuery = "";
+            showSuggestions = true;
+          });
+        },
+      )
+    : const Icon(
+        Icons.search,
+        color: Colors.black54,
+      ),
 
   suffixIcon: Row(
     mainAxisSize: MainAxisSize.min,
@@ -1108,12 +1119,13 @@ const SizedBox(height: 20),
 
 
    Widget buildSearchBody() {
-  final query = searchController.text.toLowerCase();
+  final query = submittedQuery;
+ final typingQuery = searchController.text.toLowerCase();
  final suggestions = products.where((product) {
-  return query.isNotEmpty &&
-      (product.name.toLowerCase().contains(query) ||
-       product.category.toLowerCase().contains(query) ||
-       product.code.toLowerCase().contains(query));
+  return typingQuery.isNotEmpty &&
+      (product.name.toLowerCase().contains(typingQuery) ||
+       product.category.toLowerCase().contains(typingQuery) ||
+       product.code.toLowerCase().contains(typingQuery));
 }).take(5).toList();
 
 
@@ -1140,9 +1152,14 @@ const SizedBox(height: 20),
               leading: const Icon(Icons.search),
               title: Text(product.name),
               onTap: () {
-                searchController.text = product.name;
-                setState(() {});
-              },
+  setState(() {
+    searchController.text = product.name;
+    submittedQuery = product.name.toLowerCase();
+    showSuggestions = false;
+  });
+
+  FocusScope.of(context).unfocus();
+},
             );
           }).toList(),
         ),
@@ -1157,8 +1174,8 @@ const SizedBox(height: 20),
         ),
       ),
 
-      if (query.isNotEmpty)
-        GridView.builder(
+      if (query.isNotEmpty && results.isNotEmpty)
+  GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: results.length,
@@ -1169,6 +1186,7 @@ const SizedBox(height: 20),
             mainAxisSpacing: 10,
             childAspectRatio: 0.70,
           ),
+
           itemBuilder: (context, index) {
             final product = results[index];
 
@@ -1181,6 +1199,52 @@ const SizedBox(height: 20),
             );
           },
         ),
+
+   if (query.isNotEmpty && results.isEmpty)
+  Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const SizedBox(height: 20),
+      const Text(
+        "No exact match found",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      const SizedBox(height: 8),
+      const Text("You may also like"),
+      const SizedBox(height: 12),
+
+  GridView.builder(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  itemCount: products.length > 6 ? 6 : products.length,
+  gridDelegate:
+      const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    crossAxisSpacing: 10,
+    mainAxisSpacing: 10,
+    childAspectRatio: 0.70,
+  ),
+  itemBuilder: (context, index) {
+    final product = products[index];
+
+    return CompactProductCard(
+      name: product.name,
+      image: product.image,
+      price: "₹ ${product.price}",
+      originalPrice: product.originalPrice,
+      onTap: () {},
+    );
+  },
+),
+
+
+    ],
+  ),
+
+
     ],
   );
 }
