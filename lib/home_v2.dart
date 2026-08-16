@@ -171,6 +171,11 @@ void dispose() {
    onTap: () {
   setState(() {
     isSearchMode = true;
+    searchController.clear();
+    filteredProducts = List.from(products);
+    suggestions = [];
+    submittedQuery = "";
+    showSuggestions = true;
   });
 },  
 
@@ -200,6 +205,8 @@ void dispose() {
           setState(() {
             isSearchMode = false;
             searchController.clear();
+            filteredProducts = List.from(products);
+            suggestions = [];
             submittedQuery = "";
             showSuggestions = true;
           });
