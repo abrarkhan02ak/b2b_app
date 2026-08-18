@@ -52,7 +52,7 @@ class _HomeV2State extends State<HomeV2> {
 List<Product> suggestions = [];
 
 final List<String> categories = [
-  "🏠 Home",
+  "✨ For You",
   "⚡ Electronics",
   "🛒 Kirana & Grocery",
   "💄 Beauty",
@@ -63,7 +63,7 @@ final List<String> categories = [
   "💼 Business",
 ];
 
-String selectedCategory = "🏠 Home";
+String selectedCategory = "✨ For You";
 bool isSearchMode = false;
 String submittedQuery = "";
 bool showSuggestions = true;
@@ -631,6 +631,8 @@ const SizedBox(height: 24),
       ),
     const SizedBox(height: 24),
 
+  if (selectedCategory == "✨ For You") ...[
+
      
 // flash sale
      
@@ -1041,7 +1043,7 @@ Center(
 ),
 
 const SizedBox(height: 28),
-
+],
 
 const Padding(
   padding: EdgeInsets.symmetric(horizontal: 12),
@@ -1498,7 +1500,7 @@ Widget categoryChip(String text) {
     });
    String category = selectedCategory;
 
-if (category == "🏠 Home") {
+if (category == "✨ For You") {
   category = "";
 }
 
