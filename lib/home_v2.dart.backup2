@@ -1501,16 +1501,11 @@ Widget categoryChip(String text) {
     });
    String category = selectedCategory;
 
-   if (category == "✨ For You") {
-     category = "";
-   } else {
-     category = category.replaceFirst(
-       RegExp(r"^\S+\s"),
-       "",
-     );
-   }
+if (category == "✨ For You") {
+  category = "";
+}
 
-   if (category.isEmpty) {
+if (category.isEmpty) {
   filteredProducts = List.from(products);
 } else {
   filteredProducts = products.where((product) {
