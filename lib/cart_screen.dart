@@ -15,17 +15,32 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  int getTotal() {
+    int total = 0;
 
- int getTotal() {
-  int total = 0;
+    for (final item in widget.cartItems) {
+      final price = item.price.replaceAll(RegExp(r'[^0-9]'), '');
+      total += (int.tryParse(price) ?? 0) * item.quantity;
+    }
 
-  for (var item in widget.cartItems) {
-    String price = item.price.replaceAll(RegExp(r'[^0-9]'), '');
-    total += int.parse(price) * item.quantity;
+    return total;
   }
 
-  return total;
-}
+  void increaseQuantity(int index) {
+    setState(() {
+      widget.cartItems[index].quantity++;
+    });
+  }
+
+  void decreaseQuantity(int index) {
+    setState(() {
+      if (widget.cartItems[index].quantity > 1) {
+        widget.cartItems[index].quantity--;
+      } else {
+        widget.cartItems.removeAt(index);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +51,7 @@ class _CartScreenState extends State<CartScreen> {
       body: widget.cartItems.isEmpty
           ? const Center(
               child: Text(
-                "Your cart is empty 🛒",
+                "Your cart is empty",
                 style: TextStyle(fontSize: 20),
               ),
             )
@@ -52,122 +67,122 @@ class _CartScreenState extends State<CartScreen> {
                         margin: const EdgeInsets.all(8),
                         child: Padding(
                           padding: const EdgeInsets.all(12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
                             children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Text(
+                                      item.price,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                          onPressed: () =>
+                                              decreaseQuantity(index),
+                                          icon: const Icon(
+                                            Icons.remove_circle_outline,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${item.quantity}',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () =>
+                                              increaseQuantity(index),
+                                          icon: const Icon(
+                                            Icons.add_circle_outline,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Text(
-                                item.name,
+                                '₹${getItemTotal(item)}',
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-
-                              const SizedBox(height: 5),
-
-                              Text("Code: ${item.code}"),
-
-                              Text("Price: ₹${item.price}"),                              const SizedBox(height: 10),
-
-                              Row(
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.remove_circle),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (item.quantity > 1) {
-                                          item.quantity--;
-                                        }
-                                      });
-                                    },
-                                  ),
-
-                                  Text(
-                                    "${item.quantity}",
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-
-                                  IconButton(
-                                    icon: const Icon(Icons.add_circle),
-                                    onPressed: () {
-                                      setState(() {
-                                        item.quantity++;
-                                      });
-                                    },
-                                  ),
-
-                                  const Spacer(),
-
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        widget.cartItems.removeAt(index);
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),                            ],
+                            ],
                           ),
                         ),
                       );
                     },
                   ),
                 ),
-
                 Container(
                   padding: const EdgeInsets.all(16),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      top: BorderSide(color: Colors.grey),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: [
-                      const Text(
-                        "Total Amount",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Total",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "₹${getTotal()}",
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "₹${getTotal()}",
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                builder: (context) => CheckoutScreen(
+  cartItems: widget.cartItems,
+  totalAmount: getTotal().toDouble(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: const Text("Proceed to Checkout"),
                         ),
                       ),
                     ],
                   ),
                 ),
-             const SizedBox(height: 10),
-       ElevatedButton(
-  onPressed: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => CheckoutScreen(
-        cartItems: widget.cartItems,
-        totalAmount: getTotal().toDouble(),
-      ),
-    ),
-  );
-},
-  child: const Text("Place Order"),
-),
-
-
               ],
             ),
     );
+  }
+
+  int getItemTotal(CartItem item) {
+    final price = item.price.replaceAll(RegExp(r'[^0-9]'), '');
+    return (int.tryParse(price) ?? 0) * item.quantity;
   }
 }
